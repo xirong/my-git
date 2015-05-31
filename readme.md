@@ -4,7 +4,7 @@
 如果你要有一些资源，希望和我一起，把这个搞起来，很简单，fork-修改-pull request 就ok。
 
 # 资源整理
-v1.0 
+v1.0 post from personal blog :http://ixirong.com/2014/11/19/the-way-to-learn-git/ 
 
 ## 一、什么是git？ 
 
