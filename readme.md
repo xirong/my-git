@@ -6,6 +6,8 @@
 如果你要有一些资源，希望和我一起，把这个搞起来，很简单，fork-修改-pull request 就ok。
 
 # 整体介绍资料
-- [一篇适合入门的资料汇总]()
+- [一篇适合入门的资料汇总](https://github.com/xirong/my-git/blob/master/ixirong.com.md)
+
 # git repository 
+
 # git 日常操作
