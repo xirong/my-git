@@ -6,7 +6,7 @@
 如果你要有一些资源，希望和我一起，把这个搞起来，很简单，`fork-修改-pull request` 就ok。
 
 # 整体介绍资料
-- [为什么开始使用Git版本管理，Git VS SVN 有哪些区别？]()
+- [为什么开始使用Git版本管理，Git VS SVN 有哪些区别？](https://github.com/xirong/my-git/blob/master/why-git.md)
 - [开篇：一篇适合入门学习git的资料汇总](https://github.com/xirong/my-git/blob/master/ixirong.com.md)
 - [github-cheat-sheet](https://github.com/tiimgreen/github-cheat-sheet) 关于使用 git 和 github 的一些技巧汇总，中文版在此[GitHub秘籍](https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md)
 
