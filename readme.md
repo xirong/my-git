@@ -17,10 +17,8 @@
 
 # git 书籍
 
-- 《[Pro Git](http://git-scm.com/book/zh/v1)》 作者Scott Chacon是github的员工，git的布道者，这本书被誉为git学习圣经，中间有好多插图描述的浅显易懂，挺适合详细学习下的，最新英文第二版《[pro git (Editon 2)](http://git-scm.com/book/en/v2)》；
-
+-《[Pro Git](http://git-scm.com/book/zh/v1)》 作者Scott Chacon是github的员工，git的布道者，这本书被誉为git学习圣经，中间有好多插图描述的浅显易懂，挺适合详细学习下的，最新英文第二版《[pro git (Editon 2)](http://git-scm.com/book/en/v2)》；
 -《[git-internals-pdf](https://github.com/pluralsight/git-internals-pdf)》 老外写的，很给力，蒋鑫推荐，从目录上面包括安装使用以及设计原理都有讲解，有机会看看。
-- 
 - 《[Git Community Book](http://gitbook.liuhui998.com/)》汇聚了Git社区的很多精华,  并对git的对象模型原理等做了解释，可以深入的了解下git原理；
 
 # git 工具
