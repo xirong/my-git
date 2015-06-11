@@ -12,6 +12,7 @@
 - [为什么开始使用Git版本管理，Git VS SVN 有哪些区别？](https://github.com/xirong/my-git/blob/master/why-git.md)
 - [开篇：一篇适合入门学习git的资料汇总](https://github.com/xirong/my-git/blob/master/ixirong.com.md) 本人的拙笔，欢迎吐槽！
 - [github-cheat-sheet](https://github.com/tiimgreen/github-cheat-sheet) 关于使用 git 和 github 的一些技巧汇总，中文版在此[GitHub秘籍](https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md)
+- [Git for beginners: The definitive practical guide - from stackoverflow.com](http://stackoverflow.com/questions/315911/git-for-beginners-the-definitive-practical-guide?rq=1)  It's so useful to a beginner ,just open the url , read and practice . 
 
 # git branch 
 - [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/) 介绍日常推荐的分支开发模型，基于此模型可以通过这个小游戏来进行学习 [Learn Git Branch](http://pcottle.github.io/learnGitBranching/)
@@ -30,3 +31,7 @@
 - [git flow 工具](https://github.com/nvie/gitflow)
 - [git flow 中文备忘清单](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)
 - 一个很有意思的学习 git 的小游戏 http://pcottle.github.io/learnGitBranching/ 
+
+# 备忘最佳实践
+- merge分支用 --no-ff
+- git pull使用 -rebase
