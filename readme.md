@@ -32,6 +32,6 @@
 - [git flow 中文备忘清单](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)
 - 一个很有意思的学习 git 的小游戏 http://pcottle.github.io/learnGitBranching/ 
 
-# 备忘最佳实践
-- merge分支用 --no-ff
-- git pull使用 -rebase
+# 最佳实践备案
+- merge 分支用 --no-ff
+- 恰当的使用 `git pull --rebase` 避免不必要的merge记录。 详情 http://stackoverflow.com/questions/2472254/when-should-i-use-git-pull-rebase
