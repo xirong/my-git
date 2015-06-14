@@ -16,7 +16,7 @@
 
 # git branch 
 - [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/) 介绍日常推荐的分支开发模型，基于此模型可以通过这个小游戏来进行学习 [Learn Git Branch](http://pcottle.github.io/learnGitBranching/)
-- [git工作流指南](https://github.com/xirong/my-git/blob/master/workflow-translations.md)完整的对比目前使用的集中式（svn）工作流、功能分支工作流、gitflow工作流、forking工作流、pull request 等几种不同的模式，通俗易懂，强烈推荐看一看，如果觉的排版不好，请查看原分页文章 [git-workflow-translations]((https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
+- [git工作流指南](https://github.com/xirong/my-git/blob/master/workflow-translations.md)完整的对比目前使用的集中式（svn）工作流、功能分支工作流、gitflow工作流、forking工作流、pull request 等几种不同的模式，通俗易懂，强烈推荐看一看，如果觉的排版不好，请查看原分页文章 [git-workflow-translations](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
 
 # git expert 
 - 项目依赖其他项目，比如公共css、dll等等，强大的git-submodule 优雅的解决这类问题。理解阅读 [Git Tools - Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) ，备忘或者查看命令阅读[Git Submodule Tutorial](https://git.wiki.kernel.org/index.php/GitSubmoduleTutorial) 或者 [Git Submodule使用完整教程](http://www.kafeitu.me/git/2012/03/27/git-submodule.html)
