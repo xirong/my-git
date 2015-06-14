@@ -1,5 +1,8 @@
 说明：
-整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的github，方便统一的学习，翻来翻去的效率太低。
+======
+个人在学习git工作流的过程中，从原有的 SVN 模式很难完全理解git的协作模式，直到有一天我看到了下面的文章，好多遗留在心中的困惑迎刃而解，我个人很感激这篇文章，所以进行了整理，希望能帮到更多的人。
+
+整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的github，方便统一的学习回顾。
 
 --------------
 
