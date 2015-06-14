@@ -2,7 +2,10 @@
 ======
 个人在学习git工作流的过程中，从原有的 SVN 模式很难完全理解git的协作模式，直到有一天我看到了下面的文章，好多遗留在心中的困惑迎刃而解，我个人很感激这篇文章，所以进行了整理，希望能帮到更多的人。
 
-整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的github，方便统一的学习回顾。
+整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的github，方便统一的学习回顾，在此感谢下面两位的贡献。
+
+原文链接：[Git Workflows and Tutorials](https://www.atlassian.com/git/workflows)     
+简体中文由 [oldratlee](https://github.com/oldratlee)于2014-09-14发表在[博乐在线](http://www.jobbole.com/)：[http://blog.jobbole.com/76550/](http://blog.jobbole.com/76843/) 
 
 --------------
 
@@ -100,9 +103,6 @@
 </div>
 </p>
 
-
-原文链接：[Git Workflows and Tutorials](https://www.atlassian.com/git/workflows)     
-译文发由 [oldratlee](https://github.com/oldratlee)于2014-09-14发表在 [博乐在线](http://www.jobbole.com/)： [http://blog.jobbole.com/76550/](http://blog.jobbole.com/76843/) 
 
 # 一、译序
 
