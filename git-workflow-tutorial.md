@@ -5,7 +5,7 @@
 整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的github，方便统一的学习回顾，在此感谢下面两位的贡献。
 
 原文链接：[Git Workflows and Tutorials](https://www.atlassian.com/git/workflows)     
-简体中文由 [oldratlee](https://github.com/oldratlee)于2014-09-14发表在[博乐在线](http://www.jobbole.com/)：[http://blog.jobbole.com/76550/](http://blog.jobbole.com/76843/) 
+简体中文：由 [oldratlee](https://github.com/oldratlee) 翻译在 github 上 [git-workflows-and-tutorials](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
 
 --------------
 
