@@ -34,6 +34,6 @@
 - 一个很有意思的学习 git 的小游戏 http://pcottle.github.io/learnGitBranching/ 
 
 # 最佳实践备注
-- [git-cheat-sheet && Git常用命令列表](command-handbook/) 常用命令手册
-- merge 分支用 --no-ff
+- 常用命令手册 [git-cheat-sheet && Git常用命令列表](command-handbook/) 
+- 总是使用 `git merge --no-ff` 而不是 `git merge` ，记录下分支的变更历史。 详情 http://stackoverflow.com/questions/9069061/what-is-the-difference-between-git-merge-and-git-merge-no-ff
 - 恰当的使用 `git pull --rebase` 避免不必要的merge记录。 详情 http://stackoverflow.com/questions/2472254/when-should-i-use-git-pull-rebase
