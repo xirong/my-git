@@ -1,8 +1,13 @@
 说明：
 ======
-个人在学习git工作流的过程中，从原有的 SVN 模式很难完全理解git的协作模式，直到有一天我看到了下面的文章，好多遗留在心中的困惑迎刃而解，我个人很感激这篇文章，所以进行了整理，希望能帮到更多的人。
+个人在学习git工作流的过程中，从原有的 SVN 模式很难完全理解git的协作模式，直到有一天我看到了下面的文章，好多遗留在心中的困惑迎刃而解：
 
-整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的github，方便统一的学习回顾，在此感谢下面两位的贡献。
+- 我们以使用SVN的工作流来使用git有什么不妥？
+- git 方便的branch在哪里，团队多人如何协作？冲突了怎么办？如何进行发布控制？
+- 经典的master-发布、develop-主开发、hotfix-不过修复如何避免代码不经过验证上线？
+- 如何在github上面与他人一起协作，star-fork-pull request是怎样的流程？
+ 
+我个人很感激这篇文章，所以进行了整理，希望能帮到更多的人。整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的github，方便统一的学习回顾，在此感谢下面两位的贡献。
 
 原文链接：[Git Workflows and Tutorials](https://www.atlassian.com/git/workflows)     
 简体中文：由 [oldratlee](https://github.com/oldratlee) 翻译在 github 上 [git-workflows-and-tutorials](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
