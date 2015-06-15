@@ -5,12 +5,12 @@
 - [蒋鑫：为什么 Git 比 SVN 好？](http://www.worldhello.net/2012/04/12/why-git-is-better-than-svn.html "蒋鑫 - Why `Git` is better than `SVN`")
 
 
-以下内容出自[@oldratlee](https://github.com/oldratlee)的repo：https://github.com/oldratlee/why-git 
+以下内容出自 [@oldratlee](https://github.com/oldratlee) 的repo：https://github.com/oldratlee/why-git 
 
 SVN 和 Git 在日常使用中的明显差异
 =========================
 
-![git vs svn](https://github.com/oldratlee/why-git/blob/master/why-git.png)
+![git vs svn](http://static.ixirong.com/pic/mygit/why-git.png)
 
 :point_right: 自己在使用`git`过程中相对`svn`的感受强烈的变化。
 
