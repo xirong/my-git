@@ -13,3 +13,4 @@
 - [阳志平：如何高效利用GitHub](http://www.yangzhiping.com/tech/github.html) 介绍的挺全，以及一些用法，如怎样利用Github来学习、演讲找工作等。
 - [蒋鑫-GotGitHub](GotGitHub.md) 《Git权威指南》的作者，对Github有很深的了解。（由于首页打开太慢，放到了本文目录中）
 - [github 支持的 emoji表情](http://www.emoji-cheat-sheet.com/) :v: :clap:
+- [github guides](https://guides.github.com/) 从`Contributing to Open Source on GitHub`、`Hello World`、`Forking Projects`、`Be Social`、`Making Your Code Citable`、`Mastering Issues`、`Mastering Markdown`、`Mastering Wikis`、`Getting Started with GitHub Pages` 等9个方面图文详细讲解每一步如何使用，以及能做哪些功能。
