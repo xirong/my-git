@@ -28,10 +28,11 @@
 - [git-internals-pdf](https://github.com/pluralsight/git-internals-pdf) 老外写的，很给力，蒋鑫推荐，从目录上面包括安装使用以及设计原理都有讲解，有机会看看。pdf电子版本直接下载地址 [git-internals.pdf](ebooks/git-internals.pdf)
 - [Git Community Book](http://gitbook.liuhui998.com/) 汇聚了Git社区的很多精华,  并对git的对象模型原理等做了解释，可以深入的了解下git原理。pdf电子版本直接下载地址 [Git Community Book.pdf](ebooks/Git Community Book.pdf)
 
-# git 工具
+# git 效率提升
 - [git flow 工具](https://github.com/nvie/gitflow)
 - [git flow 中文备忘清单](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)
 - 一个很有意思的学习 git 的小游戏 http://pcottle.github.io/learnGitBranching/ 
+- [git completion](https://github.com/git/git/tree/master/contrib/completion) 终端 git 命令的 Tab 键补全功能，比如打开终端，输入`git che`，按 Tab 键，则会出现`check-attr\check-ignore\checkout`等等的选项，支持bash、zsh等shell，使用方法(以bash shell为例)：下载链接中相应的版本到用户目录下，修改`~/.bashrc`文件 ，加入`source ~/git-completion.bash` ，使得每次打开终端时都执行一次`git-completion.bash`脚本，来完成git 命令的 Tab 补全。或者采用这种方法[Quick Tip: Autocomplete Git Commands and Branch Names in Bash](http://code-worrier.com/blog/autocomplete-git/)
 
 # 最佳实践备注
 - 常用命令手册 [git-cheat-sheet && Git常用命令列表](command-handbook/) 
