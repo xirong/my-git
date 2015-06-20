@@ -14,3 +14,4 @@
 - [蒋鑫-GotGitHub](GotGitHub.md) 《Git权威指南》的作者，对Github有很深的了解。（由于首页打开太慢，放到了本文目录中）
 - [github 支持的 emoji表情](http://www.emoji-cheat-sheet.com/) :v: :clap:
 - [github guides](https://guides.github.com/) 从`Contributing to Open Source on GitHub`、`Hello World`、`Forking Projects`、`Be Social`、`Making Your Code Citable`、`Mastering Issues`、`Mastering Markdown`、`Mastering Wikis`、`Getting Started with GitHub Pages` 等9个方面图文详细讲解每一步如何使用，以及能做哪些功能。
+- [fork-me-on-github](https://github.com/blog/273-github-ribbons) 个人博客、技术博客等如果需要添加github 的彩带，可以使用此方法。
