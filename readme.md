@@ -14,6 +14,16 @@
 - [github-cheat-sheet](https://github.com/tiimgreen/github-cheat-sheet) 关于使用 git 和 github 的一些技巧汇总，中文版在此[GitHub秘籍](https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md)
 - [Git for beginners: The definitive practical guide - from stackoverflow.com](http://stackoverflow.com/questions/315911/git-for-beginners-the-definitive-practical-guide?rq=1)  It's so useful to a beginner ,just open the url , read and practice . 
 
+# git 客户端
+
+mac和linux系统推荐使用终端即可，git一开始的命令的确很多，别无它法，熟能生巧，多练习即可能够掌握日常使用的一些名利，再配合[常用命令的alias](https://git-scm.com/book/tr/v2/Git-Basics-Git-Aliases)或者强大的 [`zsh`](https://github.com/robbyrussell/oh-my-zsh)都能显著的提升效率，当然如果非得寻找图形化客户端，也不是没有；windows下还是尽快熟悉客户端的使用吧，因为win下面的bash太难用了：
+
+- [GUI Clients](https://git-scm.com/downloads/guis) 官方推荐图形客户端，罗列的包括了Mac、windows、linux下的客户端，免费及付费的都有，你可以在这里面挑选一个就ok。
+- [git for windows](https://msysgit.github.io/) 针对window系统发布的客户端，集成了shell窗口，方便在win下面使用命令操作。
+- [TortoiseGit - The coolest Interface to Git Version Control](https://code.google.com/p/tortoisegit/) 在window下使用git，那就不得不提“乌龟”，安装了tortoise后，右键图形化操作根本分辨不出来哪是git，哪是SVN，很方便使用SVN的用户过度过来。
+- [Tower2](http://www.git-tower.com/) 号称最好的git客户端，只有Mac版本，收费，集成github、gitlab、Xcode等服务。
+- [SourceTree](https://www.sourcetreeapp.com/) 免费，功能齐全，Mac+window版本，集成github等服务。
+
 # git branch 
 - [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/) 介绍日常推荐的分支开发模型，基于此模型可以通过这个小游戏来进行学习 [Learn Git Branch](http://pcottle.github.io/learnGitBranching/)
 - [git工作流指南](https://github.com/xirong/my-git/blob/master/workflow-translations.md)完整的对比目前使用的集中式（svn）工作流、功能分支工作流、gitflow工作流、forking工作流、pull request 等几种不同的模式，通俗易懂，强烈推荐看一看，如果觉的排版不好，请查看原分页文章 [git-workflow-translations](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
