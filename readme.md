@@ -43,7 +43,7 @@ mac和linux系统推荐使用终端即可，git一开始的命令的确很多，
 - [git flow 中文备忘清单](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)
 - 一个很有意思的学习 git 的小游戏 http://pcottle.github.io/learnGitBranching/ 
 - [git completion](https://github.com/git/git/tree/master/contrib/completion) 终端 git 命令的 Tab 键补全功能，比如打开终端，输入`git che`，按 Tab 键，则会出现`check-attr\check-ignore\checkout`等等的选项，支持bash、zsh等shell，使用方法(以bash shell为例)：下载链接中相应的版本到用户目录下，修改`~/.bashrc`文件 ，加入`source ~/git-completion.bash` ，使得每次打开终端时都执行一次`git-completion.bash`脚本，来完成git 命令的 Tab 补全。或者采用这种方法[Quick Tip: Autocomplete Git Commands and Branch Names in Bash](http://code-worrier.com/blog/autocomplete-git/)
-- [.gitignore template](https://github.com/github/gitignore) 各种语言、各种编辑器的`.gitignore`文件模板，当你进行某些语言的开发时候，直接使用相应的模板即可，省去自己写的时间（还不全），当然你也可以去贡献自己的模板，不知道`.gitignore`？ 简单讲就是不让git跟踪某些文件，详情阅读：http://git-scm.com/docs/gitignore
+- [.gitignore template](https://github.com/github/gitignore) 各种语言、各种编辑器的`.gitignore`文件模板，当你进行某些语言的开发时候，直接使用相应的模板即可，省去自己写的时间（还不全），当然你也可以去贡献自己的模板，不知道`.gitignore`？ 简单讲就是不让git跟踪某些文件，详情阅读：http://git-scm.com/docs/gitignore PS：推荐使用`.gitignore_global`文件进行全局过滤，比如mac下的`.DS_Store`文件，省去在每个repo下进行设置`.gitignore`文件了。全局模板参考：https://github.com/github/gitignore/tree/master/Global
 
 # 最佳实践备注
 - 常用命令手册 [git-cheat-sheet && Git常用命令列表](command-handbook/) 
