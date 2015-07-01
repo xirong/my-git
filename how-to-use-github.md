@@ -189,15 +189,4 @@
 <li><a href="http://www.worldhello.net/gotgithub/appendix/markups.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">7. 附录：轻量级标记语言</a></li>
 </ul>
 </div>
-</div>
-<div>
-<h2 style="margin:1.3em 0px 0.2em;font-size:1.35em;padding:0px;">贡献者列表<a href="http://www.worldhello.net/gotgithub/#id7" title="永久链接至标题" style="color:black;text-decoration:none;font-weight:normal;visibility:hidden;font-size:1em;margin-left:6px;padding:0px 4px;">¶</a></h2>
-<p style="margin:0.8em 0px 0.5em;">Git和GitHub促进了开源软件的发展是因为消除了核心开发者和贡献者的隔阂——你若能看到代码，你就能改进代码。开放的电子书亦是如此，下面的贡献者让本书变得更好。</p>
-<p style="margin:0.8em 0px 0.5em;">以贡献时间为序，感谢：</p>
-<ol style="list-style:decimal;">
-<li><a href="https://github.com/zhhailon" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">Zhang Hailong</a> 报告文字错误。问题： <a href="https://github.com/gotgit/gotgithub/issues/2" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">#2</a> 。</li>
-<li><a href="https://github.com/riku" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">Riku</a> 纠正文字错误。提交： <a href="https://github.com/gotgit/gotgithub/commit/455d0db" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">455d0db</a> , <a href="https://github.com/gotgit/gotgithub/commit/f244e3d" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">f244e3d</a> 。</li>
-<li><a href="https://github.com/windwiny" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">windwiny</a>  纠正文字错误。提交： <a href="https://github.com/gotgit/gotgithub/commit/1ed1a51" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">1ed1a51</a></li>
-</ol>
-</div>
-</div>
+
