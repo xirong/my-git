@@ -46,7 +46,7 @@ mac和linux系统推荐使用终端即可，git一开始的命令的确很多，
 - [.gitignore template](https://github.com/github/gitignore) 各种语言、各种编辑器的`.gitignore`文件模板，当你进行某些语言的开发时候，直接使用相应的模板即可，省去自己写的时间（还不全），当然你也可以去贡献自己的模板，不知道`.gitignore`？ 简单讲就是不让git跟踪某些文件，详情阅读：http://git-scm.com/docs/gitignore PS：推荐使用`.gitignore_global`文件进行全局过滤，比如mac下的`.DS_Store`文件，省去在每个repo下进行设置`.gitignore`文件了。全局模板参考：https://github.com/github/gitignore/tree/master/Global
 
 # git extensions
-- git 的大文件支持 [Git LFS](https://github.com/github/git-lfs) git在对大文件进行版本管理的时候，速度上是很慢的，一个帮助处理大文件的扩展插件。
+- git 的大文件支持[Git LFS](https://github.com/github/git-lfs) ： git在对大文件进行版本管理的时候，速度上是很慢的，一个帮助处理大文件的扩展插件。
 
 
 # 最佳实践备注
@@ -54,5 +54,5 @@ mac和linux系统推荐使用终端即可，git一开始的命令的确很多，
 - 总是使用 `git merge --no-ff` 而不是 `git merge` ，记录下分支的变更历史。 详情 http://stackoverflow.com/questions/9069061/what-is-the-difference-between-git-merge-and-git-merge-no-ff
 - 恰当的使用 `git pull --rebase` 避免不必要的merge记录。 详情 http://stackoverflow.com/questions/2472254/when-should-i-use-git-pull-rebase
 - [git-flight-rules](https://github.com/k88hudson/git-flight-rules) 一些日常使用中的场景，比如提交错了分支、提交时的用户名邮箱不对、丢弃某些提交、未提交的代码直接提交到另外一个分支等等，很实用。
-
+- [How to undo (almost) anything with Git](https://github.com/blog/2019-how-to-undo-almost-anything-with-git) 撤销一切，汇总各种回滚撤销的场景，加强学习。 （[中文翻译版本](http://www.jointforce.com/jfperiodical/article/show/796?m=d03)）
 
