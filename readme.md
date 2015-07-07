@@ -26,7 +26,7 @@ mac和linux系统推荐使用终端即可，git一开始的命令的确很多，
 
 # git branch 
 - [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/) 介绍日常推荐的分支开发模型，基于此模型可以通过这个小游戏来进行学习 [Learn Git Branch](http://pcottle.github.io/learnGitBranching/)
-- [git工作流指南](https://github.com/xirong/my-git/blob/master/workflow-translations.md)完整的对比目前使用的集中式（svn）工作流、功能分支工作流、gitflow工作流、forking工作流、pull request 等几种不同的模式，通俗易懂，强烈推荐看一看，如果觉的排版不好，请查看原分页文章 [git-workflow-translations](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
+- [git工作流指南](https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md)完整的对比目前使用的集中式（svn）工作流、功能分支工作流、gitflow工作流、forking工作流、pull request 等几种不同的模式，通俗易懂，强烈推荐看一看，如果觉的排版不好，请查看原分页文章 [git-workflow-translations](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
 - 熟悉的工作流后，你是否也想要在github上与他人一起协同工作？那么问题来了，[Github全程指南-如何高效使用？](how-to-use-github.md)
 
 # git expert 
@@ -54,5 +54,5 @@ mac和linux系统推荐使用终端即可，git一开始的命令的确很多，
 - 总是使用 `git merge --no-ff` 而不是 `git merge` ，记录下分支的变更历史。 详情 http://stackoverflow.com/questions/9069061/what-is-the-difference-between-git-merge-and-git-merge-no-ff
 - 恰当的使用 `git pull --rebase` 避免不必要的merge记录。 详情 http://stackoverflow.com/questions/2472254/when-should-i-use-git-pull-rebase
 - [git-flight-rules](https://github.com/k88hudson/git-flight-rules) 一些日常使用中的场景，比如提交错了分支、提交时的用户名邮箱不对、丢弃某些提交、未提交的代码直接提交到另外一个分支等等，很实用。
-- [How to undo (almost) anything with Git](https://github.com/blog/2019-how-to-undo-almost-anything-with-git) 撤销一切，汇总各种回滚撤销的场景，加强学习。 （[中文翻译版本](http://www.jointforce.com/jfperiodical/article/show/796?m=d03)）
+- [How to undo (almost) anything with Git](https://github.com/blog/2019-how-to-undo-almost-anything-with-git) 撤销一切，汇总各种回滚撤销的场景，加强学习。 
 
