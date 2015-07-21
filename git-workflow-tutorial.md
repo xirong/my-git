@@ -1098,7 +1098,7 @@ git push origin some-branch
 
 # 三、企业日常开发模式探索
 
-[!图片] 插入讨论的git模式流图片
+![图片](images/branch_module.png)
 
 在企业开发中，使用git作为版本控制软件最看重的还是结合公司自己搭建的 [gitlab](https://about.gitlab.com/)，将 code review 加入打包部署持续集成的流程中，这样，代码开发完成，提交测试前，便可以对开发人员提交的代码进行review，发现潜在的问题，及时指导，对于新人来讲，也能更快更好的学习。
 
