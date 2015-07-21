@@ -12,7 +12,7 @@
 原文链接：[Git Workflows and Tutorials](https://www.atlassian.com/git/workflows)     
 简体中文：由 [oldratlee](https://github.com/oldratlee) 翻译在 `GitHub` 上 [git-workflows-and-tutorials](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
 
-在第三部分 适合企业开发中的模式中，xirong 结合自己所在公司使用git的版本分支开发过程，进行了总结，欢迎大家提出更好的建议。
+在第三部分 <a href="# 三、企业日常开发模式探索">企业日常开发模式探索</a>，xirong 结合自己所在公司使用git的版本分支开发过程，进行了总结，欢迎大家提出更好的建议。
 
 --------------
 
@@ -106,6 +106,7 @@
 </li>
 </ul>
 </li>
+<li><a href="# 三、企业日常开发模式探索">三、企业日常开发模式探索</a></li>
 </ul>
 </div>
 </p>
@@ -1106,4 +1107,8 @@ git push origin some-branch
 
 1. 迭代需求会、冲刺会后确定本次迭代的目标后，将迭代内容视为一个项目，在 gitlab 上创建一个repository，初始化工程代码结构，根据上线日期，比如20150730上线，开出分支 release20150730、dev20150730 两个分支，dev 分支作为日常开发主干分支，release分支作为提测打包、codereview的分支。
 2. 迭代开始，日常开发进行中，开发人员在 dev 分支上进行 commit、push 代码，并且解决掉日常协同开发中的冲突等问题，等到达到提测条件的时候，提测者，首先 merge master 分支上的最新代码 `git merge --no-ff  origin/master` ，使得master分支上的变更更新到迭代开发分支dev上面，之后，在 gitlab 上面发起 `pull request` 请求，并指定 code review 人，请求的分支选择本次上线的 release分支，即release20150730。
-3. 被指定code review 的人，对发起者的代码 review 后，决定是否可以提交测试，若有问题，评论注释代码后，提交者对代码进行。
+3. 被指定code review 的人，对发起者的代码 review 后，决定是否可以提交测试，若有问题，评论注释代码后，提交者对代码进行进行修改，重复步骤2，直到代码review者认为ok。之后便可以借助自己公司的打包部署，对这些代码发布到测试环境验证。
+4. 步骤2-3重复多次后，就会达到一个稳定可发布的版本，即上线版本，上线后，将release版本上面最后的提交（图中0.2.4上线对应处）合并到master分支上面，并打Tag0.3。至此，一次完整的迭代开发完成。
+5. 若此次上线后，不久发现生产环境有bug需要修复，则从Tag处新开分支 release_bugfix_20150731、dev_bugfix_20150731 ，开发人员从dev_bugfix_20150731分支上进行开发，提测code review在 release_bugfix_20150731 分支上，具体步骤参考2-3，测试环境验证通过后，发布到线上，验证OK，合并到 master 分支，并打Tag0.2.3，此次bug修复完毕，专为解bug而生的这两个分支可以退伍了，删除release_bugfix_20150731、dev_bugfix_20150731两分支即可。（所有的历史commit信息均已经提交到了 master 分支上，不用担心丢失）
+
+这样经过上面的1-5步骤，企业日常迭代开发中的代码版本控制基本上就ok了，有问题欢迎 issue 讨论。
