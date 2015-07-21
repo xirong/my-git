@@ -12,6 +12,8 @@
 原文链接：[Git Workflows and Tutorials](https://www.atlassian.com/git/workflows)     
 简体中文：由 [oldratlee](https://github.com/oldratlee) 翻译在 `GitHub` 上 [git-workflows-and-tutorials](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
 
+在第三部分 适合企业开发中的模式中，xirong 结合自己所在公司使用git的版本分支开发过程，进行了总结，欢迎大家提出更好的建议。
+
 --------------
 
 <p data-anchor-id="bd8d"><div class="toc">
@@ -1094,3 +1096,14 @@ git push origin some-branch
 
 -----------------
 
+# 三、企业日常开发模式探索
+
+[!图片] 插入讨论的git模式流图片
+
+在企业开发中，使用git作为版本控制软件最看重的还是结合公司自己搭建的 [gitlab](https://about.gitlab.com/)，将 code review 加入打包部署持续集成的流程中，这样，代码开发完成，提交测试前，便可以对开发人员提交的代码进行review，发现潜在的问题，及时指导，对于新人来讲，也能更快更好的学习。
+
+上图就是 xirong 团队在日常开发中总结出来的适合企业开发的模式，下面进行简单的介绍，方便大家学习了解，欢迎提交 issue 进行讨论。（本模式适合敏捷开发流程，小迭代上线，传统的瀑布开发模型并没有进行测试）
+
+1. 迭代需求会、冲刺会后确定本次迭代的目标后，将迭代内容视为一个项目，在 gitlab 上创建一个repository，初始化工程代码结构，根据上线日期，比如20150730上线，开出分支 release20150730、dev20150730 两个分支，dev 分支作为日常开发主干分支，release分支作为提测打包、codereview的分支。
+2. 迭代开始，日常开发进行中，开发人员在 dev 分支上进行 commit、push 代码，并且解决掉日常协同开发中的冲突等问题，等到达到提测条件的时候，提测者，首先 merge master 分支上的最新代码 `git merge --no-ff  origin/master` ，使得master分支上的变更更新到迭代开发分支dev上面，之后，在 gitlab 上面发起 `pull request` 请求，并指定 code review 人，请求的分支选择本次上线的 release分支，即release20150730。
+3. 被指定code review 的人，对发起者的代码 review 后，决定是否可以提交测试，若有问题，评论注释代码后，提交者对代码进行。
