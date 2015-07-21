@@ -12,7 +12,7 @@
 原文链接：[Git Workflows and Tutorials](https://www.atlassian.com/git/workflows)     
 简体中文：由 [oldratlee](https://github.com/oldratlee) 翻译在 `GitHub` 上 [git-workflows-and-tutorials](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
 
-在第三部分 <a href="# 三、企业日常开发模式探索">企业日常开发模式探索</a>，xirong 结合自己所在公司使用git的版本分支开发过程，进行了总结，欢迎大家提出更好的建议。
+在第三部分 <a href="#三企业日常开发模式探索">企业日常开发模式探索</a>，xirong 结合自己所在公司使用git的版本分支开发过程，进行了总结，欢迎大家提出更好的建议。
 
 --------------
 
@@ -106,7 +106,7 @@
 </li>
 </ul>
 </li>
-<li><a href="# 三、企业日常开发模式探索">三、企业日常开发模式探索</a></li>
+<li><a href="#三企业日常开发模式探索">三、企业日常开发模式探索</a></li>
 </ul>
 </div>
 </p>
