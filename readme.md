@@ -48,7 +48,7 @@ mac和linux系统推荐使用终端即可，git一开始的命令的确很多，
 - [.gitignore template](https://github.com/github/gitignore) 各种语言、各种编辑器的`.gitignore`文件模板，当你进行某些语言的开发时候，直接使用相应的模板即可，省去自己写的时间（还不全），当然你也可以去贡献自己的模板，不知道`.gitignore`？ 简单讲就是不让git跟踪某些文件，详情阅读：http://git-scm.com/docs/gitignore PS：推荐使用`.gitignore_global`文件进行全局过滤，比如mac下的`.DS_Store`文件，省去在每个repo下进行设置`.gitignore`文件了。全局模板参考：https://github.com/github/gitignore/tree/master/Global
 
 # Git extensions
-- Git 的大文件支持[Git LFS](https://github.com/github/git-lfs) ： Git在对大文件进行版本管理的时候，速度上是很慢的，一个帮助处理大文件的扩展插件
+- Git 的大文件支持[Git LFS](https://github.com/github/git-lfs) ： Git在对大文件进行版本管理的时候，速度上是很慢的，一个帮助处理大文件的扩展插件，在 GithubHelp [Working with large files](https://help.github.com/articles/working-with-large-files/) 中提到，不建议对大文件如日志、database等使用Git进行版本控制，如果非要有这种需求，则建议使用 Git LFS 。
 
 
 # 实践备忘
