@@ -50,10 +50,11 @@ mac和linux系统推荐使用终端即可，git一开始的命令的确很多，
 - git 的大文件支持[Git LFS](https://github.com/github/git-lfs) ： git在对大文件进行版本管理的时候，速度上是很慢的，一个帮助处理大文件的扩展插件。
 
 
-# 最佳实践备注
+# 实践备忘
 - 常用命令手册 [git-cheat-sheet && Git常用命令列表](command-handbook/) 
 - 总是使用 `git merge --no-ff` 而不是 `git merge` ，记录下分支的变更历史。 详情 http://stackoverflow.com/questions/9069061/what-is-the-difference-between-git-merge-and-git-merge-no-ff
 - 恰当的使用 `git pull --rebase` 避免不必要的merge记录。 详情 http://stackoverflow.com/questions/2472254/when-should-i-use-git-pull-rebase
 - [git-flight-rules](https://github.com/k88hudson/git-flight-rules) 一些日常使用中的场景，比如提交错了分支、提交时的用户名邮箱不对、丢弃某些提交、未提交的代码直接提交到另外一个分支等等，很实用。
 - [How to undo (almost) anything with Git](https://github.com/blog/2019-how-to-undo-almost-anything-with-git) 撤销一切，汇总各种回滚撤销的场景，加强学习。 
+- [怎样在一台电脑上同时使用公司 GitLab 和 Github 的服务？](use-gitlab-github-together.md) 由于公司团队使用 GitLab 来托管代码，同时，个人在 Github 上还有一些代码仓库，可公司邮箱与个人邮箱是不同的，由此产生的 SSH key 也是不同的，这就造成了冲突 ，文章提供此类问题的解决方案。
 
