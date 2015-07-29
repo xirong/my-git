@@ -16,7 +16,7 @@
 
 # Git 客户端
 
-mac和linux系统推荐使用终端即可，git一开始的命令的确很多，别无它法，熟能生巧，多练习即可能够掌握日常使用的一些名利，再配合[常用命令的alias](https://git-scm.com/book/tr/v2/Git-Basics-Git-Aliases)或者强大的 [`zsh`](https://github.com/robbyrussell/oh-my-zsh)都能显著的提升效率，当然如果非得寻找图形化客户端，也不是没有；windows下还是尽快熟悉客户端的使用吧，因为win下面的bash太难用了：
+mac和linux系统推荐使用终端即可，git一开始的命令的确很多，别无它法，熟能生巧，多练习即可能够掌握日常使用的一些名利，再配合[常用命令的alias](https://git-scm.com/book/tr/v2/Git-Basics-Git-Aliases)或者强大的 [`zsh 终端`](https://github.com/robbyrussell/oh-my-zsh)都能显著的提升效率，当然如果非得寻找图形化客户端，也不是没有；windows下还是尽快熟悉客户端的使用吧，因为win下面的bash太难用了：
 
 - [GUI Clients](https://git-scm.com/downloads/guis) 官方推荐图形客户端，罗列的包括了Mac、windows、linux下的客户端，免费及付费的都有，你可以在这里面挑选一个就ok。
 - [git for windows](https://msysgit.github.io/) 针对window系统发布的客户端，集成了shell窗口，方便在win下面使用命令操作。
@@ -55,7 +55,7 @@ mac和linux系统推荐使用终端即可，git一开始的命令的确很多，
 - 常用命令手册 [git-cheat-sheet && Git常用命令列表](command-handbook/) 
 - 总是使用 `git merge --no-ff` 而不是 `git merge` ，记录下分支的变更历史。 详情 http://stackoverflow.com/questions/9069061/what-is-the-difference-between-git-merge-and-git-merge-no-ff
 - 恰当的使用 `git pull --rebase` 避免不必要的merge记录。 详情 http://stackoverflow.com/questions/2472254/when-should-i-use-git-pull-rebase
-- [git-flight-rules](https://github.com/k88hudson/git-flight-rules) 一些日常使用中的场景，比如提交错了分支、提交时的用户名邮箱不对、丢弃某些提交、未提交的代码直接提交到另外一个分支等等，很实用。
+- [Git-flight-rules](https://github.com/k88hudson/git-flight-rules) 一些日常使用中的场景，比如提交错了分支、提交时的用户名邮箱不对、丢弃某些提交、未提交的代码直接提交到另外一个分支等等，很实用。
 - [How to undo (almost) anything with Git](https://github.com/blog/2019-how-to-undo-almost-anything-with-git) 撤销一切，汇总各种回滚撤销的场景，加强学习。 
 - [怎样在一台电脑上同时使用公司 GitLab 和 Github 的服务？](use-gitlab-github-together.md) 由于公司团队使用 GitLab 来托管代码，同时，个人在 Github 上还有一些代码仓库，可公司邮箱与个人邮箱是不同的，由此产生的 SSH key 也是不同的，这就造成了冲突 ，文章提供此类问题的解决方案。
 
