@@ -1,16 +1,18 @@
 说明：
 ======
-个人在学习git工作流的过程中，从原有的 SVN 模式很难完全理解git的协作模式，直到有一天我看到了下面的文章，好多遗留在心中的困惑迎刃而解：
+个人在学习`Git`工作流的过程中，从原有的 SVN 模式很难完全理解`Git`的协作模式，直到有一天我看到了下面的文章，好多遗留在心中的困惑迎刃而解：
 
-- 我们以使用SVN的工作流来使用git有什么不妥？
-- git 方便的branch在哪里，团队多人如何协作？冲突了怎么办？如何进行发布控制？
+- 我们以使用SVN的工作流来使用`Git`有什么不妥？
+- `Git`方便的branch在哪里，团队多人如何协作？冲突了怎么办？如何进行发布控制？
 - 经典的master-发布、develop-主开发、hotfix-不过修复如何避免代码不经过验证上线？
-- 如何在github上面与他人一起协作，star-fork-pull request是怎样的流程？
+- 如何在`GitHub`上面与他人一起协作，star-fork-pull request是怎样的流程？
  
-我个人很感激这篇文章，所以进行了整理，希望能帮到更多的人。整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的github，方便统一的学习回顾，在此感谢下面两位的贡献。
+我个人很感激这篇文章，所以进行了整理，希望能帮到更多的人。整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的`GitHub`，方便统一的学习回顾，在此感谢下面两位的贡献。
 
 原文链接：[Git Workflows and Tutorials](https://www.atlassian.com/git/workflows)     
-简体中文：由 [oldratlee](https://github.com/oldratlee) 翻译在 github 上 [git-workflows-and-tutorials](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
+简体中文：由 [oldratlee](https://github.com/oldratlee) 翻译在 `GitHub` 上 [git-workflows-and-tutorials](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
+
+在第三部分 <a href="#三企业日常开发模式探索">企业日常开发模式探索</a>，xirong 结合自己所在公司使用git的版本分支开发过程，进行了总结，欢迎大家提出更好的建议。
 
 --------------
 
@@ -104,6 +106,7 @@
 </li>
 </ul>
 </li>
+<li><a href="#三企业日常开发模式探索">三、企业日常开发模式探索</a></li>
 </ul>
 </div>
 </p>
@@ -129,7 +132,7 @@
 
 `Gitflow`工作流是经典模型，体现了工作流的经验和精髓。随着项目过程复杂化，会感受到这个工作流中深思熟虑和威力！
 
-`Forking`工作流是协作的（`GitHub`风格）可以先看看`Github`的Help：[Fork A Repo](https://help.github.com/articles/fork-a-repo/)和[Using pull requests](https://help.github.com/articles/using-pull-requests/) 。照着操作，给一个`Github`项目贡献你的提交，有操作经验再看指南容易意会。指南中给了[自己实现`Fork`的方法](https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-forking.md#%E5%BC%80%E5%8F%91%E8%80%85fork%E6%AD%A3%E5%BC%8F%E4%BB%93%E5%BA%93)：`Fork`就是服务端的克隆。在指南的操练中使用代码托管服务（如`GitHub`、`Bitbucket`），可以点一下按钮就让开发者完成仓库的`fork`操作。
+`Forking`工作流是协作的（`GitHub`风格）可以先看看`GitHub`的Help：[Fork A Repo](https://help.github.com/articles/fork-a-repo/)和[Using pull requests](https://help.github.com/articles/using-pull-requests/) 。照着操作，给一个`GitHub`项目贡献你的提交，有操作经验再看指南容易意会。指南中给了[自己实现`Fork`的方法](https://github.com/oldratlee/translations/blob/master/git-workflows-and-tutorials/workflow-forking.md#%E5%BC%80%E5%8F%91%E8%80%85fork%E6%AD%A3%E5%BC%8F%E4%BB%93%E5%BA%93)：`Fork`就是服务端的克隆。在指南的操练中使用代码托管服务（如`GitHub`、`Bitbucket`），可以点一下按钮就让开发者完成仓库的`fork`操作。
 
 :see_no_evil: [自己](http://weibo.com/oldratlee)理解粗浅，翻译中不足和不对之处，欢迎建议（[提交Issue](https://github.com/oldratlee/translations/issues)）和指正（[Fork后提交代码](https://github.com/oldratlee/translations/fork)）！
 
@@ -212,7 +215,7 @@ git clone ssh://user@host/path/to/repo.git
 ![](images/git-workflow-svn-1.png)
 
 在小明的本地仓库中，他使用标准的`Git`过程开发功能：编辑、暂存（`Stage`）和提交。
-如果你不熟悉暂存区（`Staging Area`），这里说明一下：**暂存区**的用来准备一个提交，但可以不用把工作目录中所有的修改内容都包含进来。
+如果你不熟悉暂存区（`Staging Area`），这里说明一下：**暂存区**用来准备一个提交，但可以不用把工作目录中所有的修改内容都包含进来。
 这样你可以创建一个高度聚焦的提交，尽管你本地修改很多内容。
 
 ```bash
@@ -293,7 +296,7 @@ git pull --rebase origin master
 这意味着可能要解决在迁移某个提交时出现的合并冲突，而不是解决包含了所有提交的大型合并时所出现的冲突。
 这样的方式让你尽可能保持每个提交的聚焦和项目历史的整洁。反过来，简化了哪里引入`Bug`的分析，如果有必要，回滚修改也可以做到对项目影响最小。
 
-如果小红和小明的功能是相关的，不大可能在`rebase`过程中有冲突。如果有，`Git`在合并有冲突的提交处暂停`rebase`过程，输出下面的信息并带上相关的指令：
+如果小红和小明的功能是不相关的，不大可能在`rebase`过程中有冲突。如果有，`Git`在合并有冲突的提交处暂停`rebase`过程，输出下面的信息并带上相关的指令：
 
 ```
 CONFLICT (content): Merge conflict in <some-file>
@@ -372,7 +375,7 @@ git push origin master
 在`master`分支和功能分支之间，`Git`是没有技术上的区别，所以开发者可以用和集中式工作流中完全一样的方式编辑、暂存和提交修改到功能分支上。
 
 另外，功能分支也可以（且应该）`push`到中央仓库中。这样不修改正式代码就可以和其它开发者分享提交的功能。
-由于`master`仅有的一个『特殊』分支，在中央仓库上存多个功能分支不会有任何问题。当然，这样做也可以很方便地备份各自的本地提交。
+由于`master`是仅有的一个『特殊』分支，在中央仓库上存多个功能分支不会有任何问题。当然，这样做也可以很方便地备份各自的本地提交。
 
 ### 2.2.2 `Pull Requests`
 
@@ -438,7 +441,7 @@ git push
 ```
 
 然后，在她的`Git` `GUI`客户端中发起`Pull Request`，请求合并`marys-feature`到`master`，团队成员会自动收到通知。
-`Pull Request`很酷的是可以在相关的提交旁边显示评注，所以你可以很对某个变更集提问。
+`Pull Request`很酷的是可以在相关的提交旁边显示评注，所以你可以对某个变更集提问。
 
 #### 小黑收到`Pull Request`
 
@@ -1084,7 +1087,7 @@ git push origin some-branch
 
 #### 小明接受`Pull Request`
 
-最终，小明接受变更，合并功能分支到`master`分支，并关闭`Pull Request`。
+最终，小明接受变更，合并功能分支到`Master`分支，并关闭`Pull Request`。
 至此，功能集成到项目中，其它的项目开发者可以用标准的`git pull`命令`pull`这些变更到自己的本地仓库中。
 
 
@@ -1094,3 +1097,29 @@ git push origin some-branch
 
 -----------------
 
+# 三、企业日常开发模式探索
+
+在看这部分前，请先回顾阅读业界认可的成功的 Git Branch Work Flow 模型 [A Successful Git Branching Model](http://nvie.com/posts/a-successful-git-branching-model/) ，了解日常开发中的场景，有助于熟悉下面的使用过程。
+
+在企业开发中，使用 Git 作为版本控制软件最看重的还是结合公司自己搭建的 [Gitlab](https://about.gitlab.com/)，将 Code Review 加入打包部署持续集成的流程中，这样，代码开发完成，提交测试前，便可以对开发人员提交的代码进行 Review，发现潜在的问题，及时指导，对于新人来讲，也能更快更好的学习。
+
+解决的需求场景如下：
+
+- 能支持日常迭代开发、紧急线上bug修复、多功能并行开发
+- 大概50人左右的团队，平日迭代项目较多，且周期短（1~2周一个迭代）
+- 能够通过tag重建整个系统
+- 支持code review
+- 所有上线的代码必须都是经过测试保证，且能自动同步到下一次的迭代中
+- 能和公司的项目管理/持续集成系统整合
+
+![图片](images/branch_module.png)
+
+上图就是 xirong 团队在日常开发中总结出来的适合企业开发的模式，下面进行简单的介绍，方便大家学习了解，欢迎提交 Issue 进行讨论。（本模式适合敏捷开发流程，小迭代上线，传统的瀑布开发模型并没有进行测试）
+
+1. 迭代需求会、冲刺会后确定本次迭代的目标后，将迭代内容视为一个项目，在 Gitlab 上创建一个 Repository，初始化工程代码结构，根据上线日期，比如20150730上线，开出分支 release20150730、dev20150730 两个分支，dev 分支作为日常开发主干分支，release 分支作为提测打包、Code Review 的分支。
+2. 迭代开始，日常开发进行中，开发人员在 dev 分支上进行 Commit、Push 代码，并且解决掉日常协同开发中的冲突等问题，等到达到提测条件的时候，提测者，首先 Merge Master 分支上的最新代码 `git merge --no-ff  origin/master` ，使得 Master 分支上的变更更新到迭代开发分支dev上面，之后，在 Gitlab 上面发起 `pull request` 请求，并指定 Code Review 人，请求的分支选择本次上线的 release 分支，即 release20150730。
+3. 被指定 Code Review 的人，对发起者的代码 Review 后，决定是否可以提交测试，若有问题，评论注释代码后，提交者对代码进行进行修改，重复步骤2，直到代码 Review 者认为 Ok。之后便可以借助自己公司的打包部署，对这些代码发布到测试环境验证。
+4. 步骤2-3重复多次后，就会达到一个稳定可发布的版本，即上线版本，上线后，将 release 版本上面最后的提交（图中0.2.4上线对应处）合并到 Master 分支上面，并打 Tag0.3。至此，一次完整的迭代开发完成。
+5. 若此次上线后，不久发现生产环境有 Bug 需要修复，则从 Tag 处新开分支 release_bugfix_20150731、dev_bugfix_20150731 ，开发人员从 dev_bugfix_20150731分支上进行开发，提测code review在 release_bugfix_20150731 分支上，具体步骤参考2-3，测试环境验证通过后，发布到线上，验证OK，合并到 Master 分支，并打 Tag0.2.3，此次 Bug 修复完毕，专为解 Bug 而生的这两个分支可以退伍了，删除release_bugfix_20150731、dev_bugfix_20150731两分支即可。（所有的历史 Commit 信息均已经提交到了 Master 分支上，不用担心丢失）
+
+这样经过上面的1-5步骤，企业日常迭代开发中的代码版本控制基本上就 Ok 了，有问题欢迎 Issue 讨论。
