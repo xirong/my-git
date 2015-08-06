@@ -14,7 +14,7 @@
 
 # Git 客户端
 
-Mac 和 Linux 系统推荐使用终端即可，Git 一开始的命令的确很多，别无它法，熟能生巧，多练习即可能够掌握日常使用的一些名利，再配合[`常用命令的alias`](https://git-scm.com/book/tr/v2/Git-Basics-Git-Aliases)或者强大的 [`zsh 终端`](https://github.com/robbyrussell/oh-my-zsh)都能显著的提升效率，当然如果非得寻找图形化客户端，也不是没有；Windows下还是尽快熟悉客户端的使用吧，因为win下面的bash太难用了：
+Mac 和 Linux 系统推荐使用终端即可，Git 一开始的命令的确很多，别无它法，熟能生巧，多练习即可能够掌握日常使用的一些名利，再配合[`常用命令的alias`](https://git-scm.com/book/tr/v2/Git-Basics-Git-Aliases)或者强大的 [`zsh 终端`](http://www.ixirong.com/2015/04/27/strong-bash-use-oh-my-zsh/)都能显著的提升效率，当然如果非得寻找图形化客户端，也不是没有；Windows下还是尽快熟悉客户端的使用吧，因为win下面的bash太难用了：
 
 - [GUI Clients](https://git-scm.com/downloads/guis) 官方推荐图形客户端，罗列的包括了Mac、Windows、Linux下的客户端，免费及付费的都有，你可以在这里面挑选一个就ok。
 - [Git for windows](https://msysgit.github.io/) 针对 Window 系统发布的客户端，集成了 Shell 窗口，方便在 Win 下面使用命令操作。
