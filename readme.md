@@ -27,6 +27,7 @@ Mac 和 Linux 系统推荐使用终端即可，Git 一开始的命令的确很�
 - [Git工作流指南](https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md)完整的对比目前使用的集中式（Svn）工作流、功能分支工作流、Gitflow 工作流、Forking 工作流、Pull Request 等几种不同的模式，通俗易懂，强烈推荐看一看，如果觉的排版不好，请查看原分页文章 [Git-workflow-translations](https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials) 
 - 熟悉的工作流后，你是否也想要在 Github 上与他人一起协同工作？那么问题来了，[Github全程指南-如何高效使用？](how-to-use-github.md)
 - [Understanding the GitHub Flow](https://guides.github.com/introduction/flow/index.html) This guide explains how and why GitHub Flow works 简单实用，更好的理解Github的模式。
+- [Github 协同开发流程](http://www.ruanyifeng.com/blog/2015/08/git-use-process.html) 图片很赞，简洁易懂。
 
 # Git expert 
 - 项目依赖其他项目，比如公共 Css、Dll 等等，强大的 Git-submodule 优雅的解决这类问题。理解阅读 [Git Tools - Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) ，备忘或者查看命令阅读 [Git Submodule Tutorial](https://git.wiki.kernel.org/index.php/GitSubmoduleTutorial) 或者 [Git Submodule 使用完整教程](http://www.kafeitu.me/git/2012/03/27/git-submodule.html)
