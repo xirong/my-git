@@ -1,6 +1,6 @@
 说明
 =======
-Git 命令中有些是不常用、但很实用的，这些命令都是在日常使用过程中遇到过整理下来的，留作备忘。
+Git 常用、不常用、实用的命令，这些命令都是在日常使用过程中遇到过整理下来的，留作备忘，如果对这些命令还不明白什么意思，请参考学习：[Git 新手入门](readme.md#新手入门) 。
 
 # Repository
 
@@ -35,6 +35,7 @@ Git 命令中有些是不常用、但很实用的，这些命令都是在日常�
 	+ 查看最近2周内：`git log --since=2week` 或者指定2周明确日志，比如：`git log --since=2015-08-12`
 	+ 只查看某个用户的提交：`git log --committer=user.name` / `git log --author=user.name`
 	+ 只查看提交msg中包含某个信息的历史，比如包含'测试'两个字的：`git log --grep '测试'`
+	+ 试试这个 ： `git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit`  感觉好用就加成 alias ，方便日后用，方法：`git config --global alias.aliasname 'alias-content'`
 	+ 更多用法：[Viewing the History -- 《Pro Git2》](http://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History)
 
 
