@@ -64,6 +64,24 @@ Git 命令中有些是不常用、但很实用的，这些命令都是在日常�
 	+ （技巧）将本地 dev 分支代码推送到远程 master 分支： `git push origin dev:master`
 - 删除远程分支：`git push origin :remote-branchname` / `git push origin --delete remote-branchname`
 
+# Tag 
+
+- 查看 tag：`git tag`
+- 查找指定 tag，比如查找 V1.0.* ：`git tag -l 'V1.0.*'` 会列出匹配到的，比如 V1.0.1,V1.0.1.1,V1.0.2 等
+- 创建轻量级 tag（lightweight tags）：`git tag tag-name` ，例如: `git tag v1.0`
+- 创建 tag（annotated tags）：`git tag -a tag-name -v 'msg'` ，例如：`git tag -a v1.0.0 -m '1.0.0版本上线完毕打tag'`
+	+ annotated tags VS lightweight tags 可以通过命令真实查看下：`git show v1.0` / `git show v1.0.0`
+	+ “A lightweight tag is very much like a branch that doesn’t change – it’s just a pointer to a specific commit.
+Annotated tags, however, are stored as full objects in the Git database. They’re checksummed; contain the tagger name, e-mail, and date; have a tagging message; and can be signed and verified with GNU Privacy Guard (GPG). ”
+- 查看指定 tag 信息：`git show tag-name`
+- 基于历史某次提交（commit）创建 tag ：`git tag -a tagname <sha1-of-commit>`
+	+ 例：基于上线时的提交 a207a38d634cc10441636bc4359cd8a18c502dea 创建tag：`git tag -a v1.0.0 a207a38`
+- 删除 tag ：`git tag -d tagname`
+- 拉取远程 tag 到本地：`git pull remotename --tags` 例如：`git pull origin --tags`
+- 推送 tag 到远程服务器：`git push remotename tagname`  例如：`git push origin v1.0.0`
+- 将本地所有 tag 推送到远程：`git push remotename --tags` 例如：`git push origin --tags`
+- 删除远程 tag ：`git push origin :tagname` 或者 `git push origin --delete tagname`
+
 # Diff 
 
 - 查看工作区（working directory）和暂存区（staged）之间差异：`git diff`
