@@ -14,6 +14,35 @@ Git 命令中有些是不常用、但很实用的，这些命令都是在日常�
 - 拉取远程仓库： `git pull [remoteName] [localBranchName]`
 - 推送远程仓库： `git push [remoteName] [localBranchName]`
 
+# Add/Commit/Rm
+
+- 添加文件到暂存区（staged）：`git add filename` / `git stage filename` 
+- 将所有修改文件添加到暂存区（staged）： `git add --all` / `git add -A`
+- 提交修改到暂存区（staged）：`git commit -m 'commit message'` / `git commit -a -m 'commit message'` 注意理解 -a 参数的意义
+- 从Git仓库中删除文件：`git rm filename`
+- 从Git仓库中删除文件，但本地文件保留：`git rm --cached filename`
+- 重命名某个文件：`git mv filename newfilename` 或者直接修改完毕文件名 ，进行`git add -A && git commit -m 'commit message'` Git会自动识别是重命名了文件
+
+# Log
+
+- 查看日志：`git log`
+- 查看日志，并查看每次的修改内容：`git log -p`
+- 查看日志，并查看每次文件的简单修改状态：`git log --stat`
+- 一行显示日志：`git log --pretty=oneline` / `git log --pretty='format:"%h - %an, %ar : %s'`
+- 查看日志范围：
+	+ 查看最近10条日志：`git log -10`
+	+ 查看2周前：`git log --until=2week` 或者指定2周的明确日期，比如：`git log --until=2015-08-12`
+	+ 查看最近2周内：`git log --since=2week` 或者指定2周明确日志，比如：`git log --since=2015-08-12`
+	+ 只查看某个用户的提交：`git log --committer=user.name` / `git log --author=user.name`
+	+ 只查看提交msg中包含某个信息的历史，比如包含'测试'两个字的：`git log --grep '测试'`
+	+ 更多用法：[Viewing the History -- 《Pro Git2》](http://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History)
+
+
+# Undo things
+- 上次提交msg错误/有未提交的文件应该同上一次一起提交，需要重新提交备注：`git commit --amend -m 'new msg'` 
+- 一次`git add -A`后，需要将某个文件撤回到工作区，即：某个文件不应该在本次commit中：`git reset HEAD filename`
+- 撤销某些文件的修改内容：`git checkout -- filename` 注意：一旦执行，所有的改动都没有了，谨慎！谨慎！谨慎！
+
 # Branch
 
 - 查看分支：`git branch`
@@ -34,3 +63,9 @@ Git 命令中有些是不常用、但很实用的，这些命令都是在日常�
 	+ 将本地 dev 代码推送到远程 dev 分支： `git push (-u) origin dev` / `git push origin dev:dev`
 	+ （技巧）将本地 dev 分支代码推送到远程 master 分支： `git push origin dev:master`
 - 删除远程分支：`git push origin :remote-branchname` / `git push origin --delete remote-branchname`
+
+# Diff 
+
+- 查看工作区（working directory）和暂存区（staged）之间差异：`git diff`
+- 查看工作区（working directory）与当前仓库版本（repository）HEAD版本差异：`git diff HEAD`
+- 查看暂存区（staged）与当前仓库版本（repository）差异：`git diff --cached` / `git diff --staged`
