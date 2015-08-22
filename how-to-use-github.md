@@ -20,7 +20,8 @@
 
 - [Using Git blame to trace changes in a file](https://help.github.com/articles/using-git-blame-to-trace-changes-in-a-file/) 如果你想看某一个文件中每一行是谁修改的，为什么修改？那么尽情的使用 `blame` 按钮，发现文件的历史。
 - [Github 搜索技巧](https://help.github.com/categories/search/)
-- [Closing issues via commit messages](https://help.github.com/articles/closing-issues-via-commit-messages/)
+- [Closing issues via commit messages - 通过提交信息关闭Issues](https://help.github.com/articles/closing-issues-via-commit-messages/)
+- [Update your forked code from original repository - 如何更新自己 Fork 的代码](https://github.com/ysc/APDPlat/wiki/%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0%E8%87%AA%E5%B7%B1Fork%E7%9A%84%E4%BB%A3%E7%A0%81)
 
 更多关于 Github 的内容请查看：[GithubHelp](https://help.github.com/) 查找需要的信息。
 
