@@ -1,5 +1,7 @@
 使用svn用的好好的，为什么要用git？git有哪些优势？又有哪些劣势？在日常使用中两者明显的差异是什么？
 
+（关于 svn 的使用，一起来回顾一下 [How To Use Svn in Daily Work](using-svn.md)）
+
 - [Why is Git better than Subversion?](http://stackoverflow.com/questions/871/why-is-git-better-than-subversion)  stackoverflow 上关于svn和git的区别的讨论，说的很详细。
 - [What are the differences between SVN and Git? ](https://help.github.com/articles/what-are-the-differences-between-svn-and-git/)  github 上通过版本库结构、历史、子项目（submudle）的不同来对比两者。
 - [蒋鑫：为什么 Git 比 SVN 好？](http://www.worldhello.net/2012/04/12/why-git-is-better-than-svn.html "蒋鑫 - Why `Git` is better than `SVN`")
