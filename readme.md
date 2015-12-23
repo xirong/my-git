@@ -21,6 +21,7 @@ Mac 和 Linux 系统推荐使用终端即可，Git 一开始的命令的确很�
 - [TortoiseGit - The coolest Interface to Git Version Control](https://code.google.com/p/tortoisegit/) 在window下使用git，那就不得不提“乌龟”，安装了 Tortoise 后，右键图形化操作根本分辨不出来哪是 Git，哪是 Svn，很方便使用 Svn 的用户过度过来。
 - [Tower2](http://www.git-tower.com/) 号称最好的 Git 客户端，只有 Mac 版本，收费，集成 Github、Gitlab、Xcode等服务。
 - [SourceTree](https://www.sourcetreeapp.com/) 免费，功能齐全，Mac+Window 版本，集成 Github 等服务。
+- [SmartGit](http://www.syntevo.com/smartgit/) 非商业用途免费，全平台支持，集成 Github服务。内置 SSH client ，文件比较与合并工具。
 
 # Git branch
 - [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/) 介绍日常推荐的分支开发模型，基于此模型可以通过这个小游戏来进行学习 [Learn Git Branch](http://pcottle.github.io/learnGitBranching/)
@@ -38,6 +39,8 @@ Mac 和 Linux 系统推荐使用终端即可，Git 一开始的命令的确很�
 - [Git-internals-pdf](https://github.com/pluralsight/git-internals-pdf) 老外写的，很给力，从目录上面包括安装使用以及设计原理都有讲解，有机会看看。Pdf 电子版本直接下载地址 [Git-internals.pdf](ebooks/git-internals.pdf)
 - [Git Community Book](http://gitbook.liuhui998.com/) 汇聚了 Git 社区的很多精华,  并对 Git 的对象模型原理等做了解释，可以深入的了解下 Git 原理。pdf电子版本直接下载地址 [Git Community Book.pdf](ebooks/Git Community Book.pdf)
 - [Git权威指南](http://book.douban.com/subject/6526452/) 国内版本控制咨询顾问蒋鑫先生的原创书籍，原生中文叙述，更容易理解，查看[作者写书的缘由](http://www.worldhello.net/gotgit/)
+- [Git Reference](http://gitref.org/) [中文](http://gitref.org/zh/index.html) 为学习与记忆 Git 使用中最重要、最普遍的命令提供快速翻阅，可作为参考资料。
+- [Git Magic - a guide from standord](https://github.com/blynn/gitmagic) 斯坦福大学Git学习指南，适合快速入门。
 
 # Git 效率提升
 - [Git flow 工具](https://github.com/petervanderdoes/gitflow)
@@ -58,4 +61,5 @@ Mac 和 Linux 系统推荐使用终端即可，Git 一开始的命令的确很�
 - [Git-flight-rules](https://github.com/k88hudson/git-flight-rules) 一些日常使用中的场景，比如提交错了分支、提交时的用户名邮箱不对、丢弃某些提交、未提交的代码直接提交到另外一个分支等等，很实用。
 - [How to undo (almost) anything with Git](https://github.com/blog/2019-how-to-undo-almost-anything-with-git) 撤销一切，汇总各种回滚撤销的场景，加强学习。
 - [怎样在一台电脑上同时使用公司 GitLab 和 Github 的服务？](use-gitlab-github-together.md) 由于公司团队使用 GitLab 来托管代码，同时，个人在 Github 上还有一些代码仓库，可公司邮箱与个人邮箱是不同的，由此产生的 SSH key 也是不同的，这就造成了冲突 ，文章提供此类问题的解决方案。
+- [如何书写提交信息](http://chris.beams.io/posts/git-commit/) 当项目越来越大，提交信息越来越复杂的时候，如何书写好提交信息就变得至关重要，这篇文章的作者总结出7条准则。
 - [git-recipes](https://github.com/geeeeeeeeek/git-recipes/wiki) @童仲毅 整理翻译的一些优秀文章。
