@@ -63,3 +63,4 @@ Mac 和 Linux 系统推荐使用终端即可，Git 一开始的命令的确很�
 - [怎样在一台电脑上同时使用公司 GitLab 和 Github 的服务？](use-gitlab-github-together.md) 由于公司团队使用 GitLab 来托管代码，同时，个人在 Github 上还有一些代码仓库，可公司邮箱与个人邮箱是不同的，由此产生的 SSH key 也是不同的，这就造成了冲突 ，文章提供此类问题的解决方案。
 - [如何书写提交信息](http://chris.beams.io/posts/git-commit/) 当项目越来越大，提交信息越来越复杂的时候，如何书写好提交信息就变得至关重要，这篇文章的作者总结出7条准则。
 - [git-recipes](https://github.com/geeeeeeeeek/git-recipes/wiki) @童仲毅 整理翻译的一些优秀文章。
+- [githug](https://github.com/Gazler/githug) Git your game on. 使用通关游戏的形式来练习git的一些命令，非常有趣。
