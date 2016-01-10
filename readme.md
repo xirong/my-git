@@ -32,7 +32,7 @@ Mac 和 Linux 系统推荐使用终端即可，Git 一开始的命令的确很�
 
 # Git expert
 - 项目依赖其他项目，比如公共 Css、Dll 等等，强大的 Git-submodule 优雅的解决这类问题。理解阅读 [Git Tools - Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) ，备忘或者查看命令阅读 [Git Submodule Tutorial](https://git.wiki.kernel.org/index.php/GitSubmoduleTutorial) 或者 [Git Submodule 使用完整教程](http://www.kafeitu.me/git/2012/03/27/git-submodule.html)
-
+- [Git Submodule 的一些注意事项](http://blog.devtang.com/blog/2013/05/08/git-submodule-issues/) 一些需要理解并注意的操作
 
 # Git 书籍
 - [Pro Git](http://git-scm.com/book/zh/v1) 作者Scott Chacon是 Github 的员工，Git 的布道者，这本书被誉为 Git 学习圣经，中间有好多插图描述的浅显易懂，挺适合详细学习下的，最新英文第二版《[Pro Git (Editon 2)](http://git-scm.com/book/en/v2)》；
