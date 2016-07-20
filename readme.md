@@ -55,7 +55,7 @@ Mac 和 Linux 系统推荐使用终端即可，Git 一开始的命令的确很�
 
 
 # 实践备忘
-- 常用命令手册 [Git-cheat-sheet](command-handbook/) 、[Git 日常开发常用命令](useful-git-command.md)
+- 常用命令手册 [Git 日常开发常用命令整理](useful-git-command.md)，日常开发中的利器，可以当做备忘录来使用，推荐👍。
 - 总是使用 `git merge --no-ff` 而不是 `git merge` ，记录下分支的变更历史。 详情 http://stackoverflow.com/questions/9069061/what-is-the-difference-between-git-merge-and-git-merge-no-ff
 - 恰当的使用 `git pull --rebase` 避免不必要的merge记录。 详情 http://stackoverflow.com/questions/2472254/when-should-i-use-git-pull-rebase
 - [Git-flight-rules](https://github.com/k88hudson/git-flight-rules) 一些日常使用中的场景，比如提交错了分支、提交时的用户名邮箱不对、丢弃某些提交、未提交的代码直接提交到另外一个分支等等，很实用。
