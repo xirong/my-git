@@ -1,13 +1,17 @@
 说明
 =======
 Git 常用、不常用、实用的命令，这些命令都是在日常使用过程中遇到过整理下来的，留作备忘，如果对这些命令还不明白什么意思，请参考学习：[Git 新手入门](readme.md#新手入门) 。
+
 [TOC]
 
 # Alias
+
+``` bash
 git config --global alias.st status //status 缩写成 st
 git config --global alias.co checkout //checkout 缩写成 co
 git config --global alias.br branch //branch 缩写成 br
 git config --global alias.ci commit //commit 缩写成 ci
+```
 
 # Repository
 - 检出（clone）仓库代码：`git clone repository-url` / `git clone repository-url local-directoryname`
@@ -78,6 +82,7 @@ reset命令把当前分支指向另一个位置，并且有选择的变动工作
 # Revert
 > `git revert` will create a new commit that's the opposite (or inverse) of the given SHA. If the old commit is "matter", the new commit is "anti-matter"—anything removed in the old commit will be added in the new commit and anything added in the old commit will be removed in the new commit.
 > This is Git's safest, most basic "undo" scenario, because it doesn't alter history—so you can now git push the new "inverse" commit to undo your mistaken commit.
+
 ``` bash
 git revert [--[no-]edit] [-n] [-m parent-number] [-s] [-S[<keyid>]] <commit>…​
 git revert --continue
