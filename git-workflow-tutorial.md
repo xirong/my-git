@@ -14,6 +14,8 @@
 
 在第三部分 <a href="#三企业日常开发模式探索">企业日常开发模式探索</a>，xirong 结合自己所在公司使用git的版本分支开发过程，进行了总结，欢迎大家提出更好的建议。
 
+在第四部分 <a href="#开发工作流的讨论">开发工作流的讨论</a> 中，引用了几篇文章，包括 Github 的开发流程以及 Thoughtworkers 工程师发表的「Gitflow 有害论」，旨在表名流程并不是唯一的，适合自己当前团队的才是最好的。
+
 --------------
 
 <p data-anchor-id="bd8d"><div class="toc">
@@ -1154,3 +1156,8 @@ Git-Develop 分支模式是基于 Git 代码库设计的一种需要严格控制
 - 待所有计划发布的变更分支代码都合并到Develop后，系统再 rebase master 代码到Develop 分支，然后自行构建，打包，部署等动作。
 - 应用发布成功后Aone会基于Develop分支的发布版本打一个“当前线上版本Tag”基线；
 - 应用发布成功后Aone会自动把Develop分支的发布版本合并回master；
+
+# 四、开发工作流的讨论
+几篇业界的讨论文章 
+- [Gitflow 有害论](http://insights.thoughtworkers.org/gitflow-consider-harmful/) 作者对 Gitflow 流程的使用过程中的吐槽，文章留言引起了强烈的讨论，可以关注下。
+- [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html) scottchacon 讲述在 GitHub 工作中日常流程以及对没一点进行详细的介绍。
