@@ -7,13 +7,13 @@
 - [GitHub 入门使用教程-图文并茂](http://developer.51cto.com/art/201407/446249_all.htm) 很简洁的说明如何使用，看图即可明白。 
 - [GitHub help](https://help.github.com/) Sometimes you just need a little help. 中文翻译版在此[GitHub 帮助文档](https://github.com/waylau/GitHub-help)。
 - [GitHub 之 fork 简介指南](https://linux.cn/article-4292-1.html) 帮你理解清楚什么是fork，fork 的工作流有哪些。
-- [GitHub-cheat-sheet](https://github.com/tiimgreen/GitHub-cheat-sheet) 关于使用 git 和 GitHub 的一些技巧汇总，中文版在此[GitHub秘籍](https://github.com/tiimgreen/GitHub-cheat-sheet/blob/master/README.zh-cn.md)
+- [GitHub-cheat-sheet](https://github.com/tiimgreen/github-cheat-sheet) 关于使用 git 和 GitHub 的一些技巧汇总，中文版在此[GitHub秘籍](https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md)
 - [The GitHub Blog](https://github.com/blog) GitHub 官方博客，关注最新动态。
 - [How to Build a GitHub](http://zachholman.com/talk/how-to-build-a-github/) GitHub一名早期员工介绍GitHub的历史，5年108名员工无人离职。
 - [阳志平：如何高效利用GitHub](http://www.yangzhiping.com/tech/github.html) 介绍的挺全，以及一些用法，如怎样利用GitHub来学习、演讲找工作等。
 - [GitHub 支持的 emoji表情 emoji-cheat-sheet](http://www.emoji-cheat-sheet.com/) :v: :clap:  感觉不好找到需要的表情？试试[Emoji Searcher](http://emoji.muan.co/) 
 - [GitHub guides](https://guides.github.com/) 从`Contributing to Open Source on GitHub`、`Hello World`、`Forking Projects`、`Be Social`、`Making Your Code Citable`、`Mastering Issues`、`Mastering Markdown`、`Mastering Wikis`、`Getting Started with GitHub Pages` 等9个方面图文详细讲解每一步如何使用，以及能做哪些功能。
-- [fork-me-on-GitHub](https://github.com/blog/273-GitHub-ribbons) 个人博客、技术博客等如果需要添加GitHub 的彩带，可以使用此方法。
+- [fork-me-on-GitHub](https://github.com/blog/273-github-ribbons) 个人博客、技术博客等如果需要添加GitHub 的彩带，可以使用此方法。
 - [蒋鑫-GotGitHub](GotGitHub.md) 《Git权威指南》的作者，对GitHub有很深的了解。（由于首页打开太慢，放到了本文目录中，下面的文章既是）
 
 # GitHub Skills
@@ -72,16 +72,16 @@
 <h2 style="margin:1.3em 0px 0.2em;font-size:1.35em;padding:0px;">目录<a href="http://www.worldhello.net/gotgithub/#id6" title="永久链接至标题" style="color:black;text-decoration:none;font-weight:normal;visibility:hidden;font-size:1em;margin-left:6px;padding:0px 4px;">¶</a></h2>
 <div>
 <ul>
-<li><a href="http://www.worldhello.net/gotgithub/01-explore-GitHub/index.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">1. 探索GitHub</a><ul>
-<li><a href="http://www.worldhello.net/gotgithub/01-explore-GitHub/010-what-is-GitHub.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">1.1. 什么是GitHub</a></li>
-<li><a href="http://www.worldhello.net/gotgithub/01-explore-GitHub/020-GitHub-hightlights.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">1.2. GitHub亮点</a></li>
-<li><a href="http://www.worldhello.net/gotgithub/01-explore-GitHub/030-explore-GitHub.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">1.3. 探索GitHub</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/01-explore-github/index.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">1. 探索GitHub</a><ul>
+<li><a href="http://www.worldhello.net/gotgithub/01-explore-github/010-what-is-github.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">1.1. 什么是GitHub</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/01-explore-github/020-github-hightlights.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">1.2. GitHub亮点</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/01-explore-github/030-explore-github.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">1.3. 探索GitHub</a></li>
 </ul>
 </li>
-<li><a href="http://www.worldhello.net/gotgithub/02-join-GitHub/index.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">2. 加入GitHub</a><ul>
-<li><a href="http://www.worldhello.net/gotgithub/02-join-GitHub/010-account-setup.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">2.1. 创建GitHub账号</a></li>
-<li><a href="http://www.worldhello.net/gotgithub/02-join-GitHub/020-browse-repo.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">2.2. 浏览托管项目</a></li>
-<li><a href="http://www.worldhello.net/gotgithub/02-join-GitHub/030-be-social.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">2.3. 社交网络</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/02-join-github/index.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">2. 加入GitHub</a><ul>
+<li><a href="http://www.worldhello.net/gotgithub/02-join-github/010-account-setup.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">2.1. 创建GitHub账号</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/02-join-github/020-browse-repo.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">2.2. 浏览托管项目</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/02-join-github/030-be-social.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">2.3. 社交网络</a></li>
 </ul>
 </li>
 <li><a href="http://www.worldhello.net/gotgithub/03-project-hosting/index.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">3. 项目托管</a><ul>
@@ -161,9 +161,9 @@
 </li>
 </ul>
 </li>
-<li><a href="http://www.worldhello.net/gotgithub/05-commercial-GitHub/index.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">5. 付费服务</a><ul>
-<li><a href="http://www.worldhello.net/gotgithub/05-commercial-GitHub/non-free-plans.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">5.1. GitHub收费方案</a></li>
-<li><a href="http://www.worldhello.net/gotgithub/05-commercial-GitHub/GitHub-enterprise.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">5.2. GitHub企业版</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/05-commercial-github/index.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">5. 付费服务</a><ul>
+<li><a href="http://www.worldhello.net/gotgithub/05-commercial-github/non-free-plans.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">5.1. GitHub收费方案</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/05-commercial-github/github-enterprise.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">5.2. GitHub企业版</a></li>
 </ul>
 </li>
 <li><a href="http://www.worldhello.net/gotgithub/06-side-projects/index.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6. GitHub副产品</a><ul>
@@ -180,7 +180,7 @@
 </ul>
 </li>
 <li><a href="http://www.worldhello.net/gotgithub/06-side-projects/tools.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6.3. 客户端工具</a><ul>
-<li><a href="http://www.worldhello.net/gotgithub/06-side-projects/GitHub-mac.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6.3.1. GitHub:mac</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/06-side-projects/github-mac.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6.3.1. GitHub:mac</a></li>
 <li><a href="http://www.worldhello.net/gotgithub/06-side-projects/hub.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6.3.2. hub</a></li>
 <li><a href="http://www.worldhello.net/gotgithub/06-side-projects/ios.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6.3.3. iOS应用</a></li>
 </ul>
