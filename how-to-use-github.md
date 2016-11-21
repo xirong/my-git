@@ -5,7 +5,7 @@
 在这里搜集整理网络上面的资料，汇总成这么一篇repo 《GitHub使用指南》，供大家一起学习。 :octocat:
 
 - [GitHub 入门使用教程-图文并茂](http://developer.51cto.com/art/201407/446249_all.htm) 很简洁的说明如何使用，看图即可明白。 
-- [GitHub help](https://help.github.com/) Sometimes you just need a little help. 中文翻译版在此[GitHub 帮助文档](https://github.com/waylau/GitHub-help)。
+- [GitHub help](https://help.github.com/) Sometimes you just need a little help. 中文翻译版在此[GitHub 帮助文档](https://github.com/waylau/github-help)。
 - [GitHub 之 fork 简介指南](https://linux.cn/article-4292-1.html) 帮你理解清楚什么是fork，fork 的工作流有哪些。
 - [GitHub-cheat-sheet](https://github.com/tiimgreen/github-cheat-sheet) 关于使用 git 和 GitHub 的一些技巧汇总，中文版在此[GitHub秘籍](https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md)
 - [The GitHub Blog](https://github.com/blog) GitHub 官方博客，关注最新动态。
@@ -29,7 +29,7 @@
 
 原文地址：http://www.worldhello.net/gotgithub/index.html
 
-<h1 style="margin:0px;padding:0.7em 0px 0.3em;font-size:1.5em;color:rgb(17, 85, 124);">GotGitHub<a href="http://www.worldhello.net/gotgithub/#gotGitHub" title="永久链接至标题" style="color:black;text-decoration:none;font-weight:normal;visibility:hidden;font-size:1em;margin-left:6px;padding:0px 4px;">¶</a></h1>
+<h1 style="margin:0px;padding:0.7em 0px 0.3em;font-size:1.5em;color:rgb(17, 85, 124);">GotGitHub<a href="http://www.worldhello.net/gotgithub/#gotgithub" title="永久链接至标题" style="color:black;text-decoration:none;font-weight:normal;visibility:hidden;font-size:1em;margin-left:6px;padding:0px 4px;">¶</a></h1>
 <table style="font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;border-collapse:collapse;margin:0px -0.5em;border:0px;">
 <colgroup><col/>
 <col/>
@@ -64,7 +64,7 @@
 <table style="font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;border-collapse:collapse;margin:0px -0.5em;border:0px;">
 <colgroup><col/><col/></colgroup>
 <tbody valign="top">
-<tr><td style="padding:1px 8px 1px 5px;text-align:left;border:0px;"><a href="http://www.worldhello.net/gotgithub/#id3" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">[2]</a></td><td style="padding:1px 8px 1px 5px;text-align:left;border:0px;"><a href="https://github.com/gotgit/gotGitHub" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">https://github.com/gotgit/gotGitHub</a></td></tr>
+<tr><td style="padding:1px 8px 1px 5px;text-align:left;border:0px;"><a href="http://www.worldhello.net/gotgithub/#id3" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">[2]</a></td><td style="padding:1px 8px 1px 5px;text-align:left;border:0px;"><a href="https://github.com/gotgit/gotgithub" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">https://github.com/gotgit/gotgithub</a></td></tr>
 </tbody>
 </table>
 </div>
