@@ -1,29 +1,29 @@
 
 说明
 ==============
-作为一名开发者，Github上面有很多东西值得关注学习，可是刚刚接触github，怎样一步步学习使用Github？怎样更高效的利用Github？
-在这里搜集整理网络上面的资料，汇总成这么一篇repo 《Github使用指南》，供大家一起学习。 :octocat:
+作为一名开发者，GitHub上面有很多东西值得关注学习，可是刚刚接触GitHub，怎样一步步学习使用GitHub？怎样更高效的利用GitHub？
+在这里搜集整理网络上面的资料，汇总成这么一篇repo 《GitHub使用指南》，供大家一起学习。 :octocat:
 
-- [github 入门使用教程-图文并茂](http://developer.51cto.com/art/201407/446249_all.htm) 很简洁的说明如何使用，看图即可明白。	
-- [github help](https://help.github.com/) Sometimes you just need a little help. 中文翻译版在此[Github 帮助文档](https://github.com/waylau/github-help)。
-- [github 之 fork 简介指南](https://linux.cn/article-4292-1.html) 帮你理解清楚什么是fork，fork 的工作流有哪些。
-- [github-cheat-sheet](https://github.com/tiimgreen/github-cheat-sheet) 关于使用 git 和 github 的一些技巧汇总，中文版在此[GitHub秘籍](https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md)
-- [The GitHub Blog](https://github.com/blog) github 官方博客，关注最新动态。
-- [How to Build a GitHub](http://zachholman.com/talk/how-to-build-a-github/) Github一名早期员工介绍Github的历史，5年108名员工无人离职。
-- [阳志平：如何高效利用GitHub](http://www.yangzhiping.com/tech/github.html) 介绍的挺全，以及一些用法，如怎样利用Github来学习、演讲找工作等。
-- [github 支持的 emoji表情 emoji-cheat-sheet](http://www.emoji-cheat-sheet.com/) :v: :clap:  感觉不好找到需要的表情？试试[Emoji Searcher](http://emoji.muan.co/) 
-- [github guides](https://guides.github.com/) 从`Contributing to Open Source on GitHub`、`Hello World`、`Forking Projects`、`Be Social`、`Making Your Code Citable`、`Mastering Issues`、`Mastering Markdown`、`Mastering Wikis`、`Getting Started with GitHub Pages` 等9个方面图文详细讲解每一步如何使用，以及能做哪些功能。
-- [fork-me-on-github](https://github.com/blog/273-github-ribbons) 个人博客、技术博客等如果需要添加github 的彩带，可以使用此方法。
-- [蒋鑫-GotGitHub](GotGitHub.md) 《Git权威指南》的作者，对Github有很深的了解。（由于首页打开太慢，放到了本文目录中，下面的文章既是）
+- [GitHub 入门使用教程-图文并茂](http://developer.51cto.com/art/201407/446249_all.htm) 很简洁的说明如何使用，看图即可明白。 
+- [GitHub help](https://help.github.com/) Sometimes you just need a little help. 中文翻译版在此[GitHub 帮助文档](https://github.com/waylau/github-help)。
+- [GitHub 之 fork 简介指南](https://linux.cn/article-4292-1.html) 帮你理解清楚什么是fork，fork 的工作流有哪些。
+- [GitHub-cheat-sheet](https://github.com/tiimgreen/github-cheat-sheet) 关于使用 git 和 GitHub 的一些技巧汇总，中文版在此[GitHub秘籍](https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md)
+- [The GitHub Blog](https://github.com/blog) GitHub 官方博客，关注最新动态。
+- [How to Build a GitHub](http://zachholman.com/talk/how-to-build-a-github/) GitHub一名早期员工介绍GitHub的历史，5年108名员工无人离职。
+- [阳志平：如何高效利用GitHub](http://www.yangzhiping.com/tech/github.html) 介绍的挺全，以及一些用法，如怎样利用GitHub来学习、演讲找工作等。
+- [GitHub 支持的 emoji表情 emoji-cheat-sheet](http://www.emoji-cheat-sheet.com/) :v: :clap:  感觉不好找到需要的表情？试试[Emoji Searcher](http://emoji.muan.co/) 
+- [GitHub guides](https://guides.github.com/) 从`Contributing to Open Source on GitHub`、`Hello World`、`Forking Projects`、`Be Social`、`Making Your Code Citable`、`Mastering Issues`、`Mastering Markdown`、`Mastering Wikis`、`Getting Started with GitHub Pages` 等9个方面图文详细讲解每一步如何使用，以及能做哪些功能。
+- [fork-me-on-GitHub](https://github.com/blog/273-github-ribbons) 个人博客、技术博客等如果需要添加GitHub 的彩带，可以使用此方法。
+- [蒋鑫-GotGitHub](GotGitHub.md) 《Git权威指南》的作者，对GitHub有很深的了解。（由于首页打开太慢，放到了本文目录中，下面的文章既是）
 
-# Github Skills
+# GitHub Skills
 
 - [Using Git blame to trace changes in a file](https://help.github.com/articles/using-git-blame-to-trace-changes-in-a-file/) 如果你想看某一个文件中每一行是谁修改的，为什么修改？那么尽情的使用 `blame` 按钮，发现文件的历史。
-- [Github 搜索技巧](https://help.github.com/categories/search/)
+- [GitHub 搜索技巧](https://help.github.com/categories/search/)
 - [Closing issues via commit messages - 通过提交信息关闭Issues](https://help.github.com/articles/closing-issues-via-commit-messages/)
 - [Update your forked code from original repository - 如何更新自己 Fork 的代码](https://github.com/ysc/APDPlat/wiki/%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0%E8%87%AA%E5%B7%B1Fork%E7%9A%84%E4%BB%A3%E7%A0%81)
 
-更多关于 Github 的内容请查看：[GithubHelp](https://help.github.com/) 查找需要的信息。
+更多关于 GitHub 的内容请查看：[GitHubHelp](https://help.github.com/) 查找需要的信息。
 
 -------- 
 
@@ -180,7 +180,7 @@
 </ul>
 </li>
 <li><a href="http://www.worldhello.net/gotgithub/06-side-projects/tools.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6.3. 客户端工具</a><ul>
-<li><a href="http://www.worldhello.net/gotgithub/06-side-projects/github-mac.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6.3.1. github:mac</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/06-side-projects/github-mac.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6.3.1. GitHub:mac</a></li>
 <li><a href="http://www.worldhello.net/gotgithub/06-side-projects/hub.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6.3.2. hub</a></li>
 <li><a href="http://www.worldhello.net/gotgithub/06-side-projects/ios.html" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">6.3.3. iOS应用</a></li>
 </ul>
