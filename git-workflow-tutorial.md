@@ -4,7 +4,7 @@
 
 - 我们以使用SVN的工作流来使用`Git`有什么不妥？
 - `Git`方便的branch在哪里，团队多人如何协作？冲突了怎么办？如何进行发布控制？
-- 经典的master-发布、develop-主开发、hotfix-不过修复如何避免代码不经过验证上线？
+- 经典的master-发布、develop-主开发、hotfix-bug修复如何避免代码不经过验证上线？
 - 如何在`GitHub`上面与他人一起协作，star-fork-pull request是怎样的流程？
  
 我个人很感激这篇文章，所以进行了整理，希望能帮到更多的人。整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的`GitHub`，方便统一的学习回顾，在此感谢下面两位的贡献。

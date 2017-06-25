@@ -87,6 +87,35 @@ The command takes options applicable to the git rev-list command to control what
 
 # Undo things
 - 上次提交 msg 错误/有未提交的文件应该同上一次一起提交，需要重新提交备注：`git commit --amend -m 'new msg'` 
+- 修改上次提交的 author、email :`git commit --amend --author="newName <newEmail>"`
+- 修改整个历史记录中的某些错误的 author、email: `git rebase 或者 git filter-branch`
+    ``` bash
+    # git rebase  模式
+    git rebase -i -p 76892625a7b126f4772f8d7e331ada3552c11ce1 
+    # 弹出编辑器，在需要修改的 commit 处 由 picked 改变为 edit ，然后 wq 退出 vim；
+    git commit --amend --author 'newName <newEmail>'
+    # 执行后即变更了相应的 author 和 email 
+    git rebase --continue 
+    ################################################################
+    # git filter-branch 模式 https://help.github.com/articles/changing-author-info/
+git filter-branch --env-filter '
+OLD_EMAIL="your-old-email@example.com"
+CORRECT_NAME="Your Correct Name"
+CORRECT_EMAIL="your-correct-email@example.com"
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' --tag-name-filter cat -- --branches --tags
+    ```
+![](./_image/2017-06-02-11-51-27.jpg?r=54)
+
 - 一次`git add -A`后，需要将某个文件撤回到工作区，即：某个文件不应该在本次commit中：`git reset HEAD filename`
 - 撤销某些文件的修改内容：`git checkout -- filename` 注意：一旦执行，所有的改动都没有了，谨慎！谨慎！谨慎！
 - 将工作区内容回退到远端的某个版本：`git reset --hard <sha1-of-commit>`
