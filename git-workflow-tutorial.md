@@ -1160,6 +1160,6 @@ Git-Develop 分支模式是基于 Git 代码库设计的一种需要严格控制
 # 四、开发工作流的讨论
 几篇业界的讨论文章 
 - [Gitflow 有害论](http://insights.thoughtworkers.org/gitflow-consider-harmful/) 作者对 Gitflow 流程的使用过程中的吐槽，文章留言引起了强烈的讨论，可以关注下。
-- [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html) scottchacon 讲述在 GitHub 工作中日常流程以及对没一点进行详细的介绍。
+- [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html) scottchacon 讲述在 GitHub 工作中日常流程以及对每一点进行详细的介绍。
 - [谷歌的代码管理](http://www.ruanyifeng.com/blog/2016/07/google-monolithic-source-repository.html) 谷歌和 Facebook 都只有一个代码仓库，全公司的代码都放在这个库里，这里是阮一峰老师写的文章。
 - [Why Google Stores Billions of Lines of Code in a Single Repository](http://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext)
