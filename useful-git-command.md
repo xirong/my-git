@@ -246,7 +246,7 @@ When you clone a repository, it generally automatically creates a master branch 
 - 查看 tag：`git tag`
 - 查找指定 tag，比如查找 V1.0.* ：`git tag -l 'V1.0.*'` 会列出匹配到的，比如 V1.0.1,V1.0.1.1,V1.0.2 等
 - 创建轻量级 tag（lightweight tags）：`git tag tag-name` ，例如: `git tag v1.0`
-- 创建 tag（annotated tags）：`git tag -a tag-name -v 'msg'` ，例如：`git tag -a v1.0.0 -m '1.0.0版本上线完毕打tag'`
+- 创建 tag（annotated tags）：`git tag -a tag-name -m 'msg'` ，例如：`git tag -a v1.0.0 -m '1.0.0版本上线完毕打tag'`
 	+ annotated tags VS lightweight tags 可以通过命令真实查看下：`git show v1.0` / `git show v1.0.0`
 	+ “A lightweight tag is very much like a branch that doesn’t change – it’s just a pointer to a specific commit.
 Annotated tags, however, are stored as full objects in the Git database. They’re checksummed; contain the tagger name, e-mail, and date; have a tagging message; and can be signed and verified with GNU Privacy Guard (GPG). ”
