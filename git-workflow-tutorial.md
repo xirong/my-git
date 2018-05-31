@@ -1147,7 +1147,7 @@ git push origin some-branch
 - feature: 功能特性分支，每个功能特性一个 feature/ 分支，开发完成自测通过后合并入 develop 分支。可以从 master 或者develop 中拉出来。
 - hotfix: 紧急bug分支修复分支。修复上线后，可以直接合并入master。
 
-![](_image/2016-07-19 19-58-15.jpg)
+![](_image/2016-07-19-19-58-15.jpg)
 
 Git-Develop 分支模式是基于 Git 代码库设计的一种需要严格控制发布质量和发布节奏的开发模式。develop 作为固定的持续集成和发布分支，并且分支上的代码必须经过 CodeReview 后才可以提交到 Develop 分支。它的基本流程如下：
 - 每一个需求/变更都单独从Master上创建一条Branch分支；
