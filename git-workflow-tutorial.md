@@ -116,12 +116,12 @@
 
 # 一、译序
 
-这篇指南以大家在`SVN`中已经广为熟悉使用的集中式工作流作为起点，循序渐进地演进到其它高效的分布式工作流，还介绍了如何配合使用便利的`Pull Request`功能，体系地讲解了各种工作流的应用。
-如果你`Git`用的还不多，可以从前面的讲的工作流开始操练。操作过程去感受指南的讲解：解决什么问题、如何解决问题，这样理解就深了，也方便活用。
+这篇指南以大家在`SVN`中已经广为熟悉使用的集中式工作流作为起点，循序渐进地演进到其它高效的分布式工作流，还介绍了如何配合使用便利的`Pull Request`功能，系统地讲解了各种工作流的应用。
+如果你`Git`用的还不多，可以从前面的讲的工作流开始操练。在操作过程中去感受指南的讲解：解决什么问题、如何解决问题，这样理解就深了，也方便活用。
 
 行文中实践原则和操作示例并重，对于`Git`的资深玩家可以梳理思考提升，而新接触的同学，也可以跟着step-by-step操练学习并在实际工作中上手使用。
 
-工作流其实不是一个初级主题，背后的本质问题其实是 有效的项目流程管理 和 高效的开发协同约定，而不仅是`Git`或`SVN`等[`VCS`](http://zh.wikipedia.org/wiki/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6)或[`SCM`](http://zh.wikipedia.org/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86)工具的使用。
+工作流其实不是一个初级主题，背后的本质问题是 有效的项目流程管理 和 高效的开发协同约定，而不仅仅是`Git`或`SVN`等[`VCS`](http://zh.wikipedia.org/wiki/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6)或[`SCM`](http://zh.wikipedia.org/wiki/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86)工具的使用。
 
 关于`Git`工作流主题，网上体系的中文资料不多，主要是零散的操作说明，希望这篇文章能让你更深入理解并在工作中灵活有效地使用起来。
 
@@ -145,7 +145,7 @@
 - :see_no_evil: [自己](http://weibo.com/oldratlee)理解粗浅，翻译中不足和不对之处，欢迎 :clap:
     - 建议，[提交`Issue`](https://github.com/oldratlee/translations/issues/new)
     - 指正，[`Fork`后提通过`Pull Requst`贡献修改](https://github.com/oldratlee/translations/fork)
-- 如有文章理解上有疑问 或是 使用过程中碰到些疑惑，请随意:raised_hands:[提交`Issue`](https://github.com/oldratlee/translations/issues/new) ，一起交流学习讨论！
+- 如有文章理解上有疑问 或是 使用过程中碰到些疑惑，请随时:raised_hands:[提交`Issue`](https://github.com/oldratlee/translations/issues/new) ，一起交流学习讨论！
 
 ----------------
 
@@ -163,10 +163,10 @@
 如果你的开发团队成员已经很熟悉`Subversion`，集中式工作流让你无需去适应一个全新流程就可以体验`Git`带来的收益。这个工作流也可以作为向更`Git`风格工作流迁移的友好过渡。
 ![Git Workflows: SVN-style](images/git-workflow-svn.png)
 
-转到分布式版本控制系统看起来像个令人生畏的任务，但不改变已用的工作流你也可以用上`Git`带来的收益。团队可以用和`Subversion`完全不变的方式来开发项目。
+转到分布式版本控制系统看起来像个令人生畏的任务，但不改变已用的工作流，你也可以用上`Git`带来的收益。团队可以用和`Subversion`完全不变的方式来开发项目。
 
-但使用`Git`加强开发的工作流，`Git`有相比`SVN`的几个优势。
-首先，每个开发可以有属于自己的整个工程的本地拷贝。隔离的环境让各个开发者的工作和项目的其他部分修改独立开来 ——
+但使用`Git`加强开发的工作流，相比`SVN`，`Git`有以下两个优势:
+首先，每个开发者可以有属于自己的整个工程的本地拷贝。隔离的环境让各个开发者的工作和项目的其他部分修改独立开来 ——
 即自由地提交到自己的本地仓库，先完全忽略上游的开发，直到方便的时候再把修改反馈上去。
 
 其次，`Git`提供了强壮的分支和合并模型。不像`SVN`，`Git`的分支设计成可以做为一种用来在仓库之间集成代码和分享修改的『失败安全』的机制。
@@ -175,9 +175,9 @@
 
 像`Subversion`一样，集中式工作流以中央仓库作为项目所有修改的单点实体。相比`SVN`缺省的开发分支`trunk`，`Git`叫做`master`，所有修改提交到这个分支上。本工作流只用到`master`这一个分支。
 
-开发者开始先克隆中央仓库。在自己的项目拷贝中像`SVN`一样的编辑文件和提交修改；但修改是存在本地的，和中央仓库是完全隔离的。开发者可以把和上游的同步延后到一个方便时间点。
+首先，开发者克隆中央仓库。在自己的项目拷贝中，像`SVN`一样的编辑文件和提交修改；但修改是存在本地的，和中央仓库是完全隔离的。开发者可以把和上游的同步延后到一个方便时间点。
 
-要发布修改到正式项目中，开发者要把本地`master`分支的修改『推』到中央仓库中。这相当于`svn commit`操作，但`push`操作会把所有还不在中央仓库的本地提交都推上去。
+然后，开发者发布修改到正式项目中，开发者要把本地`master`分支的修改『推』到中央仓库中。这相当于`svn commit`操作，但`push`操作会把所有还不在中央仓库的本地提交都推上去。
 
 ![git-workflow-svn-push-local](images/git-workflow-svn-push-local.png)
 
@@ -386,7 +386,7 @@ git push origin master
 但不是直接提交本地历史到各自的本地`master`分支，开发者每次在开始新功能前先创建一个新分支。
 功能分支应该有个有描述性的名字，比如`animated-menu-items`或`issue-#1061`，这样可以让分支有个清楚且高聚焦的用途。
 
-在`master`分支和功能分支之间，`Git`是没有技术上的区别，所以开发者可以用和集中式工作流中完全一样的方式编辑、暂存和提交修改到功能分支上。
+对于`master`分支和功能分支，`Git`是没有技术上的区别，所以开发者可以用和集中式工作流中完全一样的方式编辑、暂存和提交修改到功能分支上。
 
 另外，功能分支也可以（且应该）`push`到中央仓库中。这样不修改正式代码就可以和其它开发者分享提交的功能。
 由于`master`是仅有的一个『特殊』分支，在中央仓库上存多个功能分支不会有任何问题。当然，这样做也可以很方便地备份各自的本地提交。
@@ -394,10 +394,10 @@ git push origin master
 ### 2.2.2 `Pull Requests`
 
 功能分支除了可以隔离功能的开发，也使得通过[`Pull Requests`](pull-request.md)讨论变更成为可能。
-一旦某个开发完成一个功能，不是立即合并到`master`，而是`push`到中央仓库的功能分支上并发起一个`Pull Request`请求去合并修改到`master`。
+一旦某个开发者完成一个功能，不是立即合并到`master`，而是`push`到中央仓库的功能分支上并发起一个`Pull Request`请求，将修改合并到`master`。
 在修改成为主干代码前，这让其它的开发者有机会先去`Review`变更。
 
-`Code Review`是`Pull Requests`的一个重要的收益，但`Pull Requests`目的是讨论代码一个通用方式。
+`Code Review`是`Pull Requests`的一个重要的收益，而`Pull Requests`则是讨论代码的一个通用方式。
 你可以把`Pull Requests`作为专门给某个分支的讨论。这意味着可以在更早的开发过程中就可以进行`Code Review`。
 比如，一个开发者开发功能需要帮助时，要做的就是发起一个`Pull Request`，相关的人就会自动收到通知，在相关的提交旁边能看到需要帮助解决的问题。
 
@@ -519,8 +519,8 @@ git push
 
 `Gitflow`工作流定义了一个围绕项目发布的严格分支模型。虽然比[功能分支工作流](workflow-feature-branch.md)复杂几分，但提供了用于一个健壮的用于管理大型项目的框架。
 
-`Gitflow`工作流没有用超出功能分支工作流的概念和命令，而是为不同的分支分配一个很明确的角色，并定义分支之间如何和什么时候进行交互。
-除了使用功能分支，在做准备、维护和记录发布也使用各自的分支。
+`Gitflow`工作流没有用超出功能分支工作流的概念和命令，而是为不同的分支分配一个明确的角色，并定义分支之间如何和什么时候进行交互。
+除了使用功能分支，在做准备、维护和记录发布时，也定义了各自的分支。
 当然你可以用上功能分支工作流所有的好处：`Pull Requests`、隔离实验性开发和更高效的协作。
 
 ### 2.3.1 工作方式
@@ -528,7 +528,7 @@ git push
 
 ### 2.3.2 历史分支
 
-相对使用仅有的一个`master`分支，`Gitflow`工作流使用2个分支来记录项目的历史。`master`分支存储了正式发布的历史，而`develop`分支作为功能的集成分支。
+相对于使用仅有的一个`master`分支，`Gitflow`工作流使用两个分支来记录项目的历史。`master`分支存储了正式发布的历史，而`develop`分支作为功能的集成分支。
 这样也方便`master`分支上的所有提交分配一个版本号。
 
 ![](images/git-workflow-release-cycle-1historical.png)
@@ -570,7 +570,7 @@ git push
 
 ![](images/git-workflow-release-cycle-4maintenance.png)
 
-维护分支或说是热修复（`hotfix`）分支用于生成快速给产品发布版本（`production releases`）打补丁，这是唯一可以直接从`master`分支`fork`出来的分支。
+维护分支或说是热修复（`hotfix`）分支用于给产品发布版本（`production releases`）快速生成补丁，这是唯一可以直接从`master`分支`fork`出来的分支。
 修复完成，修改应该马上合并回`master`分支和`develop`分支（当前的发布分支），`master`分支应该用新的版本号打好`Tag`。
 
 为`Bug`修复使用专门分支，让团队可以处理掉问题而不用打断其它工作或是等待下一个发布循环。
@@ -674,13 +674,13 @@ git push --tags
 ```
 
 `Git`有提供各种勾子（`hook`），即仓库有事件发生时触发执行的脚本。
-可以配置一个勾子，在你`push`中央仓库的`master`分支时，自动构建好对外发布。
+可以配置一个勾子，在你`push`中央仓库的`master`分支时，自动构建好版本，并对外发布。
 
 #### 最终用户发现`Bug`
 
 ![](images/git-workflow-gitflow-enduserbug.png)
 
-对外发布后，小红回去和小明一起做下个发布的新功能开发，直到有最终用户开了一个`Ticket`抱怨当前版本的一个`Bug`。
+对外版本发布后，小红小明一起开发下一版本的新功能，直到有最终用户开了一个`Ticket`抱怨当前版本的一个`Bug`。
 为了处理`Bug`，小红（或小明）从`master`分支上拉出了一个维护分支，提交修改以解决问题，然后直接合并回`master`分支：
 
 ```bash
@@ -1160,6 +1160,6 @@ Git-Develop 分支模式是基于 Git 代码库设计的一种需要严格控制
 # 四、开发工作流的讨论
 几篇业界的讨论文章 
 - [Gitflow 有害论](http://insights.thoughtworkers.org/gitflow-consider-harmful/) 作者对 Gitflow 流程的使用过程中的吐槽，文章留言引起了强烈的讨论，可以关注下。
-- [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html) scottchacon 讲述在 GitHub 工作中日常流程以及对没一点进行详细的介绍。
+- [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html) scottchacon 讲述在 GitHub 工作中日常流程以及对每一点进行详细的介绍。
 - [谷歌的代码管理](http://www.ruanyifeng.com/blog/2016/07/google-monolithic-source-repository.html) 谷歌和 Facebook 都只有一个代码仓库，全公司的代码都放在这个库里，这里是阮一峰老师写的文章。
 - [Why Google Stores Billions of Lines of Code in a Single Repository](http://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext)
