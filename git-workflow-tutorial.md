@@ -6,7 +6,7 @@
 - `Git`方便的branch在哪里，团队多人如何协作？冲突了怎么办？如何进行发布控制？
 - 经典的master-发布、develop-主开发、hotfix-bug修复如何避免代码不经过验证上线？
 - 如何在`GitHub`上面与他人一起协作，star-fork-pull request是怎样的流程？
- 
+
 我个人很感激这篇文章，所以进行了整理，希望能帮到更多的人。整篇文章由 [xirong](https://github.com/xirong) 整理自 [oldratlee](https://github.com/oldratlee) 的`GitHub`，方便统一的学习回顾，在此感谢下面两位的贡献。
 
 原文链接：[Git Workflows and Tutorials](https://www.atlassian.com/git/workflows)     
@@ -1140,14 +1140,14 @@ git push origin some-branch
 
 2016-11月 更新 **Git 分支开发部署模型** 的一些使用原则如下:
 
-![](./_image/2016-09-22-20-57-27.jpg)
+![](_image/2016-09-22-20-57-27.jpg)
 
 - master：master永远是线上代码，最稳定的分支，存放的是随时可供在生产环境中部署的代码，当开发活动告一段落，产生了一份新的可供部署的代码时，发布成功之后，代码才会由 aone2 提交到 master，master 分支上的代码会被更新。应用上 aone2 后禁掉所有人的 master的写权限
 - develop：保存当前最新开发成果的分支。通常这个分支上的代码也是可进行每日夜间发布的代码，只对开发负责人开放develop权限。
 - feature: 功能特性分支，每个功能特性一个 feature/ 分支，开发完成自测通过后合并入 develop 分支。可以从 master 或者develop 中拉出来。
 - hotfix: 紧急bug分支修复分支。修复上线后，可以直接合并入master。
 
-![](./_image/2016-07-19 19-58-15.jpg)
+![](_image/2016-07-19 19-58-15.jpg)
 
 Git-Develop 分支模式是基于 Git 代码库设计的一种需要严格控制发布质量和发布节奏的开发模式。develop 作为固定的持续集成和发布分支，并且分支上的代码必须经过 CodeReview 后才可以提交到 Develop 分支。它的基本流程如下：
 - 每一个需求/变更都单独从Master上创建一条Branch分支；
