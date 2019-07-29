@@ -4,7 +4,7 @@
 
 > Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 
-[git维基百科](http://zh.wikipedia.org/wiki/Git)上详细介绍了git的资料，包括git的创建、使用以及一些草考资料，已经挺全了，记住一点，最高效的学习方式就是**读文档**，找官方文档去阅读学习是最快的掌握git的方法。
+[git维基百科](http://zh.wikipedia.org/wiki/Git)上详细介绍了git的资料，包括git的创建、使用以及一些参考资料，已经挺全了，记住一点，最高效的学习方式就是**读文档**，找官方文档去阅读学习是最快的掌握git的方法。
 
 既然是分布式版本管理，那么和我们平常使用的svn有什么区别？
 1. 分布式 vs 集中管理 （多份版本库 vs 一份版本库，设想下版本服务器挂了？）
