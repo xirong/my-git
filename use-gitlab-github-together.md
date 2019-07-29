@@ -54,7 +54,7 @@
 git config --global user.name 'xirong' && git config --global user.email 'ixirong.liu@gmail.com' 
 
 # 团队项目配置，每次新创建一个项目，需要执行下
-git config --local user.name 'xirong.liu' && git config --local user.email 'xirong.liu@corp.xxx.com' 
+git config --local user.name 'xirong.liu' && git config --local user.email 'xirong.liu@corp.example.com' 
 ```
 
 ### 2. 生成 ssh key 上传到 Github/Gitlab
@@ -63,7 +63,7 @@ ssh key 默认生成后保存在 `~/.ssh/`目录下 ，默认为 `id_rsa 和 id_
 
 ``` bash 
 # 生成公钥、密钥的同时指定文件名，Gitlab使用
-ssh-keygen -t rsa -f ~/.ssh/id_rsa.gitlab -C "xirong.liu@corp.xxx.com"
+ssh-keygen -t rsa -f ~/.ssh/id_rsa.gitlab -C "xirong.liu@corp.example.com"
 
 # 生成默认，Github使用
 ssh-keygen -t rsa -C "ixirong.liu@gmail.com"
@@ -75,12 +75,18 @@ ssh-keygen -t rsa -C "ixirong.liu@gmail.com"
 在 `~/.ssh`目录下，如果不存在，则新建 `touch ~/.ssh/config`文件 ，文件内容添加如下：
 
 ``` bash 
-Host *.corp.xxx.com
+Host corp.example.com
+     HostName git.corp.example.com
      IdentityFile ~/.ssh/id_rsa.gitlab
      User xirong.liu
 ```
 
-配置完成后，符合 `*.corp.xxx.com`后缀的 Git 仓库，均采取` ~/.ssh/id_rsa.gitlab` 密钥进行验证，其它的采取默认的。
+- `Host`参数是命令行给出的主机名，比如`ssh -T git@corp.example.com`，那么此时的主机(`Host`)就是`corp.example.com`
+- 只有`Host`匹配之后，`SSH`把`git@corp.example.com`转换成`git.corp.example.com`
+- `Host`不支持`*`和主机名混用，即`*.example.com`；单独`*`表示匹配所有主机，也就是默认规则
+- `HostName`应该是必须填写的内容，根据你使用的命令行内容来填写
+
+配置完成后，符合`git.corp.example.com`的 Git 仓库，均采取` ~/.ssh/id_rsa.gitlab` 密钥进行验证，其它的采取默认的。
 
 ### 4. 上传public key 到 Github/Gitlab 
 
