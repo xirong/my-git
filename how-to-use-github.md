@@ -40,7 +40,7 @@
 </tr>
 <tr><th style="text-align:left;padding:1px 8px 1px 5px;border:0px;">Copyright:</th><td style="padding:1px 8px 1px 5px;text-align:left;border:0px;"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" style="color:rgb(85, 136, 51);text-decoration:none;font-weight:normal;">Creative Commons BY-NC-SA</a></td>
 </tr>
-</tbody>
+</tbody> 
 </table>
 <div>
 <h2 style="margin:1.3em 0px 0.2em;font-size:1.35em;padding:0px;">前言<a href="http://www.worldhello.net/gotgithub/#id1" title="永久链接至标题" style="color:black;text-decoration:none;font-weight:normal;visibility:hidden;font-size:1em;margin-left:6px;padding:0px 4px;">¶</a></h2>
