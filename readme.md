@@ -22,6 +22,7 @@ Mac 和 Linux 系统推荐使用终端即可，Git 一开始的命令的确很�
 - [Tower2](http://www.git-tower.com/) 号称最好的 Git 客户端，只有 Mac 版本，收费，集成 Github、Gitlab、Xcode等服务。
 - [SourceTree](https://www.sourcetreeapp.com/) 免费，功能齐全，Mac+Window 版本，集成 Github 等服务。
 - [SmartGit](http://www.syntevo.com/smartgit/) 非商业用途免费，全平台支持，集成 Github服务。内置 SSH client ，文件比较与合并工具。
+- [Fork](https://git-fork.com) 免费，Mac+Window 版本，功能齐全，轻便流畅。
 
 # Git branch
 - [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/) 介绍日常推荐的分支开发模型，基于此模型可以通过这个小游戏来进行学习 [Learn Git Branch](http://pcottle.github.io/learnGitBranching/)
