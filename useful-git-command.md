@@ -139,8 +139,25 @@ git revert --continue
 git revert --quit
 git revert --abort
 ```
- 
+
+回滚撤销一系列 commit 中的一条，并且不影响后续提交的功能 ，```git revert c2```
+
+ (https://blog.csdn.net/u013066244/article/details/79920012) https://blog.csdn.net/u013066244/article/details/79920012
+
 ## Revert VS Reset
+
+想象一个简单的场景，分支 A，有 c1，c2，c3，c4，c5 五次 commit 提交，后来发现 c2 提交是有问题的，需要回滚，这个时候怎么解决？
+方案一 使用 reset 命令
+拉个新分支 A_bak ，复制现有分支， git reset --hard c2 ， c3，c4，c5 都没有了。 git cherry-pick c3，c4，c5 到 A 分支。
+
+方案二 使用 revert 命令
+```git revert c2``` 可能会出现冲突，解决冲突即可。 也可能 revert 的 commit 是个合并 merge 的分支，则需要多做个操作，即 ```git revert c2 -m 1 , git revert c2 -m 2``` ，详情参考：https://blog.csdn.net/u013066244/article/details/79920012
+
+现象：会创建一个新的 commit，即 c6 ，在 c6 的提交中，将 c2 里面的内容 反转掉 ，若有冲突，会展示冲突解决的文件内容。
+
+revert 可以说是就是为了这种场景而产生的，也应该是我们日常工作中经常使用的命令。
+
+
 # Diff
 - 查看工作区（working directory）和暂存区（staged）之间差异：`git diff`
 - 查看工作区（working directory）与当前仓库版本（repository）HEAD版本差异：`git diff HEAD`
@@ -209,21 +226,24 @@ Git-Develop 分支模式是基于 Git 代码库设计的一种需要严格控制
 ## Branch 命令
 - 查看分支：`git branch` 、`git branch -v`、`git branch -vv` (查看当前分支 tracking 哪个远端分支)、`git branch --merged`、`git branch --no-merged`
 - 创建分支：`git branch branchname` 
+	
 	+ 例： 基于 master 分支新建 dev 分支 ： `git branch dev`
 - 基于之前的某个 Commit 新开分支： `git branch branchname <sha1-of-commit>` 
 	+ 例： 基于上线的的提交 a207a38d634cc10441636bc4359cd8a18c502dea 创建 hotfix 分支 ： `git branch hotfix a207a38`
 	+ 例: 基于 remoteBranch、localBranch、commitId、tag 创建分支均可以 `git checkout -b newbranch localBranch/remoteBranch/commitId/tag`
 	+ 例: 创建一个空的分支 
     	``` bash
-    	git checkout --orphan gh-pages # 创建一个orphan的分支，这个分支是独立的
+      	git checkout --orphan gh-pages # 创建一个orphan的分支，这个分支是独立的
         Switched to a new branch \'gh-pages\'
         git rm -rf . # 删除原来代码树下的所有文件
         rm \'.gitignore\'
         #注意这个时候你用git branch命令是看不见当前分支的名字的，除非你进行了第一次commit。添加新的文件，并且 commit 掉，就能看到分支了。
-    	````
+    ````
 - 切换分支： `git checkout branchname`
+	
 	+ 例： 由分支 master 切换到 dev 分支：`git checkout dev`
 - 创建新分支并切换到下面：`git checkout -b branchname`  或者 `git branch branchname && git checkout branchname`
+	
 	+ 例：基于 master 分支新建 dev 分支，并切换到 dev 分支上： `git checkout -b dev` 或 `git branch dev && git checkout dev ` 
 - 查看分支代码不同：`git diff branchname` 比较 branchname 分支与当前分支的差异点，若只看文件差异，不看差异内容:`git diff branchName --stat`
 - 合并分支：`git merge branchname` 将 branchname 分支代码合并到当前分支
