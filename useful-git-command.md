@@ -133,7 +133,7 @@ reset命令把当前分支指向另一个位置，并且有选择的变动工作
 > `git revert` will create a new commit that's the opposite (or inverse) of the given SHA. If the old commit is "matter", the new commit is "anti-matter"—anything removed in the old commit will be added in the new commit and anything added in the old commit will be removed in the new commit.
 > This is Git's safest, most basic "undo" scenario, because it doesn't alter history—so you can now git push the new "inverse" commit to undo your mistaken commit.
 
-``` bash
+```bash
 git revert [--[no-]edit] [-n] [-m parent-number] [-s] [-S[<keyid>]] <commit>…​
 git revert --continue
 git revert --quit
@@ -144,7 +144,12 @@ git revert --abort
 
  (https://blog.csdn.net/u013066244/article/details/79920012) https://blog.csdn.net/u013066244/article/details/79920012
 
-## Revert VS Reset
+# Restore
+分离 checkout 的功能，之前 checkout 可以切换分支，也可以恢复工作区的修改内容，现在这部分恢复修改内容由命令 restore来实现；
+git-restore[1] is about restoring files in the working tree from either the index or another commit. This command does not update your branch. The command can also be used to restore files in the index from another commit.
+
+
+## Revert VS Reset VS Restore 
 
 想象一个简单的场景，分支 A，有 c1，c2，c3，c4，c5 五次 commit 提交，后来发现 c2 提交是有问题的，需要回滚，这个时候怎么解决？
 方案一 使用 reset 命令
@@ -170,6 +175,7 @@ revert 可以说是就是为了这种场景而产生的，也应该是我们日�
 
 - 解决冲突后/获取远程最新代码后合并代码：`git merge branchname` ，将 branchname 分支上面的代码合并到当前分支
 - 保留该存在版本合并log：`git merge --no-ff branchname` 参数 `--no-ff` 防止 fast-forward 的提交，详情参考：[the difference](http://stackoverflow.com/questions/9069061/what-is-the-difference-between-git-merge-and-git-merge-no-ff)，fast-forward：分支内容一致，指针直接移动，并未能看出分支信息
+
 # Rebase
 Rebase 同 Merge 的结果是一样的，就是合并本地、远程的改动，但过程中还有区别。
 ``` bash
