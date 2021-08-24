@@ -3,7 +3,7 @@
 
 网络上面已经有了那么多的关于 Git 的文章，为什么还要弄一个repo来专门记录？网上的文章都是片面的，稍微全点的讲解的不够全面、深入，没能满足我对于文章的想象，所以决定自己来写。
 
-如果你要有一些资源，希望和我一起，把这个搞起来，很简单，`Fork-修改- Pull Request` 就 ok。
+如果你要有一些资源，希望和我一起，把这个搞起来，很简单，`Fork-修改- Pull Request` 就 ok。#x
 
 # 新手入门
 - [为什么开始使用 Git 版本管理，Git VS Svn 有哪些区别？](https://github.com/xirong/my-git/blob/master/why-git.md)
