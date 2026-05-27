@@ -1,5 +1,7 @@
-说明
-===========
-在日常开发中使用的 Svn 相关的概念以及技巧方法整理 ……
+English | [中文](zh/using-svn.md)
 
-[TortoiseSvn 使用](http://tortoisesvn.net/docs/release/TortoiseSVN_zh_CN/index.html)
+Overview
+===========
+A collection of SVN concepts, tips, and techniques used in day-to-day development ……
+
+[TortoiseSVN Documentation](http://tortoisesvn.net/docs/release/TortoiseSVN_zh_CN/index.html)
