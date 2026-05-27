@@ -1,63 +1,73 @@
-原文出自：http://ixirong.com/2014/11/19/the-way-to-learn-git/ 
+English | [中文](zh/ixirong.com.md)
 
-## 一、什么是git？ 
+Original post: http://ixirong.com/2014/11/19/the-way-to-learn-git/
+
+## 1. What is Git?
 
 > Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 
-[git维基百科](http://zh.wikipedia.org/wiki/Git)上详细介绍了git的资料，包括git的创建、使用以及一些参考资料，已经挺全了，记住一点，最高效的学习方式就是**读文档**，找官方文档去阅读学习是最快的掌握git的方法。
+The [Git Wikipedia page](http://zh.wikipedia.org/wiki/Git) covers Git in depth — its history, usage, and a wealth of reference material. One thing to keep in mind: the most effective way to learn is to **read the documentation**. Going straight to the official docs is the fastest path to mastering Git.
 
-既然是分布式版本管理，那么和我们平常使用的svn有什么区别？
-1. 分布式 vs 集中管理 （多份版本库 vs 一份版本库，设想下版本服务器挂了？）
-2. 无需网络，随时随地进行版本控制，在没有网络的情况下你想回退到某个版本svn基本没戏；
-3. 分支的新建、合并非常方便、快速，没有任何成本，基本不耗时，svn的版本基本上等同于又复制了一份代码；
+Since Git is a distributed version control system, how does it differ from SVN?
 
-**stackoverflow** 上关于svn和git的区别的讨论，说的很详细，请参考 [Why is Git better than Subversion?](http://stackoverflow.com/questions/871/why-is-git-better-than-subversion)
-**github** 上通过版本库结构、历史、子项目（submudle）的不同来对比两者，请参考 [What are the differences between SVN and Git?](https://help.github.com/articles/what-are-the-differences-between-svn-and-git/)
+1. **Distributed vs. centralized** — multiple full copies of the repository vs. one central copy. What happens when the central server goes down?
+2. **No network required** — you can do version control anytime, anywhere. Want to roll back to a previous version without network access? SVN basically can't do that.
+3. **Branching and merging are fast and cheap** — nearly instantaneous, with no real overhead. In SVN, branching is essentially copying the entire codebase.
 
-## 二、git 安装
- 《pro git》一书中已经写明白了[各个平台上怎么安装git](http://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git),如果感觉晦涩，就看这个[廖雪峰安装git](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137396287703354d8c6c01c904c7d9ff056ae23da865a000)
+For a thorough discussion of Git vs. SVN on **Stack Overflow**, see [Why is Git better than Subversion?](http://stackoverflow.com/questions/871/why-is-git-better-than-subversion)
 
-## 三、git 初使用
-- 对于已经熟悉svn的用户可以直接查看此文档 [Git - SVN Crash Course](http://git.or.cz/course/svn.html)，通过对比两个工具对同样的操作采取不同的命令来快速认识git的一些常用命令
+**GitHub** compares the two in terms of repository structure, history, and submodule support: [What are the differences between SVN and Git?](https://help.github.com/articles/what-are-the-differences-between-svn-and-git/)
 
-- 对于一个新手来说，我不需要知道git的原理，不需要知道git那么多的命令，我只想用git完成一次仓库的从初始化、commit、push、branch、tag等一个流程，越简单越好，图文教程，以window下使用git为例，一步步走完整个流程，推荐 [手把手教你使用Git](http://blog.jobbole.com/78960/)
+## 2. Installing Git
 
-- 比较全面讲述的git的系列文章 [号称史上最浅显易懂的Git教程！](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
+*Pro Git* has clear instructions for [installing Git on all platforms](http://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git). If that feels too dense, check out [Liao Xuefeng's Git installation guide](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137396287703354d8c6c01c904c7d9ff056ae23da865a000) for a more approachable walkthrough.
 
-- 看完上面的几步内容，想你习对git基本上可以使用了，要掌握还得多多练习，熟能生巧，你是不是想去看看关于git的全部内容 ，[官方中文电子版书籍](http://git-scm.com/book/zh/v1)即可满足你，当然你可以查看最新[V2版英文](http://git-scm.com/book/en/v2)或者下载epub pdf等本地阅读；
+## 3. Getting Started with Git
 
-## 四、git 分支、tag
-git 最帅气的就是对分支的处理，方便快速，你只需要一个简单的
+- If you already know SVN, jump straight to [Git - SVN Crash Course](http://git.or.cz/course/svn.html). It maps equivalent SVN commands to their Git counterparts, giving you a quick on-ramp.
+
+- For complete beginners who just want to get something done — initialize a repo, commit, push, create a branch, tag a release — without worrying about internals, this step-by-step illustrated tutorial (using Git on Windows) is a great start: [A Hands-On Guide to Git](http://blog.jobbole.com/78960/)
+
+- For a comprehensive Chinese tutorial series, see [The Clearest Git Tutorial Ever Written!](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
+
+- After working through the above, you should be able to use Git for everyday tasks. Practice is what turns knowledge into skill. When you're ready to go deeper, the [official Chinese e-book](http://git-scm.com/book/zh/v1) has everything you need — or read the latest [English V2 edition](http://git-scm.com/book/en/v2), available to download as epub or PDF.
+
+## 4. Branches and Tags
+
+One of Git's best features is how it handles branches — fast and effortless. A single command:
+
 ``` bash
 git branch branch-name
 ```
-就能开出一个叫branch-name的分支，毫秒钟搞定，但也正是因为方便，如果使用不合理就会造成**分支混乱，分不清脉络**， 推荐看一下阮一峰写的文章 [Git分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html) ，最原始的文章就是这篇老外写的[A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)，[@萌面大叔的乌托邦]()提到开源中国已经翻译成了中文，感兴趣的可以去看看[介绍一个成功的 Git 分支模型](http://www.oschina.net/translate/a-successful-git-branching-model)
 
-![杂乱的分支](http://static.ixirong.com/pic/git/git-branchs-messy.webp)
+creates a new branch in milliseconds. But precisely because it's so easy, poor branch hygiene can lead to **a tangled mess that's impossible to follow**. I recommend reading Ruan Yifeng's article [Git Branching Strategy](http://www.ruanyifeng.com/blog/2012/07/git.html), which is based on the classic post [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/). A Chinese translation is also available on OSChina: [Introducing a Successful Git Branching Model](http://www.oschina.net/translate/a-successful-git-branching-model).
 
-## 五、git 常见命令
-一个比较好的汇总了git的一些基本命令的pdf，可以经常看看，或者当成命令手册，推荐 [Git Cheat Sheet](http://www.cheat-sheets.org/saved-copy/git-cheat-sheet.pdf) ，还有一张图片 [Git常用命令](http://www.cnblogs.com/1-2-3/archive/2010/07/18/git-commands.html) 也不错；最近我整理了一份xmind的导图，将**这两份**资料都放到了画布里面，[百度网盘](http://pan.baidu.com/s/1c052yVu) 密码：`6x7u` 存储了，不断更新，有需要的可以下载，预览图片如下：
+![Messy branches](http://static.ixirong.com/pic/git/git-branchs-messy.webp)
 
-![Git常用xmind导图整理](http://static.ixirong.com/pic/git/git-xmind.webp)
+## 5. Common Git Commands
 
-最强大的**命令手册**还得属于终端，* man git * 或者 * man git 命令 * 或者 * git --help * 或者 * git 命令 --help *，在这里可以找到任何你想要的。
+A solid PDF reference for everyday Git commands: [Git Cheat Sheet](http://www.cheat-sheets.org/saved-copy/git-cheat-sheet.pdf). There's also a handy visual summary: [Common Git Commands](http://www.cnblogs.com/1-2-3/archive/2010/07/18/git-commands.html). I've compiled both into an XMind mind map, available on [Baidu Pan](http://pan.baidu.com/s/1c052yVu) (password: `6x7u`) — updated periodically. Preview below:
 
-## 六、git 书籍资料
--《[Pro Git](http://git-scm.com/book/zh/v1)》 作者Scott Chacon是github的员工，git的布道者，这本书被誉为git学习圣经，中间有好多插图描述的浅显易懂，挺适合详细学习下的，最新英文第二版《[pro git (Editon 2)](http://git-scm.com/book/en/v2)》；
+![Git XMind mind map](http://static.ixirong.com/pic/git/git-xmind.webp)
 
--《[Git Community Book](http://gitbook.liuhui998.com/)》汇聚了Git社区的很多精华,  并对git的对象模型原理等做了解释，可以深入的了解下git原理；
+The most powerful **command reference** of all is right in your terminal: `man git`, `man git <command>`, `git --help`, or `git <command> --help`. Everything you could ever need is there.
 
-2015-01-22 增加
-- 推荐的工作流程 [git workflow](http://documentup.com/skwp/git-workflows-book) 
+## 6. Books and Resources
 
-2015-04-05 增加 git flow 工具
-- [git flow 工具](https://github.com/nvie/gitflow)
-- [git flow 中文备忘清单](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)
-- 一个很有意思的学习 git 的小游戏 http://pcottle.github.io/learnGitBranching/ 
-- [图解 git](http://marklodato.github.io/visual-git-guide/index-zh-cn.html) 将书籍中很多<code>术语</code>用图片的方式进行讲解，很容易就懂了 
-- [图文并茂-猴子都能懂的git入门教程](http://backlogtool.com/git-guide/cn/) 全面，生动形象，图文并茂，简单易懂，强烈推荐！
+- **[Pro Git](http://git-scm.com/book/zh/v1)** — Written by Scott Chacon, a GitHub employee and Git evangelist. Widely regarded as the definitive Git learning resource, with clear diagrams throughout. The latest edition is available in English as **[Pro Git (Edition 2)](http://git-scm.com/book/en/v2)**.
 
+- **[Git Community Book](http://gitbook.liuhui998.com/)** — A distillation of community knowledge, including in-depth coverage of Git's object model and internals. Great for understanding how Git works under the hood.
 
+*Added 2015-01-22*
+- Recommended workflow guide: [git workflow](http://documentup.com/skwp/git-workflows-book)
 
-关于日常中使用git来版本管理的流程写的很不错的一本书，日常工作模式、流程怎样更合理的工作！
-** 最后，当你开始使用git的时候，学会用终端，比如你想看关于branch，那么大胆的时候 *git branch --help * 查看相应的命令！ **
+*Added 2015-04-05 — git-flow tooling*
+- [git-flow tool](https://github.com/nvie/gitflow)
+- [git-flow cheat sheet (Chinese)](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)
+- A fun interactive game for learning Git branching: http://pcottle.github.io/learnGitBranching/
+- [Visual Git Guide](http://marklodato.github.io/visual-git-guide/index-zh-cn.html) — explains many Git <code>concepts</code> through diagrams, making them immediately intuitive
+- [Git Guide for Absolute Beginners (with illustrations)](http://backlogtool.com/git-guide/cn/) — comprehensive, lively, and easy to follow. Highly recommended!
+
+---
+
+**Finally: once you start using Git, get comfortable with the terminal. Curious about a command? Just run `git branch --help` (or any other command) and let Git explain itself.**
