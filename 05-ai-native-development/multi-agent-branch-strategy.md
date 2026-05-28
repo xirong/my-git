@@ -16,7 +16,7 @@ ai/review-parser-refactor
 2. 每个分支一个明确任务
 3. 每个分支独立提交和验证
 4. 人类选择需要保留的方案
-5. 合并前重新整理 commit
+5. 合并前整理 commit
 
 ## 避免
 

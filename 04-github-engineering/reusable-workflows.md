@@ -5,8 +5,6 @@
 - [GitHub Docs: Reuse workflows](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows)
 - [GitHub Docs: Reusing workflow configurations](https://docs.github.com/en/actions/reference/workflows-and-actions/reusing-workflow-configurations)
 
-说明：本文是面向本仓库读者的改写版，重点整理多仓库团队如何统一 GitHub Actions CI 模板。
-
 ## 1. 解决什么问题
 
 多仓库团队最容易出现 CI 分裂：

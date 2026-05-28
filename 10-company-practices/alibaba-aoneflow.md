@@ -5,8 +5,6 @@
 - [How Do We Manage Code Branches at Alibaba?](https://www.alibabacloud.com/blog/how-do-we-manage-code-branches-at-alibaba_593834)
 - [Evolved Branch Management with AoneFlow](https://www.alibabacloud.com/blog/evolved-branch-management-with-aoneflow_594903)
 
-说明：本文是面向本仓库读者的改写版，保留原文核心思路，重新整理为团队选型和落地参考。
-
 ## 1. AoneFlow 解决什么问题
 
 传统 Gitflow 分支角色清晰，但分支多、流程重，长期使用后容易出现 `develop`、`release`、`main` 多处分叉，回合成本高。
@@ -43,7 +41,7 @@ main -> release/test  <- merge feature/a + feature/b
 main -> release/prod  <- merge feature/a
 ```
 
-这样做的好处是，发布分支表达的是“本次要上线哪些功能”，而不只是“当前集成分支上有什么代码”。
+这样做的好处是，发布分支表达“本次要上线哪些功能”，不只表达“当前集成分支上有什么代码”。
 
 ## 3. 三条关键规则
 

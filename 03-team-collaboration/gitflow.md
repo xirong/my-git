@@ -56,17 +56,19 @@ develop -> feature/* -> develop -> release/* -> main -> tag
 
 如果你的产品有明确版本线、发布窗口、客户侧升级周期，Gitflow 仍然有价值。
 
+Atlassian 的 Gitflow 教程也把它放在特定发布型场景里理解：它适合版本列车、发布准备、热修复和审计较重的产品；在现代 CI/CD 和高频服务交付中，长期分支会增加偏离主线与集成冲突的成本。
+
 ## 企业实践参考
 
-[腾讯云社区 Gitflow 分支规范实践](../09-resources/company-practices/tencent-gitflow.md) 可以作为 Gitflow 风格团队规范的参考，尤其适合 release、hotfix、tag、回合路径都要写清楚的团队。
+[腾讯云社区 Gitflow 分支规范实践](../10-company-practices/tencent-gitflow.md) 可以作为 Gitflow 风格团队规范的参考，尤其适合 release、hotfix、tag、回合路径都要写清楚的团队。
 
-[阿里巴巴 AoneFlow 分支管理实践](../09-resources/company-practices/alibaba-aoneflow.md) 则提供了另一种思路：保留 feature 和 release 的清晰边界，同时减少长期 `develop` 分支带来的复杂度。
+[阿里巴巴 AoneFlow 分支管理实践](../10-company-practices/alibaba-aoneflow.md) 则提供了另一种思路：保留 feature 和 release 的清晰边界，同时减少长期 `develop` 分支带来的复杂度。
 
 ## 延伸阅读
 
 - [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
 - [Atlassian: Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-- [腾讯云社区 Gitflow 分支规范实践](../09-resources/company-practices/tencent-gitflow.md)
-- [阿里巴巴 AoneFlow 分支管理实践](../09-resources/company-practices/alibaba-aoneflow.md)
+- [腾讯云社区 Gitflow 分支规范实践](../10-company-practices/tencent-gitflow.md)
+- [阿里巴巴 AoneFlow 分支管理实践](../10-company-practices/alibaba-aoneflow.md)
 - [团队 Git 工作流指南](team-git-workflow-guide.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

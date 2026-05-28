@@ -15,8 +15,6 @@
 - [Git reftable documentation](https://git-scm.com/docs/reftable)
 - [GitLab: What's new in Git 2.54.0](https://about.gitlab.com/blog/whats-new-in-git-2-54-0/)
 
-说明：本文是面向本仓库读者的改写版，用于跟踪 Git 新版本里对工程团队有现实价值的变化。
-
 ## 1. 为什么团队要关注 Git 新版本
 
 普通开发者日常用到的 Git 命令变化不大，但大仓库、CI、历史改写、引用存储、安全和性能相关能力一直在演进。

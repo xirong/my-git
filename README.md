@@ -30,7 +30,7 @@
 
 ### 新手路径
 
-1. [为什么使用 Git](why-git.md)
+1. [为什么使用 Git](01-getting-started/why-git.md)
 2. [Git 心智模型](01-getting-started/git-mental-model.md)
 3. [Git 基础命令](01-getting-started/git-basic-commands.md)
 4. [日常 Git 命令](02-daily-workflow/everyday-git-commands.md)
@@ -45,16 +45,20 @@
 ### 团队协作路径
 
 1. [团队 Git 工作流指南](03-team-collaboration/team-git-workflow-guide.md)
-2. [Pull Request 最佳实践](03-team-collaboration/pull-request-best-practices.md)
-3. [Code Review 最佳实践](03-team-collaboration/code-review-best-practices.md)
-4. [经典 Git 工作流教程](git-workflow-tutorial.md)
+2. [GitLab Flow](03-team-collaboration/gitlab-flow.md)
+3. [Pull Request 最佳实践](03-team-collaboration/pull-request-best-practices.md)
+4. [Code Review 最佳实践](03-team-collaboration/code-review-best-practices.md)
+5. [经典 Git 工作流教程](git-workflow-tutorial.md)
 
 ### GitHub 工程治理路径
 
 1. [GitHub 工程治理手册](04-github-engineering/github-engineering-governance.md)
-2. [分支保护](04-github-engineering/branch-protection.md)
-3. [Rulesets](04-github-engineering/rulesets.md)
-4. [发布管理](04-github-engineering/release-management.md)
+2. [企业 GitHub 协作配置栈](04-github-engineering/enterprise-github-workflow-stack.md)
+3. [分支保护](04-github-engineering/branch-protection.md)
+4. [Rulesets](04-github-engineering/rulesets.md)
+5. [Merge Queue](04-github-engineering/merge-queue.md)
+6. [GitOps and Config as Code](04-github-engineering/gitops-and-config-as-code.md)
+7. [发布管理](04-github-engineering/release-management.md)
 
 ### AI Native 开发路径
 
@@ -63,7 +67,8 @@
 3. [Codex / Claude Code Git 实践](05-ai-native-development/codex-claude-code-git-practices.md)
 4. [AI 编程工具的 Git 集成实践](05-ai-native-development/ai-coding-tools-git-integration.md)
 5. [Worktree for AI Agents](05-ai-native-development/worktree-for-ai-agents.md)
-6. [AI Reviewer 与 Human Reviewer](05-ai-native-development/ai-reviewer-and-human-reviewer.md)
+6. [Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md)
+7. [AI Reviewer 与 Human Reviewer](05-ai-native-development/ai-reviewer-and-human-reviewer.md)
 
 ### 故障处理路径
 
@@ -72,14 +77,32 @@
 3. [Recover Lost Commit](06-troubleshooting/recover-lost-commit.md)
 4. [Remove Secret from History](06-troubleshooting/remove-secret-from-history.md)
 
+## 按问题找答案
+
+| 我现在遇到的问题 | 建议先看 |
+| --- | --- |
+| 刚把 commit 提交到了错误分支 | [Committed to Wrong Branch](06-troubleshooting/committed-to-wrong-branch.md) |
+| reset、rebase、force push 后不知道怎么恢复 | [Git 高频事故处理手册](06-troubleshooting/git-troubleshooting-playbook.md) |
+| 团队不知道该选 GitHub Flow、Gitflow 还是 Trunk-Based Development | [团队 Git 工作流指南](03-team-collaboration/team-git-workflow-guide.md) |
+| PR 太大，Review 很慢 | [Pull Request 最佳实践](03-team-collaboration/pull-request-best-practices.md) |
+| AI 一次改了很多文件，不知道怎么审 | [AI 变更审查实战样例](05-ai-native-development/ai-change-review-example.md) |
+| AI 生成的大 diff 需要拆 commit 或拆 PR | [AI Commit Splitting](05-ai-native-development/ai-commit-splitting.md)、[Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md) |
+| 想保护 main 分支 | [Branch Protection](04-github-engineering/branch-protection.md) |
+| PR 很多，主分支经常被合坏 | [Merge Queue](04-github-engineering/merge-queue.md) |
+| 大仓库 clone、status、checkout 很慢 | [Large Repository Git Practices](07-large-repo/large-repo-git-practices.md) |
+| 想直接复制团队模板 | [Templates](08-templates/) |
+
 ## 第一阶段最值得读
 
 - [AI Native Git Workflow](05-ai-native-development/ai-native-git-workflow.md)
 - [Codex / Claude Code Git 实践](05-ai-native-development/codex-claude-code-git-practices.md)
 - [AI 编程工具的 Git 集成实践](05-ai-native-development/ai-coding-tools-git-integration.md)
+- [AI 变更审查实战样例](05-ai-native-development/ai-change-review-example.md)
+- [Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md)
 - [Git 高频事故处理手册](06-troubleshooting/git-troubleshooting-playbook.md)
 - [团队 Git 工作流指南](03-team-collaboration/team-git-workflow-guide.md)
 - [GitHub 工程治理手册](04-github-engineering/github-engineering-governance.md)
+- [企业工程实践案例库](10-company-practices/README.md)
 - [AI 代码 Review 清单](08-templates/ai-code-review-checklist.md)
 
 ## 推荐资料来源
@@ -99,7 +122,7 @@
 
 详细计划见 [roadmap](00-meta/roadmap.md)。
 
-已有内容会逐步纳入新的学习路径，资料索引见 [resources](09-resources/resources-index.md)。
+已有内容会逐步纳入新的学习路径，迁移清单见 [legacy content migration](00-meta/legacy-content-migration.md)，资料索引见 [resources](09-resources/resources-index.md)。
 
 ## Contributing
 

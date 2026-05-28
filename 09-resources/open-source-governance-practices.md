@@ -8,8 +8,6 @@
 - [Go Contribution Guide](https://go.dev/doc/contribute)
 - [Rust RFCs](https://github.com/rust-lang/rfcs)
 
-说明：本文是面向本仓库读者的改写版，重点提炼开源项目治理方式对企业团队的启发。
-
 ## 1. 为什么看开源治理
 
 成熟开源项目的协作问题和企业团队很像：

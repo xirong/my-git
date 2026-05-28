@@ -12,8 +12,6 @@
 - [Aider Git Integration](https://aider.chat/docs/git.html)
 - [Cursor 2.0 and Composer](https://cursor.com/blog/2-0)
 
-说明：本文是面向本仓库读者的改写版，AI 工具变化很快，具体命令和能力以官方文档为准。
-
 ## 1. 共同趋势
 
 AI 编程工具正在从“编辑器里补代码”变成“围绕 Git 工作区完成任务”。

@@ -12,6 +12,8 @@
 - Code scanning
 - Dependency review
 
+这些能力适合作为 PR 和 push 阶段的安全检查点，和分支保护、Rulesets、CI 组合使用，见 [企业 GitHub 协作配置栈](enterprise-github-workflow-stack.md)。
+
 ## Secret scanning 做什么
 
 GitHub secret scanning 会扫描仓库中的凭证泄露风险，并在发现可疑 secret 时生成告警。
@@ -51,9 +53,18 @@ Push protection 会在开发者 push 时识别可能的 secret，并阻止它进
 - PR 模板加入 secret 自查项
 - 关键仓库开启 secret scanning 和 push protection
 
+## Dependabot 和 Code Scanning
+
+Dependabot 适合把依赖升级和 GitHub Actions 版本升级变成可 Review 的 PR。
+
+Code scanning 适合把静态安全问题前移到 PR 或主分支检查中，并通过告警把问题分配给 owner。
+
+这两类能力要和 CODEOWNERS、必需检查、处理时限配合，否则只是增加告警数量。
+
 ## 延伸阅读
 
 - [GitHub Docs: About secret scanning](https://docs.github.com/en/code-security/concepts/secret-security/about-secret-scanning)
 - [GitHub Docs: Enabling secret scanning features](https://docs.github.com/en/code-security/secret-scanning/enabling-secret-scanning-features)
 - [GitHub security features](https://docs.github.com/en/code-security/getting-started/github-security-features)
+- [企业 GitHub 协作配置栈](enterprise-github-workflow-stack.md)
 - [Remove Secret from History](../06-troubleshooting/remove-secret-from-history.md)

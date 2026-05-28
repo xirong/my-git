@@ -5,8 +5,6 @@
 - [Software Engineering at Google: Version Control and Branch Management](https://abseil.io/resources/swe-book/html/ch16.html)
 - [Trunk Based Development](https://trunkbaseddevelopment.com/)
 
-说明：本文是面向本仓库读者的改写版，结合 Google 工程书公开章节和主干开发资料，整理为团队实践参考。
-
 ## 1. Google 实践带来的关键判断
 
 主干开发的重点是让团队围绕一条主要代码线持续集成，尽量减少长期分支。

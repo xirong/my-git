@@ -16,6 +16,8 @@ fork upstream -> create branch -> commit -> open PR -> maintainer review -> merg
 - 外部贡献者很多
 - 不希望给所有贡献者主仓库写权限
 - 维护者需要统一把控合入质量
+- InnerSource 公共基础仓库
+- 外部合作方参与较多的生态仓库
 
 ## 贡献者流程
 
@@ -64,6 +66,19 @@ git push -u origin docs/update-guide
 ### 3. CI 权限和 secret 风险
 
 来自 fork 的 PR 需要注意 CI 权限和 secret 暴露风险，尤其是自动化脚本会执行外部贡献者代码时。
+
+## 企业内部怎么用
+
+企业内部如果所有成员都在同一个组织里，通常不必默认使用 Forking Workflow。
+
+但在这些场景里，fork 仍然有价值：
+
+- 平台团队维护公共基础库
+- 外部供应商或合作伙伴参与
+- 希望隔离不可信贡献者写权限
+- 核心仓库只允许维护者最终合入
+
+对纯内部业务服务，feature branch + protected main 往往更简单。
 
 ## 延伸阅读
 

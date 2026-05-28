@@ -133,6 +133,8 @@ git add -p
 
 注意：只在本地未 push 的 commit 上这样做。
 
+如果 AI 生成的是一个跨层大功能，可以考虑拆成一组有依赖关系的小 PR，让测试、实现、清理、文档分层进入 Review。详细见 [Stacked PR for AI-Generated Changes](stacked-pr-for-ai-generated-changes.md)。
+
 ### 第 6 步：运行验证
 
 根据项目类型选择最小必要验证：
@@ -242,6 +244,8 @@ ai/review-task-a
 
 完整模板见 [AI Code Review Checklist](../08-templates/ai-code-review-checklist.md)。
 
+跨层或跨 owner 的大变更，优先拆成 stacked PR，避免一个 PR 同时承担需求解释、代码理解、测试验证和风险判断。
+
 ## 7. 常见反模式
 
 ### 一次让 AI 改完整个模块
@@ -311,6 +315,7 @@ Revert this PR.
 ## 延伸阅读
 
 - [git worktree](https://git-scm.com/docs/git-worktree)
+- [AI 变更审查实战样例](ai-change-review-example.md)
 - [AI 编程工具的 Git 集成实践](ai-coding-tools-git-integration.md)
 - [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
 - [GitHub rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)

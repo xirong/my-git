@@ -73,5 +73,6 @@ GitHub 要求被列为 code owner 的用户或团队具备仓库写权限，否�
 - [GitHub Docs: About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
 - [GitHub Docs: About pull request reviews](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews)
 - [开源项目 Git 治理实践](../09-resources/open-source-governance-practices.md)
+- [Gerrit 代码评审治理参考](../09-resources/gerrit-code-review-governance.md)
 - [GitHub 工程治理手册](github-engineering-governance.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

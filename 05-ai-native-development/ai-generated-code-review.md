@@ -131,6 +131,7 @@ AI Review 工具适合做第一轮扫描，尤其是发现明显 bug、测试缺
 ## 延伸阅读
 
 - [AI Code Review Checklist](../08-templates/ai-code-review-checklist.md)
+- [AI 变更审查实战样例](ai-change-review-example.md)
 - [Pull Request Template](../08-templates/pull-request-template.md)
 - [Responsible use of GitHub Copilot code review](https://docs.github.com/en/copilot/responsible-use/code-review)
 - [Review AI-generated code](https://docs.github.com/en/enterprise-cloud@latest/copilot/tutorials/review-ai-generated-code)

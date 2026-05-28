@@ -13,6 +13,7 @@
 | 中大型业务团队 | Feature Branch + Protected Main | 兼顾并行开发和主分支稳定 |
 | 开源项目 | Fork + Pull Request | 降低外部贡献者写权限风险 |
 | 多版本交付产品 | Release Branch | 需要维护多个发布版本 |
+| 多环境 SaaS / 企业内部平台 | GitLab Flow | 合入频率和上线频率不同，需要 production / stable 分支 |
 | 移动端 / 客户端 | Release Branch + Hotfix | 发版周期长，线上版本分散 |
 | 老系统维护 | Conservative Branch Strategy | 变更少、风险高，优先稳定 |
 
@@ -61,6 +62,14 @@ short-lived branch -> main -> CI -> deploy
 - 缺少 feature flag 时，未完成能力容易暴露
 - 大团队需要更强的代码所有权和 Review 规则
 
+## 3.1 GitHub Flow 和 Trunk-Based Development 的关系
+
+GitHub Flow 更像 GitHub 平台上的轻量实现路径：短分支、PR、Review、合入默认分支。
+
+Trunk-Based Development 更像组织原则：分支生命周期极短，团队围绕主干持续集成，主干保持可发布。
+
+当 GitHub Flow 加上必需 CI、CODEOWNERS、Rulesets、Merge Queue、feature flag 和 release from main，它就已经很接近 trunk-based 的企业实现形态。
+
 ## 4. Feature Branch + Protected Main
 
 这是多数中大型业务团队的现实选择。
@@ -95,7 +104,22 @@ Gitflow 适合版本发布节奏明确的产品，比如客户端、SDK、企业
 
 Gitflow 的分支模型有历史价值，但照搬到所有团队会制造额外复杂度。
 
-## 6. Fork + Pull Request
+## 6. GitLab Flow
+
+GitLab Flow 适合发布频率和合入频率不完全一致的团队。
+
+它保留 feature branch 和 merge request 的轻量协作方式，同时用 `production`、`stable/*` 这类分支表达线上状态和稳定版本线。
+
+### 适合
+
+- Web / SaaS 团队需要区分“已合入”和“已上线”
+- 企业内部平台有多环境发布流程
+- SDK、客户端、私有化产品需要稳定版本分支
+- 团队觉得 GitHub Flow 太轻，Gitflow 太重
+
+详细见 [GitLab Flow](gitlab-flow.md)。
+
+## 7. Fork + Pull Request
 
 ### 适合
 
@@ -116,7 +140,7 @@ fork -> branch -> commit -> pull request -> maintainer review -> merge
 - 标记适合新手的任务
 - 用 CI 降低 Review 成本
 
-## 7. Release Branch
+## 8. Release Branch
 
 ### 适合
 
@@ -139,7 +163,9 @@ main -> release/1.8 -> bugfix -> tag -> hotfix -> back merge
 - hotfix 后必须回合到主干
 - 每个发布版本打 tag
 
-## 8. 常见反模式
+Microsoft Release Flow 提供了一个更偏实战的组合：主干承接日常开发，按 sprint 或发布窗口创建 release 分支，修复完成后同步回主干。详细见 [Microsoft Release Flow](../10-company-practices/microsoft-release-flow.md)。
+
+## 9. 常见反模式
 
 ### 长期存在的大 feature 分支
 
@@ -165,18 +191,20 @@ main -> release/1.8 -> bugfix -> tag -> hotfix -> back merge
 
 建议：按发布频率、团队规模、风险等级选择工作流。
 
-## 9. 企业实践参考
+## 10. 企业实践参考
 
 | 实践 | 可借鉴点 |
 | --- | --- |
-| [阿里巴巴 AoneFlow](../09-resources/company-practices/alibaba-aoneflow.md) | 用 release 分支表达发布范围，支持 feature 灵活组合和撤下 |
-| [腾讯 Gitflow 分支规范](../09-resources/company-practices/tencent-gitflow.md) | 适合固定版本发布、release 测试、hotfix 回合的团队 |
-| [字节跳动 Git 工作流](../09-resources/company-practices/bytedance-git-workflow.md) | 把分支、权限、Review、CI、发布放进统一研发设施 |
-| [Google 主干开发](../09-resources/company-practices/google-trunk-based-development.md) | 用短分支、快 CI、小变更支撑大规模协作 |
+| [阿里巴巴 AoneFlow](../10-company-practices/alibaba-aoneflow.md) | 用 release 分支表达发布范围，支持 feature 灵活组合和撤下 |
+| [腾讯 Gitflow 分支规范](../10-company-practices/tencent-gitflow.md) | 适合固定版本发布、release 测试、hotfix 回合的团队 |
+| [字节跳动 Git 工作流](../10-company-practices/bytedance-git-workflow.md) | 把分支、权限、Review、CI、发布放进统一研发设施 |
+| [Google 主干开发](../10-company-practices/google-trunk-based-development.md) | 用短分支、快 CI、小变更支撑大规模协作 |
+| [Microsoft Release Flow](../10-company-practices/microsoft-release-flow.md) | 主干开发配合 release 分支，适合有固定发布窗口的产品团队 |
+| [Meta Sapling](../10-company-practices/meta-sapling-stacked-commits.md) | 用堆叠提交表达大功能的连续小变更 |
 
 这些案例不要直接照搬，先看自己的发布频率、团队规模、测试能力和线上回滚能力。
 
-## 10. 迁移策略
+## 11. 迁移策略
 
 从旧流程迁移到新流程，不要一次改完所有规则。
 
@@ -193,9 +221,11 @@ main -> release/1.8 -> bugfix -> tag -> hotfix -> back merge
 
 - [Atlassian Git tutorials](https://www.atlassian.com/git)
 - [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow)
+- [GitLab Flow](gitlab-flow.md)
 - [Trunk Based Development](https://trunkbaseddevelopment.com)
 - [Feature Flags](https://trunkbaseddevelopment.com/feature-flags/)
-- [大厂工程实践索引](../09-resources/company-practices/README.md)
+- [大厂工程实践索引](../10-company-practices/README.md)
+- [企业 GitHub 协作配置栈](../04-github-engineering/enterprise-github-workflow-stack.md)
 - [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
 - [GitHub rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

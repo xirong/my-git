@@ -4,6 +4,8 @@ CI 是 GitHub 协作流程里的最低质量验收。
 
 它不能保证代码一定正确，但可以防止明显的编译失败、测试失败、格式错误和基础安全问题直接进入主分支。
 
+CI 的价值不只体现在“更快上线”，更重要的是让合入决策更可靠，让 reviewer 和作者对变更质量更有信心。相关研究整理见 [Git 工作流经验研究笔记](../09-resources/empirical-git-workflow-research.md)。
+
 ## 最小 CI
 
 一个正式团队至少应该有：
@@ -72,7 +74,9 @@ AI 生成代码后，CI 是最低质量保障。
 ## 延伸阅读
 
 - [GitHub Actions Docs](https://docs.github.com/en/actions)
+- [企业 GitHub 协作配置栈](enterprise-github-workflow-stack.md)
 - [Reusable Workflows](reusable-workflows.md)
+- [Git 工作流经验研究笔记](../09-resources/empirical-git-workflow-research.md)
 - [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
 - [GitHub 工程治理手册](github-engineering-governance.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

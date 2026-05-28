@@ -62,9 +62,41 @@ hotfix 只处理生产环境紧急问题。
 
 流程见 [Hotfix Process](../08-templates/hotfix-process.md)。
 
+## 发布流水线
+
+Netflix Spinnaker 这类公开实践提醒我们，很多团队真正的风险集中在发布过程，分支模型只是其中一部分。
+
+当团队已经有 PR、CI 和分支保护后，下一步要补的是：
+
+- 发布关联 commit 或 tag
+- 发布记录包含 release note
+- 生产发布前有明确检查点
+- 高风险发布有人工审批点
+- 发布后验证结果可追踪
+- 回滚路径明确
+
+详细见 [Netflix Spinnaker 与发布流水线实践](../10-company-practices/netflix-spinnaker-release.md)。
+
+## Release Flow 和日常部署
+
+Microsoft Release Flow 的经验适合有固定 sprint、固定发布窗口的团队：
+
+- 日常开发进入主干
+- 发布前从主干切 release 分支
+- release 分支只接收稳定性修复
+- 修复完成后同步回主干
+- 发布版本用 tag 和 release note 留痕
+
+Slack 公开分享的部署实践更强调“持续小批量发布”：通过自动化检查、发布队列、可观测性和回滚路径，把风险拆散到日常部署中处理。
+
+这两类实践方向不同，但共同点很清楚：发布管理不能只依赖分支命名，要把验证、审批点、发布记录、监控和回滚路径串起来。
+
 ## 延伸阅读
 
 - [GitHub Docs: Managing releases in a repository](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
 - [Semantic Versioning](https://semver.org/)
+- [Netflix Spinnaker 与发布流水线实践](../10-company-practices/netflix-spinnaker-release.md)
+- [Microsoft Release Flow](../10-company-practices/microsoft-release-flow.md)
+- [Slack Deploys 实践](../10-company-practices/slack-deploys.md)
 - [GitHub 工程治理手册](github-engineering-governance.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

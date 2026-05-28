@@ -60,9 +60,13 @@ on:
 
 Merge Queue 适合在分支保护和必需检查稳定之后启用。CI 如果很慢，或者 flaky tests 很多，队列会把这些问题放大。
 
+Shopify 的公开实践很有参考价值：当团队规模变大后，单个 PR 通过 CI 已经不够，还要验证排队后的组合结果，并且要把队列状态、失败原因、重试路径展示给开发者。Merge Queue 的核心价值，是把合入主分支前的组合风险提前暴露出来。
+
 ## 延伸阅读
 
-- [Merge Queue 合并队列实践](../09-resources/company-practices/merge-queue-practices.md)
+- [Merge Queue 合并队列实践](../10-company-practices/merge-queue-practices.md)
+- [Shopify Merge Queue 实践](../10-company-practices/shopify-merge-queue.md)
+- [企业 GitHub 协作配置栈](enterprise-github-workflow-stack.md)
 - [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
 - [GitHub Docs: Managing a merge queue](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue)
 - [GitHub Docs: merge_group event](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#merge_group)

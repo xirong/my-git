@@ -57,7 +57,7 @@ CI 如果经常排队几十分钟，团队会开始绕过流程。
 
 ## 企业实践参考
 
-[Google 主干开发与版本控制实践](../09-resources/company-practices/google-trunk-based-development.md) 的核心启发是，主干开发依赖一组工程能力：小变更、快速 CI、代码所有权、feature flag 和快速回滚。
+[Google 主干开发与版本控制实践](../10-company-practices/google-trunk-based-development.md) 的核心启发是，主干开发依赖一组工程能力：小变更、快速 CI、代码所有权、feature flag 和快速回滚。
 
 普通团队落地时，不要只追求“分支少”，要先把这些支撑能力建起来。
 
@@ -65,6 +65,6 @@ CI 如果经常排队几十分钟，团队会开始绕过流程。
 
 - [Trunk Based Development](https://trunkbaseddevelopment.com)
 - [Feature Flags](https://trunkbaseddevelopment.com/feature-flags/)
-- [Google 主干开发与版本控制实践](../09-resources/company-practices/google-trunk-based-development.md)
+- [Google 主干开发与版本控制实践](../10-company-practices/google-trunk-based-development.md)
 - [团队 Git 工作流指南](team-git-workflow-guide.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

@@ -4,8 +4,6 @@
 
 - [字节研发设施下的 Git 工作流](https://www.infoq.cn/article/9dotsvlwscznbxjpxfqe)
 
-说明：本文是面向本仓库读者的改写版，原文来自字节跳动技术团队在 InfoQ 的公开分享。
-
 ## 1. 这篇实践的价值
 
 大团队的 Git 工作流往往不是单纯的分支模型问题。

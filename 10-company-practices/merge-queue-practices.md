@@ -7,8 +7,6 @@
 - [Buildkite: Using GitHub Merge Queue in pipelines](https://buildkite.com/resources/blog/using-github-mergequeue-in-pipelines/)
 - [Mergify: The origin story of merge queues](https://mergify.com/blog/the-origin-story-of-merge-queues/)
 
-说明：本文是面向本仓库读者的改写版，结合 GitHub 官方文档和工程实践文章，整理为团队落地参考。
-
 ## 1. Merge Queue 解决什么问题
 
 高并发 PR 团队会遇到一个经典问题：

@@ -54,6 +54,8 @@ GitHub 官方文档说明，多个 rulesets 命中同一目标时会聚合规则
 
 Rulesets 适合表达统一规则，仓库内的特殊差异仍要保留清晰说明。
 
+和传统 Branch Protection 相比，Rulesets 更适合多规则叠加、组织级基线和多仓库治理。新团队可以先从 Branch Protection 起步，仓库多起来后再迁到 Rulesets。
+
 ## 延伸阅读
 
 - [GitHub Docs: About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
