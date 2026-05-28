@@ -17,3 +17,5 @@
 - [Google 主干开发与版本控制实践](company-practices/google-trunk-based-development.md)
 - [Microsoft Scalar 与大仓库 Git 实践](company-practices/microsoft-scalar-large-repo.md)
 - [Merge Queue 合并队列实践](company-practices/merge-queue-practices.md)
+- [开源项目 Git 治理实践](open-source-governance-practices.md)
+- [Git 版本演进笔记](git-version-upgrade-notes.md)

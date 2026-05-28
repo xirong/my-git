@@ -116,10 +116,23 @@ AI 可以帮助你更快发现问题，但它不能替你承担合入责任。
 - 风险和回滚方案可接受
 - 合入后出现问题能定位责任边界
 
+## 6. AI Review 工具怎么用
+
+AI Review 工具适合做第一轮扫描，尤其是发现明显 bug、测试缺口、安全风险、无关改动和可维护性问题。
+
+团队使用时要保留三条边界：
+
+1. AI Review 结果不能直接等同于 owner 批准
+2. 高风险目录仍要走人类 owner Review
+3. AI Review 的误报和漏报要定期复盘
+
+建议把 AI Review 结果放进 PR 流程，但不要让它替代人类合入判断。
+
 ## 延伸阅读
 
 - [AI Code Review Checklist](../08-templates/ai-code-review-checklist.md)
 - [Pull Request Template](../08-templates/pull-request-template.md)
 - [Responsible use of GitHub Copilot code review](https://docs.github.com/en/copilot/responsible-use/code-review)
 - [Review AI-generated code](https://docs.github.com/en/enterprise-cloud@latest/copilot/tutorials/review-ai-generated-code)
+- [AI 编程工具的 Git 集成实践](ai-coding-tools-git-integration.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

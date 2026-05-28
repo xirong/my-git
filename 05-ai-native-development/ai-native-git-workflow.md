@@ -15,7 +15,9 @@ AI 改代码通常有几个特点：
 - 依赖、配置、生成文件容易被顺手带进去
 - 多个 Agent 并行时，分支和工作区容易互相污染
 
-所以 AI 编程后的 Git 工作流，重点不是“怎么更快提交”，重点是“怎么让变更重新变小、变清楚、可验证”。
+所以 AI 编程后的 Git 工作流，重点是让变更重新变小、变清楚、可验证，不能只追求更快提交。
+
+不同 AI 工具的 Git 集成方式不同，但目标一致：把 AI 修改限制在可审查、可回滚的工程单元里。Codex 更强调远程环境和 sandbox，Claude Code 强调 worktree 隔离，Copilot Cloud Agent 更贴近 Issue 到 PR，Aider 则把本地 Git 提交和撤销作为核心体验。详细对比见 [AI 编程工具的 Git 集成实践](ai-coding-tools-git-integration.md)。
 
 ## 2. 核心原则
 
@@ -309,6 +311,7 @@ Revert this PR.
 ## 延伸阅读
 
 - [git worktree](https://git-scm.com/docs/git-worktree)
+- [AI 编程工具的 Git 集成实践](ai-coding-tools-git-integration.md)
 - [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
 - [GitHub rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
 - [Responsible use of GitHub Copilot code review](https://docs.github.com/en/copilot/responsible-use/code-review)

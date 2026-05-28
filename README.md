@@ -61,8 +61,9 @@
 1. [AI Native Git Workflow](05-ai-native-development/ai-native-git-workflow.md)
 2. [AI 生成代码 Review](05-ai-native-development/ai-generated-code-review.md)
 3. [Codex / Claude Code Git 实践](05-ai-native-development/codex-claude-code-git-practices.md)
-4. [Worktree for AI Agents](05-ai-native-development/worktree-for-ai-agents.md)
-5. [AI Reviewer 与 Human Reviewer](05-ai-native-development/ai-reviewer-and-human-reviewer.md)
+4. [AI 编程工具的 Git 集成实践](05-ai-native-development/ai-coding-tools-git-integration.md)
+5. [Worktree for AI Agents](05-ai-native-development/worktree-for-ai-agents.md)
+6. [AI Reviewer 与 Human Reviewer](05-ai-native-development/ai-reviewer-and-human-reviewer.md)
 
 ### 故障处理路径
 
@@ -75,6 +76,7 @@
 
 - [AI Native Git Workflow](05-ai-native-development/ai-native-git-workflow.md)
 - [Codex / Claude Code Git 实践](05-ai-native-development/codex-claude-code-git-practices.md)
+- [AI 编程工具的 Git 集成实践](05-ai-native-development/ai-coding-tools-git-integration.md)
 - [Git 高频事故处理手册](06-troubleshooting/git-troubleshooting-playbook.md)
 - [团队 Git 工作流指南](03-team-collaboration/team-git-workflow-guide.md)
 - [GitHub 工程治理手册](04-github-engineering/github-engineering-governance.md)

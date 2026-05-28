@@ -45,6 +45,12 @@ AI 代码尤其要注意：
 
 详细见 [AI 生成代码 Review](../05-ai-native-development/ai-generated-code-review.md)。
 
+## 大型项目治理启发
+
+Kubernetes 的 OWNERS 模型把 Review 拆成 reviewer 和 approver 两层，前者关注代码质量，后者关注整体接受标准、兼容性和长期影响。
+
+企业团队可以借鉴这个分层：普通 reviewer 负责发现具体问题，code owner 或模块负责人负责最终批准。
+
 ## 模板
 
 见 [Code Review Checklist](../08-templates/code-review-checklist.md)。
@@ -54,4 +60,5 @@ AI 代码尤其要注意：
 - [GitHub Docs: About pull request reviews](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews)
 - [Atlassian: Pull requests and code review](https://www.atlassian.com/git/tutorials/making-a-pull-request)
 - [Google Engineering Practices: Code Review](https://google.github.io/eng-practices/review/)
+- [开源项目 Git 治理实践](../09-resources/open-source-governance-practices.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

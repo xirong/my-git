@@ -70,6 +70,8 @@ git commit-graph write --reachable
 
 不要只优化 clone。开发者日常更常遇到的是 `status`、`fetch`、`checkout`、IDE 索引和构建速度问题。
 
+Git 新版本也在持续补强大仓库体验，尤其是 reftable、partial clone、sparse checkout、config-based hooks 等方向，见 [Git 版本演进笔记](../09-resources/git-version-upgrade-notes.md)。
+
 ## 延伸阅读
 
 - [Git partial clone](https://git-scm.com/docs/partial-clone.html)
@@ -77,4 +79,5 @@ git commit-graph write --reachable
 - [git worktree](https://git-scm.com/docs/git-worktree)
 - [Git LFS](https://git-lfs.com)
 - [Microsoft Scalar 与大仓库 Git 实践](../09-resources/company-practices/microsoft-scalar-large-repo.md)
+- [Git 版本演进笔记](../09-resources/git-version-upgrade-notes.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

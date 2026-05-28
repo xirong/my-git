@@ -42,9 +42,22 @@ AI Reviewer 可以提高检查覆盖面，但不能替代人类 owner 判断。
 4. Human Reviewer 做最终判断
 5. CI 和必要手工验证通过后再合入
 
+## 和 CODEOWNERS 配合
+
+AI Reviewer 可以先做通用风险扫描，CODEOWNERS 再把 PR 分配给真正理解该目录的人。
+
+推荐组合：
+
+```text
+AI reviewer -> author self-fix -> code owner review -> CI -> merge
+```
+
+这样可以减少 reviewer 的低价值检查，把人类注意力留给语义、边界、长期维护成本和上线风险。
+
 ## 延伸阅读
 
 - [Responsible use of GitHub Copilot code review](https://docs.github.com/en/copilot/responsible-use/code-review)
 - [AI 生成代码 Review](ai-generated-code-review.md)
+- [开源项目 Git 治理实践](../09-resources/open-source-governance-practices.md)
 - [AI Code Review Checklist](../08-templates/ai-code-review-checklist.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

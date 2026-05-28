@@ -42,9 +42,22 @@ GitHub 官方文档说明，多个 rulesets 命中同一目标时会聚合规则
 4. 再推广到组织内多个仓库
 5. 定期审计规则是否仍然有效
 
+## 多仓库团队建议
+
+40+ 微服务这类场景里，Rulesets 的价值在于统一底线：
+
+- 默认分支必须走 PR
+- 必需检查名称保持一致
+- 禁止普通成员删除或强推关键分支
+- release 分支和 tag 有单独规则
+- 高风险仓库保留更严格配置
+
+Rulesets 适合表达统一规则，仓库内的特殊差异仍要保留清晰说明。
+
 ## 延伸阅读
 
 - [GitHub Docs: About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
 - [GitHub Docs: Creating rulesets for a repository](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository)
+- [Reusable Workflows](reusable-workflows.md)
 - [Branch Protection](branch-protection.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

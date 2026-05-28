@@ -45,6 +45,7 @@
 | [Secret scanning](https://docs.github.com/github/administering-a-repository/about-secret-scanning) | `04-github-engineering/security-and-secret-scanning.md` | 凭证扫描和泄露告警 |
 | [Push protection](https://docs.github.com/code-security/secret-scanning/protecting-pushes-with-secret-scanning) | `04-github-engineering/security-and-secret-scanning.md` | 在 push 阶段拦截 secret |
 | [GitHub Actions Docs](https://docs.github.com/en/actions) | `04-github-engineering/github-actions-ci.md` | GitHub Actions 官方文档 |
+| [Reusable workflows](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows) | `04-github-engineering/reusable-workflows.md` | 多仓库复用 CI 模板 |
 | [Managing releases in a repository](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) | `04-github-engineering/release-management.md` | GitHub Release 官方文档 |
 | [Semantic Versioning](https://semver.org/) | `04-github-engineering/release-management.md` | 语义化版本规范 |
 | [Merge Queue 合并队列实践](company-practices/merge-queue-practices.md) | `04-github-engineering/merge-queue.md` | PR 高并发团队如何保护主分支稳定 |
@@ -56,8 +57,23 @@
 | [Responsible use of GitHub Copilot code review](https://docs.github.com/en/copilot/responsible-use/code-review) | `05-ai-native-development/ai-generated-code-review.md` | GitHub 对 AI Review 能力边界的官方说明 |
 | [Review AI-generated code](https://docs.github.com/en/enterprise-cloud@latest/copilot/tutorials/review-ai-generated-code) | `05-ai-native-development/ai-generated-code-review.md` | 面向 AI 生成代码审查流程的官方教程 |
 | [OpenAI Codex](https://openai.com/codex/) | `05-ai-native-development/codex-claude-code-git-practices.md` | Codex 官方产品页，包含 multi-agent workflows 和 worktrees 说明 |
+| [OpenAI Codex Web](https://developers.openai.com/codex/cloud) | `05-ai-native-development/ai-coding-tools-git-integration.md` | Codex Web、GitHub 集成和远程任务入口 |
+| [OpenAI Codex Sandboxing](https://developers.openai.com/codex/concepts/sandboxing) | `05-ai-native-development/ai-coding-tools-git-integration.md` | Codex sandbox 与权限模型 |
 | [Claude Code Worktrees](https://code.claude.com/docs/en/worktrees) | `05-ai-native-development/codex-claude-code-git-practices.md` | Claude Code 官方 worktree 并行会话说明 |
 | [Claude Code Common Workflows](https://code.claude.com/docs/en/common-workflows) | `05-ai-native-development/codex-claude-code-git-practices.md` | Claude Code 官方常见工作流 |
+| [GitHub Copilot Cloud Agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent) | `05-ai-native-development/ai-coding-tools-git-integration.md` | Issue 到 PR 的异步 Agent 工作流 |
+| [Aider Git Integration](https://aider.chat/docs/git.html) | `05-ai-native-development/ai-coding-tools-git-integration.md` | git-first 本地 AI 结对实践 |
+| [Cursor 2.0 and Composer](https://cursor.com/blog/2-0) | `05-ai-native-development/ai-coding-tools-git-integration.md` | 多 Agent、Composer 和聚合 diff 入口 |
+
+## 开源项目治理
+
+| 资料 | 适合补充到哪里 | 说明 |
+| --- | --- | --- |
+| [Kubernetes OWNERS Files](https://www.kubernetes.dev/docs/guide/owners/) | `04-github-engineering/codeowners.md`、`03-team-collaboration/code-review-best-practices.md` | OWNERS、reviewer / approver 两阶段评审 |
+| [Kubernetes Pull Request Process](https://www.kubernetes.dev/docs/guide/pull-requests/) | `03-team-collaboration/pull-request-best-practices.md` | PR 流程、自动化检查和维护者协作 |
+| [Linux Kernel Pull Requests](https://docs.kernel.org/maintainer/pull-requests.html) | `09-resources/open-source-governance-practices.md` | 维护者树状模型和 pull request 规范 |
+| [Go Contribution Guide](https://go.dev/doc/contribute) | `09-resources/open-source-governance-practices.md` | Gerrit、Review 权限和贡献流程 |
+| [Rust RFCs](https://github.com/rust-lang/rfcs) | `09-resources/open-source-governance-practices.md` | 重大变更 RFC 模型 |
 
 ## 故障处理与恢复
 
@@ -81,3 +97,4 @@
 | [Pro Git: Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) | `07-large-repo/submodule-vs-subtree.md` | submodule 系统说明 |
 | [git maintenance](https://git-scm.com/docs/git-maintenance) | `07-large-repo/repo-maintenance.md` | 仓库维护命令 |
 | [Microsoft Scalar 与大仓库 Git 实践](company-practices/microsoft-scalar-large-repo.md) | `07-large-repo/large-repo-git-practices.md` | partial clone、sparse checkout、maintenance 的组合实践 |
+| [Git 版本演进笔记](git-version-upgrade-notes.md) | `07-large-repo/large-repo-git-practices.md`、`09-resources/` | Git 2.45 到 2.54 中值得工程团队关注的能力 |
