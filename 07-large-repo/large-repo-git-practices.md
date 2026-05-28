@@ -64,10 +64,17 @@ git commit-graph write --reachable
 
 具体命令是否适合，要结合团队环境和 Git 版本确认。
 
+## 5. 企业实践参考
+
+[Microsoft Scalar 与大仓库 Git 实践](../09-resources/company-practices/microsoft-scalar-large-repo.md) 的启发是，大仓库优化通常要组合使用 partial clone、sparse checkout、后台维护、文件系统监控和构建系统能力。
+
+不要只优化 clone。开发者日常更常遇到的是 `status`、`fetch`、`checkout`、IDE 索引和构建速度问题。
+
 ## 延伸阅读
 
 - [Git partial clone](https://git-scm.com/docs/partial-clone.html)
 - [Git sparse checkout](https://git-scm.com/docs/sparse-checkout)
 - [git worktree](https://git-scm.com/docs/git-worktree)
 - [Git LFS](https://git-lfs.com)
+- [Microsoft Scalar 与大仓库 Git 实践](../09-resources/company-practices/microsoft-scalar-large-repo.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

@@ -48,8 +48,23 @@ A + B + C
 - 团队知道 PR 进入队列后的行为
 - 紧急 hotfix 有明确处理路径
 
+## 落地要点
+
+如果使用 GitHub Actions，关键工作流要响应 `merge_group` 事件：
+
+```yaml
+on:
+  pull_request:
+  merge_group:
+```
+
+Merge Queue 适合在分支保护和必需检查稳定之后启用。CI 如果很慢，或者 flaky tests 很多，队列会把这些问题放大。
+
 ## 延伸阅读
 
+- [Merge Queue 合并队列实践](../09-resources/company-practices/merge-queue-practices.md)
 - [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
+- [GitHub Docs: Managing a merge queue](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue)
+- [GitHub Docs: merge_group event](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#merge_group)
 - [GitHub 工程治理手册](github-engineering-governance.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

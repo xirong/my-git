@@ -165,7 +165,18 @@ main -> release/1.8 -> bugfix -> tag -> hotfix -> back merge
 
 建议：按发布频率、团队规模、风险等级选择工作流。
 
-## 9. 迁移策略
+## 9. 企业实践参考
+
+| 实践 | 可借鉴点 |
+| --- | --- |
+| [阿里巴巴 AoneFlow](../09-resources/company-practices/alibaba-aoneflow.md) | 用 release 分支表达发布范围，支持 feature 灵活组合和撤下 |
+| [腾讯 Gitflow 分支规范](../09-resources/company-practices/tencent-gitflow.md) | 适合固定版本发布、release 测试、hotfix 回合的团队 |
+| [字节跳动 Git 工作流](../09-resources/company-practices/bytedance-git-workflow.md) | 把分支、权限、Review、CI、发布放进统一研发设施 |
+| [Google 主干开发](../09-resources/company-practices/google-trunk-based-development.md) | 用短分支、快 CI、小变更支撑大规模协作 |
+
+这些案例不要直接照搬，先看自己的发布频率、团队规模、测试能力和线上回滚能力。
+
+## 10. 迁移策略
 
 从旧流程迁移到新流程，不要一次改完所有规则。
 
@@ -184,6 +195,7 @@ main -> release/1.8 -> bugfix -> tag -> hotfix -> back merge
 - [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow)
 - [Trunk Based Development](https://trunkbaseddevelopment.com)
 - [Feature Flags](https://trunkbaseddevelopment.com/feature-flags/)
+- [大厂工程实践索引](../09-resources/company-practices/README.md)
 - [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
 - [GitHub rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

@@ -29,6 +29,10 @@
 | [Feature Flags](https://trunkbaseddevelopment.com/feature-flags/) | `03-team-collaboration/trunk-based-development.md` | 主干开发中隔离未完成能力的关键实践 |
 | [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/) | `03-team-collaboration/gitflow.md` | Gitflow 的经典原文 |
 | [Google Engineering Practices: Code Review](https://google.github.io/eng-practices/review/) | `03-team-collaboration/code-review-best-practices.md` | Google 公开的代码审查实践 |
+| [阿里巴巴 AoneFlow 分支管理实践](company-practices/alibaba-aoneflow.md) | `03-team-collaboration/team-git-workflow-guide.md`、`03-team-collaboration/gitflow.md` | 多 feature 并行、按发布范围组合 release 分支 |
+| [腾讯云社区 Gitflow 分支规范实践](company-practices/tencent-gitflow.md) | `03-team-collaboration/gitflow.md` | Gitflow 风格团队规范参考 |
+| [字节跳动 Git 工作流与研发设施实践](company-practices/bytedance-git-workflow.md) | `03-team-collaboration/team-git-workflow-guide.md`、`04-github-engineering/` | 大规模研发设施如何承接 Git 工作流 |
+| [Google 主干开发与版本控制实践](company-practices/google-trunk-based-development.md) | `03-team-collaboration/trunk-based-development.md` | 主干开发、大规模协作、小变更与快速 CI |
 
 ## GitHub 工程治理
 
@@ -43,6 +47,7 @@
 | [GitHub Actions Docs](https://docs.github.com/en/actions) | `04-github-engineering/github-actions-ci.md` | GitHub Actions 官方文档 |
 | [Managing releases in a repository](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) | `04-github-engineering/release-management.md` | GitHub Release 官方文档 |
 | [Semantic Versioning](https://semver.org/) | `04-github-engineering/release-management.md` | 语义化版本规范 |
+| [Merge Queue 合并队列实践](company-practices/merge-queue-practices.md) | `04-github-engineering/merge-queue.md` | PR 高并发团队如何保护主分支稳定 |
 
 ## AI 编程与代码审查
 
@@ -75,3 +80,4 @@
 | [Git LFS](https://git-lfs.com) | `07-large-repo/git-lfs.md` | Git 大文件管理工具 |
 | [Pro Git: Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) | `07-large-repo/submodule-vs-subtree.md` | submodule 系统说明 |
 | [git maintenance](https://git-scm.com/docs/git-maintenance) | `07-large-repo/repo-maintenance.md` | 仓库维护命令 |
+| [Microsoft Scalar 与大仓库 Git 实践](company-practices/microsoft-scalar-large-repo.md) | `07-large-repo/large-repo-git-practices.md` | partial clone、sparse checkout、maintenance 的组合实践 |

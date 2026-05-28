@@ -56,9 +56,17 @@ develop -> feature/* -> develop -> release/* -> main -> tag
 
 如果你的产品有明确版本线、发布窗口、客户侧升级周期，Gitflow 仍然有价值。
 
+## 企业实践参考
+
+[腾讯云社区 Gitflow 分支规范实践](../09-resources/company-practices/tencent-gitflow.md) 可以作为 Gitflow 风格团队规范的参考，尤其适合 release、hotfix、tag、回合路径都要写清楚的团队。
+
+[阿里巴巴 AoneFlow 分支管理实践](../09-resources/company-practices/alibaba-aoneflow.md) 则提供了另一种思路：保留 feature 和 release 的清晰边界，同时减少长期 `develop` 分支带来的复杂度。
+
 ## 延伸阅读
 
 - [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
 - [Atlassian: Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+- [腾讯云社区 Gitflow 分支规范实践](../09-resources/company-practices/tencent-gitflow.md)
+- [阿里巴巴 AoneFlow 分支管理实践](../09-resources/company-practices/alibaba-aoneflow.md)
 - [团队 Git 工作流指南](team-git-workflow-guide.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)
