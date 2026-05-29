@@ -2,11 +2,11 @@
 
 历史文章入口：
 
-- [Why Git](../why-git.md)
-- [Useful Git Command](../useful-git-command.md)
-- [Git Workflow Tutorial](../git-workflow-tutorial.md)
-- [How to Use GitHub](../how-to-use-github.md)
-- [Use GitLab and GitHub Together](../use-gitlab-github-together.md)
+- [Why Git](legacy/why-git.md)
+- [Useful Git Command](legacy/useful-git-command.md)
+- [Git Workflow Tutorial（归档）](legacy/git-workflow-tutorial.md)
+- [How to Use GitHub](legacy/how-to-use-github.md)
+- [Use GitLab and GitHub Together](legacy/use-gitlab-github-together.md)
 
 工程实践资料：
 

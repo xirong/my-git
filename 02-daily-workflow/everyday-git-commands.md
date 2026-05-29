@@ -95,4 +95,4 @@ git reflog -10
 - [Git 官方文档](https://git-scm.com/docs)
 - [Git Cheat Sheet](https://git-scm.com/cheat-sheet.pdf)
 - [Atlassian Git tutorials](https://www.atlassian.com/git)
-- [原有命令手册](../useful-git-command.md)
+- [原有命令手册（归档）](../09-resources/legacy/useful-git-command.md)

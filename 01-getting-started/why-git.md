@@ -80,7 +80,7 @@ Git 的新价值，是把 AI 生成的大块改动切回人类可以理解、可
 2. 分支协作和 PR Review
 3. 故障恢复和风险控制
 
-原有文章见根目录 [why-git.md](../why-git.md)。
+原有文章见归档目录 [why-git.md](../09-resources/legacy/why-git.md)。
 
 ## 延伸阅读
 

@@ -63,5 +63,5 @@ Git 的价值不只在本地命令，也在合入前审查。
 
 - [Pro Git: Distributed Git](https://git-scm.com/book/en/v2/Distributed-Git-Distributed-Workflows)
 - [Atlassian: Migrating from SVN to Git](https://www.atlassian.com/git/tutorials/migrating-overview)
-- [Git Workflow Tutorial](../git-workflow-tutorial.md)
+- [Git Workflow Tutorial（归档）](../09-resources/legacy/git-workflow-tutorial.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

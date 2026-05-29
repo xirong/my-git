@@ -48,7 +48,7 @@
 2. [GitLab Flow](03-team-collaboration/gitlab-flow.md)
 3. [Pull Request 最佳实践](03-team-collaboration/pull-request-best-practices.md)
 4. [Code Review 最佳实践](03-team-collaboration/code-review-best-practices.md)
-5. [经典 Git 工作流教程](git-workflow-tutorial.md)
+5. [经典 Git 工作流教程（归档）](09-resources/legacy/git-workflow-tutorial.md)
 
 ### GitHub 工程治理路径
 

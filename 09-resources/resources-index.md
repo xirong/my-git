@@ -6,21 +6,21 @@
 
 ## 根目录文档
 
-- [why-git.md](../why-git.md)
-- [useful-git-command.md](../useful-git-command.md)
-- [git-workflow-tutorial.md](../git-workflow-tutorial.md)
-- [how-to-use-github.md](../how-to-use-github.md)
-- [use-gitlab-github-together.md](../use-gitlab-github-together.md)
-- [using-svn.md](../using-svn.md)
-- [ixirong.com.md](../ixirong.com.md)
+- [why-git.md](legacy/why-git.md)
+- [useful-git-command.md](legacy/useful-git-command.md)
+- [git-workflow-tutorial.md（归档）](legacy/git-workflow-tutorial.md)
+- [how-to-use-github.md](legacy/how-to-use-github.md)
+- [use-gitlab-github-together.md](legacy/use-gitlab-github-together.md)
+- [using-svn.md](legacy/using-svn.md)
+- [ixirong.com.md](legacy/ixirong.com.md)
 
 ## 中文文档
 
-- [zh/readme.md](../zh/readme.md)
-- [zh/why-git.md](../zh/why-git.md)
-- [zh/useful-git-command.md](../zh/useful-git-command.md)
-- [zh/git-workflow-tutorial.md](../zh/git-workflow-tutorial.md)
-- [zh/how-to-use-github.md](../zh/how-to-use-github.md)
+- [zh/readme.md](legacy/zh/readme.md)
+- [zh/why-git.md](legacy/zh/why-git.md)
+- [zh/useful-git-command.md](legacy/zh/useful-git-command.md)
+- [zh/git-workflow-tutorial.md（归档）](legacy/zh/git-workflow-tutorial.md)
+- [zh/how-to-use-github.md](legacy/zh/how-to-use-github.md)
 
 ## 维护计划
 
