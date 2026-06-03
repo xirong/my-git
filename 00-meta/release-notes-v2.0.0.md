@@ -21,17 +21,17 @@ v2.0 聚焦三个变化：
 
 ## Recommended Reading
 
-- [AI Native Git Workflow](../05-ai-native-development/ai-native-git-workflow.md)
-- [AI 变更审查实战样例](../05-ai-native-development/ai-change-review-example.md)
-- [Git Troubleshooting Playbook](../06-troubleshooting/git-troubleshooting-playbook.md)
-- [Team Git Workflow Guide](../03-team-collaboration/team-git-workflow-guide.md)
-- [GitHub Engineering Governance](../04-github-engineering/github-engineering-governance.md)
-- [Large Repository Git Practices](../07-large-repo/large-repo-git-practices.md)
-- [Templates](../08-templates/)
-- [Company Practices](../10-company-practices/README.md)
+- [AI Native Git Workflow](https://github.com/xirong/my-git/blob/v2.0.0/05-ai-native-development/ai-native-git-workflow.md)
+- [AI 变更审查实战样例](https://github.com/xirong/my-git/blob/v2.0.0/05-ai-native-development/ai-change-review-example.md)
+- [Git Troubleshooting Playbook](https://github.com/xirong/my-git/blob/v2.0.0/06-troubleshooting/git-troubleshooting-playbook.md)
+- [Team Git Workflow Guide](https://github.com/xirong/my-git/blob/v2.0.0/03-team-collaboration/team-git-workflow-guide.md)
+- [GitHub Engineering Governance](https://github.com/xirong/my-git/blob/v2.0.0/04-github-engineering/github-engineering-governance.md)
+- [Large Repository Git Practices](https://github.com/xirong/my-git/blob/v2.0.0/07-large-repo/large-repo-git-practices.md)
+- [Templates](https://github.com/xirong/my-git/tree/v2.0.0/08-templates)
+- [Company Practices](https://github.com/xirong/my-git/blob/v2.0.0/10-company-practices/README.md)
 
 ## Notes
 
 - 旧内容会继续保留入口，并逐步迁入新的学习路径
-- 迁移状态见 [旧内容迁移清单](legacy-content-migration.md)
-- 资料入口见 [资源索引](../09-resources/resources-index.md)
+- 迁移状态见 [旧内容迁移清单](https://github.com/xirong/my-git/blob/v2.0.0/00-meta/legacy-content-migration.md)
+- 资料入口见 [资源索引](https://github.com/xirong/my-git/blob/v2.0.0/09-resources/resources-index.md)
