@@ -28,6 +28,8 @@ PR 的目标是让一次变更可以被理解、审查、验证和回滚。
 
 有研究发现，变更大小和合并耗时之间并没有稳定相关性。团队仍然应该鼓励小 PR，但理由要放在可审查性、可验证性和可回滚性上，见 [Git 工作流经验研究笔记](../09-resources/empirical-git-workflow-research.md)。
 
+Google Code Review 和 Meta Sapling 的公开实践也指向同一个判断：小变更的核心价值是降低理解成本和风险定位成本。AI 生成大 diff 后，也应该先拆回人类可以审查的小单元，见 [大厂工程实践决策图谱](../10-company-practices/company-practices-decision-map.md)。
+
 ## 堆叠 PR
 
 当一个功能天然较大，可以拆成一组有依赖关系的小 PR：
@@ -80,5 +82,6 @@ AI 生成代码后，PR 描述不能只写“AI generated”。
 - [GitHub Docs: About pull request reviews](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews)
 - [Atlassian: Making a Pull Request](https://www.atlassian.com/git/tutorials/making-a-pull-request)
 - [Meta Sapling 与堆叠提交实践](../10-company-practices/meta-sapling-stacked-commits.md)
+- [大厂工程实践决策图谱](../10-company-practices/company-practices-decision-map.md)
 - [Git 工作流经验研究笔记](../09-resources/empirical-git-workflow-research.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)

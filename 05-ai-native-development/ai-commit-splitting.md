@@ -60,6 +60,8 @@ commit 4: remove obsolete helper
 
 当一个大 diff 超过单个 PR 的 Review 承载能力时，可以继续拆成 stacked PR。commit 拆分解决 PR 内部历史清楚的问题，stacked PR 解决多人 Review 和分层合入的问题。
 
+Google 小 CL 和 Meta Sapling 的共同启发是：先让变更变小，再让 Review 变准。AI 改代码时，拆分的核心价值是把风险切回可判断范围。案例对照见 [大厂工程实践决策图谱](../10-company-practices/company-practices-decision-map.md)。
+
 ## 延伸阅读
 
 - [git add 官方文档](https://git-scm.com/docs/git-add)
@@ -69,3 +71,4 @@ commit 4: remove obsolete helper
 - [Commit Message](../02-daily-workflow/commit-message.md)
 - [Meta Sapling 与堆叠提交实践](../10-company-practices/meta-sapling-stacked-commits.md)
 - [Stacked PR for AI-Generated Changes](stacked-pr-for-ai-generated-changes.md)
+- [大厂工程实践决策图谱](../10-company-practices/company-practices-decision-map.md)

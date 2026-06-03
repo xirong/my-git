@@ -98,6 +98,8 @@ stacked PR
   -> each PR has small logical commits
 ```
 
+Meta Sapling 的公开实践说明，提交栈适合表达一组连续小变更。AI 生成大 diff 后，可以借鉴这个思路，把“大块结果”改造成“可审查的变更序列”。更多案例对照见 [大厂工程实践决策图谱](../10-company-practices/company-practices-decision-map.md)。
+
 ## 6. 适合什么场景
 
 适合：
@@ -113,3 +115,9 @@ stacked PR
 - 很小的 bugfix
 - 没有依赖关系的多个独立任务
 - 团队还没有稳定 PR Review 习惯
+
+## 延伸阅读
+
+- [Meta Sapling 与堆叠提交实践](../10-company-practices/meta-sapling-stacked-commits.md)
+- [Google Code Review 实践](../10-company-practices/google-code-review.md)
+- [大厂工程实践决策图谱](../10-company-practices/company-practices-decision-map.md)

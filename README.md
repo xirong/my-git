@@ -26,6 +26,20 @@
 - 技术负责人，需要设计团队 Git 工作流和 GitHub 治理规范
 - AI 编程用户，需要控制 Codex、Claude Code、Cursor、Cline 等工具带来的代码变更风险
 
+## 目录导航
+
+| 目录 | 适合解决的问题 |
+| --- | --- |
+| [01-getting-started](01-getting-started/) | Git 入门、心智模型、Git 和 SVN 的区别 |
+| [02-daily-workflow](02-daily-workflow/) | 日常命令、分支合并、rebase、stash、worktree |
+| [03-team-collaboration](03-team-collaboration/README.md) | 团队工作流、PR、Code Review、协作模型选型 |
+| [04-github-engineering](04-github-engineering/README.md) | 分支保护、Rulesets、CODEOWNERS、CI、发布、安全 |
+| [05-ai-native-development](05-ai-native-development/README.md) | AI 编程下的 diff 审查、commit 拆分、worktree、多 Agent |
+| [06-troubleshooting](06-troubleshooting/README.md) | Git 误操作恢复、冲突处理、secret 清理、force push 恢复 |
+| [07-large-repo](07-large-repo/README.md) | 大仓库、monorepo、partial clone、sparse checkout、Git LFS |
+| [08-templates](08-templates/README.md) | PR、Issue、Review、Hotfix、Release、AI Review 模板 |
+| [10-company-practices](10-company-practices/README.md) | 大厂工程实践案例和决策图谱 |
+
 ## 学习路径
 
 ### 新手路径
@@ -48,7 +62,9 @@
 2. [GitLab Flow](03-team-collaboration/gitlab-flow.md)
 3. [Pull Request 最佳实践](03-team-collaboration/pull-request-best-practices.md)
 4. [Code Review 最佳实践](03-team-collaboration/code-review-best-practices.md)
-5. [经典 Git 工作流教程（归档）](09-resources/legacy/git-workflow-tutorial.md)
+5. [GitHub Flow](03-team-collaboration/github-flow.md)
+6. [Trunk-Based Development](03-team-collaboration/trunk-based-development.md)
+7. [Gitflow](03-team-collaboration/gitflow.md)
 
 ### GitHub 工程治理路径
 
@@ -103,6 +119,7 @@
 - [团队 Git 工作流指南](03-team-collaboration/team-git-workflow-guide.md)
 - [GitHub 工程治理手册](04-github-engineering/github-engineering-governance.md)
 - [企业工程实践案例库](10-company-practices/README.md)
+- [大厂工程实践决策图谱](10-company-practices/company-practices-decision-map.md)
 - [AI 代码 Review 清单](08-templates/ai-code-review-checklist.md)
 
 ## 推荐资料来源

@@ -8,6 +8,28 @@
 
 不同答案，处理方式完全不同。
 
+## 急救决策树
+
+| 当前状态 | 先做什么 | 推荐处理 | 避免什么 |
+| --- | --- | --- | --- |
+| 代码还没提交 | `git status`、必要时 `git stash push -u` | 用 `git restore`、`git stash`、手工移动文件保留现场 | 直接 `git reset --hard` |
+| 已提交，还没 push | `git log --oneline -5`、`git reflog -10` | 可以用 `reset`、`commit --amend`、`rebase -i` 整理本地历史 | 整理前不留备份分支 |
+| 已 push，但没人基于它开发 | 先确认远端分支和团队状态 | 优先 `git revert`，确实要整理历史时先沟通再 `push --force-with-lease` | 直接 `push --force` |
+| 已 push，且有人基于它开发 | 先通知协作者，确认影响范围 | 用新 commit 修正，公共分支优先 `revert` | 改写公共历史 |
+| secret 已经提交 | 立即废弃并轮换 secret | 再清理 Git 历史和平台缓存 | 只做 revert 就结束 |
+| force push 覆盖远端 | 找到仍保留正确提交的人或本地 reflog | 用正确 commit 恢复远端分支 | 继续在错误分支上叠加提交 |
+
+如果不确定自己属于哪一类，先只执行只读命令：
+
+```bash
+git status
+git log --oneline --decorate -10
+git reflog -10
+git branch -vv
+```
+
+不要急着执行会改写工作区或历史的命令。
+
 ## 修复前先保留现场
 
 先保存现场：

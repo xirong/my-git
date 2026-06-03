@@ -37,6 +37,7 @@
 | [字节跳动 Git 工作流与研发设施实践](../10-company-practices/bytedance-git-workflow.md) | `03-team-collaboration/team-git-workflow-guide.md`、`04-github-engineering/` | 大规模研发设施如何承接 Git 工作流 |
 | [Google 主干开发与版本控制实践](../10-company-practices/google-trunk-based-development.md) | `03-team-collaboration/trunk-based-development.md` | 主干开发、大规模协作、小变更与快速 CI |
 | [Microsoft Release Flow](../10-company-practices/microsoft-release-flow.md) | `03-team-collaboration/team-git-workflow-guide.md`、`04-github-engineering/release-management.md` | 主干开发配合 release 分支的团队实践 |
+| [大厂工程实践决策图谱](../10-company-practices/company-practices-decision-map.md) | `10-company-practices/` | 按团队问题把公开案例和主题文章关联起来 |
 
 ## GitHub 工程治理
 

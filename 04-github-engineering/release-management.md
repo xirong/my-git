@@ -91,6 +91,8 @@ Slack 公开分享的部署实践更强调“持续小批量发布”：通过�
 
 这两类实践方向不同，但共同点很清楚：发布管理不能只依赖分支命名，要把验证、审批点、发布记录、监控和回滚路径串起来。
 
+如果团队有固定发布窗口，可以优先参考 Microsoft Release Flow。如果团队高频部署，可以优先参考 Slack Deploys 和 Netflix Spinnaker。更多案例对照见 [大厂工程实践决策图谱](../10-company-practices/company-practices-decision-map.md)。
+
 ## 延伸阅读
 
 - [GitHub Docs: Managing releases in a repository](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
@@ -98,5 +100,6 @@ Slack 公开分享的部署实践更强调“持续小批量发布”：通过�
 - [Netflix Spinnaker 与发布流水线实践](../10-company-practices/netflix-spinnaker-release.md)
 - [Microsoft Release Flow](../10-company-practices/microsoft-release-flow.md)
 - [Slack Deploys 实践](../10-company-practices/slack-deploys.md)
+- [大厂工程实践决策图谱](../10-company-practices/company-practices-decision-map.md)
 - [GitHub 工程治理手册](github-engineering-governance.md)
 - [推荐阅读索引](../09-resources/recommended-reading.md)
