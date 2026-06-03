@@ -1,5 +1,7 @@
 # AI Native Development
 
+[English](05-ai-native-development_en/README_en.md) | 中文
+
 这个目录讨论 AI 编程时代的 Git 工作流：AI 可以更快地产生代码，人类需要用 Git 把变更整理成可审查、可验证、可回滚的工程单元。
 
 ## 先读什么

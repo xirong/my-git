@@ -1,5 +1,7 @@
 # 团队协作
 
+[English](03-team-collaboration_en/README_en.md) | 中文
+
 这个目录帮助团队选择合适的 Git 工作流，并把分支、PR、Review、发布节奏串成稳定协作方式。
 
 ## 先读什么

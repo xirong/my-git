@@ -1,5 +1,7 @@
 # 故障处理
 
+[English](06-troubleshooting_en/README_en.md) | 中文
+
 这个目录用于处理 Git 高频事故。先判断状态，再选择恢复方案，不要一上来复制危险命令。
 
 ## 先回答三个问题

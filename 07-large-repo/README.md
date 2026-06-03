@@ -1,5 +1,7 @@
 # 大仓库实践
 
+[English](07-large-repo_en/README_en.md) | 中文
+
 这个目录面向 monorepo、大历史仓库、大二进制文件、多服务混合仓库和 CI clone 成本很高的团队。
 
 ## 先判断慢在哪里

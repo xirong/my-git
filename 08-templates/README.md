@@ -1,5 +1,7 @@
 # 模板库
 
+[English](08-templates_en/README_en.md) | 中文
+
 这个目录提供可以复制到团队仓库里的模板。模板的目标是降低沟通成本，让 PR、Review、发布、hotfix、AI 代码审查都有固定信息结构。
 
 ## 推荐组合

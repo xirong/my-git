@@ -1,5 +1,7 @@
 # GitHub 工程治理
 
+[English](04-github-engineering_en/README_en.md) | 中文
+
 这个目录面向技术负责人和团队维护者，目标是把 GitHub 从代码托管工具，配置成协作、Review、CI、发布、安全和审计的一部分。
 
 ## 先读什么
