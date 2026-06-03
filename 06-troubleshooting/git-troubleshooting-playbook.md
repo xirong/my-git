@@ -137,7 +137,7 @@ git revert <commit-sha>
 
 优先用 revert，因为它不会改写公共历史。
 
-### If the commit includes secret
+### 如果 commit 里包含 secret
 
 不要只 revert。
 

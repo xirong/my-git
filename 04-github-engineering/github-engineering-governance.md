@@ -1,6 +1,6 @@
-# GitHub Engineering Governance
+# GitHub 工程治理
 
-GitHub 对现代工程团队来说，已经从代码托管平台，延伸到协作、审查、发布、安全和治理。
+对现代工程团队来说，GitHub 已经从代码托管平台扩展到协作、审查、发布、安全和仓库治理。
 
 ## 1. 仓库治理清单
 
@@ -31,20 +31,20 @@ GitHub 对现代工程团队来说，已经从代码托管平台，延伸到协�
 
 ## 3. 正式团队的最小配置
 
-### Main branch protection
+### 主分支保护
 
 建议：
 
 - 禁止直接推主分支
-- Require pull request before merging
-- Require status checks before merging
-- Require conversation resolution before merging
+- 合入前必须经过 PR
+- 合入前必须通过状态检查
+- 合入前必须处理完讨论
 - 禁止删除主分支
 - 禁止普通成员强推主分支
 
 GitHub 官方文档见 [protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)。
 
-### Pull request template
+### PR 模板
 
 PR 模板至少要求填写：
 
@@ -56,7 +56,7 @@ PR 模板至少要求填写：
 
 模板见 [Pull Request Template](../08-templates/pull-request-template.md)。
 
-### Basic CI
+### 基础 CI
 
 至少包含：
 
@@ -82,7 +82,7 @@ PR 模板至少要求填写：
 /.github/ @team-platform
 ```
 
-Kubernetes 的 OWNERS 模型提供了更完整的治理样板：reviewer 负责代码质量，approver 负责整体接受标准。GitHub CODEOWNERS 可以作为企业团队的轻量版本，见 [开源项目 Git 治理实践](../09-resources/open-source-governance-practices.md)。
+Kubernetes 的 OWNERS 模型提供了更完整的责任划分：reviewer 负责代码质量，approver 负责整体可接受性。GitHub CODEOWNERS 可以作为企业团队的轻量版本，见 [开源项目 Git 治理实践](../09-resources/open-source-governance-practices.md)。
 
 ### Rulesets
 

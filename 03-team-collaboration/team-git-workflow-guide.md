@@ -2,7 +2,7 @@
 
 没有万能的 Git 工作流。
 
-工作流本质上是在速度、安全、发布频率、团队规模、产品复杂度之间做取舍。
+选 Git 工作流，其实是在速度、安全、发布频率、团队规模和产品复杂度之间做取舍。
 
 ## 1. 选择矩阵
 
@@ -163,7 +163,7 @@ main -> release/1.8 -> bugfix -> tag -> hotfix -> back merge
 - hotfix 后必须回合到主干
 - 每个发布版本打 tag
 
-Microsoft Release Flow 提供了一个更偏实战的组合：主干承接日常开发，按 sprint 或发布窗口创建 release 分支，修复完成后同步回主干。详细见 [Microsoft Release Flow](../10-company-practices/microsoft-release-flow.md)。
+Microsoft Release Flow 提供了一个更偏实战的组合：主干负责日常开发，按 sprint 或发布窗口创建 release 分支，修复完成后同步回主干。详细见 [Microsoft Release Flow](../10-company-practices/microsoft-release-flow.md)。
 
 ## 9. 常见反模式
 
@@ -196,7 +196,7 @@ Microsoft Release Flow 提供了一个更偏实战的组合：主干承接日常
 | 实践 | 可借鉴点 |
 | --- | --- |
 | [阿里巴巴 AoneFlow](../10-company-practices/alibaba-aoneflow.md) | 用 release 分支表达发布范围，支持 feature 灵活组合和撤下 |
-| [腾讯 Gitflow 分支规范](../10-company-practices/tencent-gitflow.md) | 适合固定版本发布、release 测试、hotfix 回合的团队 |
+| [腾讯 Gitflow 分支规范](../10-company-practices/tencent-gitflow.md) | 适合固定版本发布、release 测试、hotfix 回补的团队 |
 | [字节跳动 Git 工作流](../10-company-practices/bytedance-git-workflow.md) | 把分支、权限、Review、CI、发布放进统一研发设施 |
 | [Google 主干开发](../10-company-practices/google-trunk-based-development.md) | 用短分支、快 CI、小变更支撑大规模协作 |
 | [Microsoft Release Flow](../10-company-practices/microsoft-release-flow.md) | 主干开发配合 release 分支，适合有固定发布窗口的产品团队 |
