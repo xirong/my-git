@@ -143,6 +143,13 @@ See the [roadmap](00-meta/00-meta_en/roadmap_en.md) for detailed plans.
 
 Existing content will be gradually incorporated into new learning paths. See the [legacy content migration](00-meta/00-meta_en/legacy-content-migration_en.md) for the migration list and the [resources index](09-resources/09-resources_en/resources-index_en.md) for the materials index.
 
+## Project Governance
+
+- [License](LICENSE)
+- [Contributing](CONTRIBUTING.md)
+- [Roadmap](ROADMAP.md)
+- [Maintainers](MAINTAINERS.md)
+
 ## Contributing
 
 We welcome contributions of real-world problems, team practices, incident recovery experiences, AI programming workflows, and reusable templates.
