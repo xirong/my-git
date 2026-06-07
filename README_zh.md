@@ -143,6 +143,13 @@ v2.0 版本的定位是：
 
 已有内容会逐步纳入新的学习路径，迁移清单见 [legacy content migration](00-meta/legacy-content-migration.md)，资料索引见 [resources](09-resources/resources-index.md)。
 
+## 项目治理
+
+- [License](LICENSE)
+- [Contributing](CONTRIBUTING.md)
+- [Roadmap](ROADMAP.md)
+- [Maintainers](MAINTAINERS.md)
+
 ## Contributing
 
 欢迎贡献真实问题、团队实践、事故恢复经验、AI 编程工作流和可复用模板。
