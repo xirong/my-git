@@ -150,6 +150,8 @@ Existing content will be gradually incorporated into new learning paths. See the
 - [Roadmap](ROADMAP.md)
 - [Maintainers](MAINTAINERS.md)
 
+Original project content is licensed under the MIT License. Third-party materials, archived ebooks, external articles, linked resources, and quoted references remain under their original licenses and copyrights.
+
 ## Contributing
 
 We welcome contributions of real-world problems, team practices, incident recovery experiences, AI programming workflows, and reusable templates.

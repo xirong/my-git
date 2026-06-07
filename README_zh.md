@@ -150,6 +150,8 @@ v2.0 版本的定位是：
 - [Roadmap](ROADMAP.md)
 - [Maintainers](MAINTAINERS.md)
 
+本仓库原创内容采用 MIT License。第三方资料、历史电子书、外部文章、链接资源和引用内容仍遵循其原始许可证和版权声明。
+
 ## Contributing
 
 欢迎贡献真实问题、团队实践、事故恢复经验、AI 编程工作流和可复用模板。
