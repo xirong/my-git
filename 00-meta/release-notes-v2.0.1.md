@@ -4,10 +4,10 @@ This maintenance release strengthens the project as a public open source handboo
 
 ## Highlights
 
-- Added a root [LICENSE](https://github.com/xirong/my-git/blob/v2.0.1/LICENSE)
-- Added root [CONTRIBUTING.md](https://github.com/xirong/my-git/blob/v2.0.1/CONTRIBUTING.md)
-- Added root [ROADMAP.md](https://github.com/xirong/my-git/blob/v2.0.1/ROADMAP.md)
-- Added root [MAINTAINERS.md](https://github.com/xirong/my-git/blob/v2.0.1/MAINTAINERS.md)
+- Added a root [LICENSE](https://github.com/xirong/my-git/blob/master/LICENSE)
+- Added root [CONTRIBUTING.md](https://github.com/xirong/my-git/blob/master/CONTRIBUTING.md)
+- Added root [ROADMAP.md](https://github.com/xirong/my-git/blob/master/ROADMAP.md)
+- Added root [MAINTAINERS.md](https://github.com/xirong/my-git/blob/master/MAINTAINERS.md)
 - Updated README navigation for project governance
 - Extended documentation checks to cover root governance documents
 
