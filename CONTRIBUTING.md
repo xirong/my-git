@@ -32,6 +32,7 @@ Please avoid adding link lists without context. A useful guide should explain wh
 
 ```bash
 python3 scripts/check-docs.py
+python3 scripts/check-links.py --no-external
 git diff --check
 ```
 
@@ -53,6 +54,7 @@ git diff --check
 - [ ] New content is placed in the right section.
 - [ ] Related English or Chinese files are updated when needed.
 - [ ] `python3 scripts/check-docs.py` passes.
+- [ ] `python3 scripts/check-links.py --no-external` passes.
 - [ ] `git diff --check` passes.
 
 ## Issue Types
