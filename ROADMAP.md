@@ -31,6 +31,16 @@ The v2.0.1 maintenance release focuses on open source project governance and mai
 - [x] Keep documentation checks active
 - [ ] Open public roadmap issues for upcoming maintenance work
 
+## v2.1.0
+
+The v2.1.0 release focuses on agent governance and agent-facing conventions, so the handbook covers AI agents as first-class repository participants.
+
+- [x] Add an AI agent governance guide covering bot identity, permissions, PR approval, CI triggers, and secrets isolation
+- [x] Add an AGENTS.md template for team repositories
+- [x] Add this repository's own AGENTS.md and AI contribution guidelines
+- [x] Expand the multi-agent branch strategy guide with executable comparison, integration, and cleanup workflows
+- [x] Expand the stacked PR guide with native Git commands and stack tooling
+
 ## Next Maintenance Areas
 
 ### Documentation Quality
