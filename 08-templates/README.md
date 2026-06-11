@@ -12,10 +12,11 @@
 | 小团队 | [Pull Request Template](pull-request-template.md)、[Code Review Checklist](code-review-checklist.md) |
 | 成长期团队 | PR 模板、Review 清单、Issue 模板、Release Note |
 | 有生产发布压力的团队 | [Hotfix Process](hotfix-process.md)、[Release Note Template](release-note-template.md) |
-| AI 编程团队 | [AI Code Review Checklist](ai-code-review-checklist.md)、PR 模板、commit message 规范 |
+| AI 编程团队 | [AGENTS.md 模板](agents-md-template.md)、[AI Code Review Checklist](ai-code-review-checklist.md)、PR 模板、commit message 规范 |
 
 ## 模板列表
 
+- [AGENTS.md 模板](agents-md-template.md)
 - [Pull Request Template](pull-request-template.md)
 - [Code Review Checklist](code-review-checklist.md)
 - [AI Code Review Checklist](ai-code-review-checklist.md)
