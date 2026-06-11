@@ -152,6 +152,7 @@ Existing content will be gradually incorporated into new learning paths. See the
 - [Contributing](CONTRIBUTING.md)
 - [Roadmap](ROADMAP.md)
 - [Maintainers](MAINTAINERS.md)
+- [Agent Conventions](AGENTS.md)
 
 Original project content is licensed under the MIT License. Third-party materials, archived ebooks, external articles, linked resources, and quoted references remain under their original licenses and copyrights.
 

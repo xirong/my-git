@@ -84,5 +84,6 @@ For the supported tool list, refer to the official [agents.md](https://agents.md
 ## Extended Reading
 
 - [agents.md official guide](https://agents.md)
+- [This repository's own AGENTS.md](../../AGENTS.md)
 - [Codex / Claude Code Git Practices](../../05-ai-native-development/05-ai-native-development_en/codex-claude-code-git-practices_en.md)
 - [AI Agent Governance](../../04-github-engineering/04-github-engineering_en/ai-agent-governance_en.md)

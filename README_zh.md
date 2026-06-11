@@ -152,6 +152,7 @@ v2.0 版本的定位是：
 - [Contributing](CONTRIBUTING.md)
 - [Roadmap](ROADMAP.md)
 - [Maintainers](MAINTAINERS.md)
+- [Agent 协作约定](AGENTS.md)
 
 本仓库原创内容采用 MIT License。第三方资料、历史电子书、外部文章、链接资源和引用内容仍遵循其原始许可证和版权声明。
 

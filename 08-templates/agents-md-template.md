@@ -82,5 +82,6 @@ Claude Code 读取的是 CLAUDE.md，内容结构相同，两份可以互相引�
 ## 延伸阅读
 
 - [agents.md 官方说明](https://agents.md)
+- [本仓库的 AGENTS.md 实例](../AGENTS.md)
 - [Codex / Claude Code Git 实践](../05-ai-native-development/codex-claude-code-git-practices.md)
 - [AI Agent 治理](../04-github-engineering/ai-agent-governance.md)
