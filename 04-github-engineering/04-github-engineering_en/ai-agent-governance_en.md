@@ -129,4 +129,5 @@ Without a unified prefix, auditing, cleanup, and Ruleset targeting all become im
 - [Rulesets](rulesets_en.md)
 - [Branch Protection](branch-protection_en.md)
 - [CODEOWNERS](codeowners_en.md)
+- [AGENTS.md Template](../../08-templates/08-templates_en/agents-md-template_en.md)
 - [AI Reviewer and Human Reviewer](../../05-ai-native-development/05-ai-native-development_en/ai-reviewer-and-human-reviewer_en.md)

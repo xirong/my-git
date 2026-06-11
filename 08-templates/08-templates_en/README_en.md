@@ -12,10 +12,11 @@ This directory provides templates that can be copied into your team's repository
 | Small Teams | [Pull Request Template](pull-request-template_en.md), [Code Review Checklist](code-review-checklist_en.md) |
 | Growing Teams | PR Template, Review Checklist, Issue Template, Release Note |
 | Teams with Production Release Pressure | [Hotfix Process](hotfix-process_en.md), [Release Note Template](release-note-template_en.md) |
-| AI Programming Teams | [AI Code Review Checklist](ai-code-review-checklist_en.md), PR Template, Commit Message Convention |
+| AI Programming Teams | [AGENTS.md Template](agents-md-template_en.md), [AI Code Review Checklist](ai-code-review-checklist_en.md), PR Template, Commit Message Convention |
 
 ## Template List
 
+- [AGENTS.md Template](agents-md-template_en.md)
 - [Pull Request Template](pull-request-template_en.md)
 - [Code Review Checklist](code-review-checklist_en.md)
 - [AI Code Review Checklist](ai-code-review-checklist_en.md)
