@@ -14,6 +14,7 @@
 | 多仓库想统一规则 | [Rulesets](rulesets.md) |
 | 关键目录需要 owner Review | [CODEOWNERS](codeowners.md) |
 | PR 多，主分支经常被合坏 | [Merge Queue](merge-queue.md) |
+| AI agent 开始提交代码，要建立治理规则 | [AI Agent 治理](ai-agent-governance.md) |
 
 ## CI 和发布
 
