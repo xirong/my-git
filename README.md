@@ -77,6 +77,7 @@ Therefore, v2.0 upgrades this repository into:
 5.  [Merge Queue](04-github-engineering/04-github-engineering_en/merge-queue_en.md)
 6.  [GitOps and Config as Code](04-github-engineering/04-github-engineering_en/gitops-and-config-as-code_en.md)
 7.  [Release Management](04-github-engineering/04-github-engineering_en/release-management_en.md)
+8.  [AI Agent Governance](04-github-engineering/04-github-engineering_en/ai-agent-governance_en.md)
 
 ### AI Native Development Path
 
@@ -106,6 +107,7 @@ Therefore, v2.0 upgrades this repository into:
 | AI changed too many files at once, don't know how to review | [AI Change Review Examples](05-ai-native-development/05-ai-native-development_en/ai-change-review-example_en.md) |
 | Large AI-generated diff needs to be split into commits or PRs | [AI Commit Splitting](05-ai-native-development/05-ai-native-development_en/ai-commit-splitting_en.md), [Stacked PR for AI-Generated Changes](05-ai-native-development/05-ai-native-development_en/stacked-pr-for-ai-generated-changes_en.md) |
 | Want to protect the main branch | [Branch Protection](04-github-engineering/04-github-engineering_en/branch-protection_en.md) |
+| AI agents are pushing code and opening PRs, and I don't know how to govern them | [AI Agent Governance](04-github-engineering/04-github-engineering_en/ai-agent-governance_en.md) |
 | Too many PRs, main branch often broken after merge | [Merge Queue](04-github-engineering/04-github-engineering_en/merge-queue_en.md) |
 | Clone, status, or checkout is slow in a large repository | [Large Repository Git Practices](07-large-repo/07-large-repo_en/large-repo-git-practices_en.md) |
 | Want to directly copy team templates | [Templates](08-templates/08-templates_en/README_en.md) |

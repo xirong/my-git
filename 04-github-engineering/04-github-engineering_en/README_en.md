@@ -14,6 +14,7 @@ This directory is intended for tech leads and team maintainers. Its goal is to c
 | Want to unify rules across multiple repositories | [Rulesets](rulesets_en.md) |
 | Key directories require owner review | [CODEOWNERS](codeowners_en.md) |
 | Too many PRs, main branch breaks frequently on merge | [Merge Queue](merge-queue_en.md) |
+| AI agents are starting to push code and need governance rules | [AI Agent Governance](ai-agent-governance_en.md) |
 
 ## CI and Release
 

@@ -77,6 +77,7 @@ v2.0 版本的定位是：
 5. [Merge Queue](04-github-engineering/merge-queue.md)
 6. [GitOps and Config as Code](04-github-engineering/gitops-and-config-as-code.md)
 7. [发布管理](04-github-engineering/release-management.md)
+8. [AI Agent 治理](04-github-engineering/ai-agent-governance.md)
 
 ### AI Native 开发路径
 
@@ -106,6 +107,7 @@ v2.0 版本的定位是：
 | AI 一次改了很多文件，不知道怎么审 | [AI 变更审查实战样例](05-ai-native-development/ai-change-review-example.md) |
 | AI 生成的大 diff 需要拆 commit 或拆 PR | [AI Commit Splitting](05-ai-native-development/ai-commit-splitting.md)、[Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md) |
 | 想保护 main 分支 | [Branch Protection](04-github-engineering/branch-protection.md) |
+| AI agent 开始直接提交代码、发 PR，不知道怎么管 | [AI Agent 治理](04-github-engineering/ai-agent-governance.md) |
 | PR 很多，主分支经常被合坏 | [Merge Queue](04-github-engineering/merge-queue.md) |
 | 大仓库 clone、status、checkout 很慢 | [Large Repository Git Practices](07-large-repo/large-repo-git-practices.md) |
 | 想直接复制团队模板 | [Templates](08-templates/) |
