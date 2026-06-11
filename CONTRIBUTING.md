@@ -46,9 +46,20 @@ git diff --check
 - Keep examples copyable and easy to adapt.
 - Keep bilingual navigation intact when editing translated files.
 
+## AI-Assisted Contributions
+
+AI tools are welcome here. The same review bar applies to generated content.
+
+- State the AI tool you used in the pull request description.
+- Review every generated line yourself before submitting. You are responsible for the content under your name.
+- Add a `Co-authored-by` trailer to commits with substantial AI involvement.
+- Run the same documentation checks before submitting.
+- Repository conventions for agents live in [AGENTS.md](AGENTS.md).
+
 ## Pull Request Checklist
 
 - [ ] The change is focused and reviewable.
+- [ ] AI assistance, if any, is declared in the PR description.
 - [ ] Local Markdown links still work.
 - [ ] Dangerous commands include context and warnings.
 - [ ] New content is placed in the right section.
