@@ -108,6 +108,7 @@ v2.0 版本的定位是：
 | AI 生成的大 diff 需要拆 commit 或拆 PR | [AI Commit Splitting](05-ai-native-development/ai-commit-splitting.md)、[Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md) |
 | 想保护 main 分支 | [Branch Protection](04-github-engineering/branch-protection.md) |
 | AI agent 开始直接提交代码、发 PR，不知道怎么管 | [AI Agent 治理](04-github-engineering/ai-agent-governance.md) |
+| 想给团队仓库写一份 agent 协作约定 | [AGENTS.md 模板](08-templates/agents-md-template.md) |
 | PR 很多，主分支经常被合坏 | [Merge Queue](04-github-engineering/merge-queue.md) |
 | 大仓库 clone、status、checkout 很慢 | [Large Repository Git Practices](07-large-repo/large-repo-git-practices.md) |
 | 想直接复制团队模板 | [Templates](08-templates/) |
@@ -151,6 +152,7 @@ v2.0 版本的定位是：
 - [Contributing](CONTRIBUTING.md)
 - [Roadmap](ROADMAP.md)
 - [Maintainers](MAINTAINERS.md)
+- [Agent 协作约定](AGENTS.md)
 
 本仓库原创内容采用 MIT License。第三方资料、历史电子书、外部文章、链接资源和引用内容仍遵循其原始许可证和版权声明。
 

@@ -14,6 +14,7 @@ DOC_ROOTS = [
     "README.md",
     "README_zh.md",
     "README.zh-CN.md",
+    "AGENTS.md",
     "CONTRIBUTING.md",
     "ROADMAP.md",
     "MAINTAINERS.md",

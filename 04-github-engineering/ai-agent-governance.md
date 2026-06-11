@@ -127,4 +127,5 @@ AI review 可以先扫一遍，但 Required approvals 必须由人完成。
 - [Rulesets](rulesets.md)
 - [Branch Protection](branch-protection.md)
 - [CODEOWNERS](codeowners.md)
+- [AGENTS.md 模板](../08-templates/agents-md-template.md)
 - [AI Reviewer 与 Human Reviewer](../05-ai-native-development/ai-reviewer-and-human-reviewer.md)
