@@ -45,6 +45,16 @@ v2.0 先做一件事：建立清晰的内容结构，并完成第一批能直接
 - [x] 全仓库链接校验
 - [ ] 准备 `v2.0.0` release notes
 
+## v2.1.0：Agent 治理与协作约定
+
+v2.1.0 把 AI agent 当作仓库里的正式参与者来覆盖，补齐治理和约定层。
+
+- [x] 新增 `ai-agent-governance.md`，覆盖 bot 身份、权限、PR 审批、CI 触发、secrets 隔离
+- [x] 新增 AGENTS.md 模板，供团队仓库直接复制
+- [x] 本仓库落地自己的 AGENTS.md，贡献指南补充 AI 贡献规则
+- [x] `multi-agent-branch-strategy.md` 补齐对比、整合、清理的可执行流程
+- [x] `stacked-pr-for-ai-generated-changes.md` 补齐原生 git 命令和栈管理工具
+
 ## 内容原则
 
 1. 少堆链接，多讲判断
