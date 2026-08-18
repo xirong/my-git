@@ -48,8 +48,9 @@ v2.0 版本的定位是：
 
 1. [为什么使用 Git](01-getting-started/why-git.md)
 2. [Git 心智模型](01-getting-started/git-mental-model.md)
-3. [Git 基础命令](01-getting-started/git-basic-commands.md)
-4. [日常 Git 命令](02-daily-workflow/everyday-git-commands.md)
+3. [快照与状态：HEAD、Index 与 Working Tree](01-getting-started/git-mental-model-01-snapshots.md)
+4. [Git 基础命令](01-getting-started/git-basic-commands.md)
+5. [日常 Git 命令](02-daily-workflow/everyday-git-commands.md)
 
 ### 日常开发路径
 

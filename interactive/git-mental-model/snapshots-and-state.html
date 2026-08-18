@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>快照与三个状态：HEAD、索引、工作区</title>
+<meta name="description" content="交互式演示：同一个 app.txt 在 HEAD、索引、工作区中可以是三个不同版本。">
+<style>
+  :root {
+    color-scheme: light dark;
+
+    --bg: #f4f6f8;
+    --panel: #ffffff;
+    --panel-2: #eef1f5;
+    --ink: #10151b;
+    --muted: #545f6d;
+    --line: #d5dbe3;
+    --line-strong: #b6c0cb;
+    --accent: #b93d0b;
+    --accent-ink: #ffffff;
+    --accent-soft: #fbeee6;
+
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+      "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+      "Liberation Mono", monospace;
+
+    --r-s: 4px;
+    --r-m: 8px;
+
+    --shell: 1180px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --panel: #151b23;
+      --panel-2: #1b222b;
+      --ink: #e6edf3;
+      --muted: #9aa6b2;
+      --line: #28313b;
+      --line-strong: #3b4653;
+      --accent: #fb923c;
+      --accent-ink: #12171d;
+      --accent-soft: #251d16;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+  }
+
+  code, kbd, pre, samp { font-family: var(--font-mono); }
+
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--r-s);
+  }
+
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    background: var(--panel);
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-s);
+    padding: 10px 14px;
+    z-index: 5;
+  }
+  .skip:focus { left: 16px; }
+
+  .shell {
+    max-width: var(--shell);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Masthead ------------------------------------------------------------- */
+
+  .masthead {
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .masthead__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px 32px;
+    padding-top: 28px;
+    padding-bottom: 26px;
+  }
+
+  .masthead__text { flex: 1 1 340px; min-width: 0; }
+
+  h1 {
+    margin: 0 0 10px;
+    font-size: clamp(1.55rem, 1.15rem + 1.7vw, 2.3rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  h1 .h1-file {
+    font-family: var(--font-mono);
+    font-size: 0.72em;
+    color: var(--accent);
+    letter-spacing: 0;
+  }
+
+  .deck {
+    margin: 0;
+    max-width: 62ch;
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .lang {
+    display: flex;
+    gap: 6px;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-m);
+    background: var(--panel-2);
+    flex: 0 0 auto;
+  }
+
+  .lang button {
+    min-height: 44px;
+    min-width: 78px;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: var(--r-s);
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: background-color 120ms ease, color 120ms ease;
+  }
+
+  .lang button:hover { color: var(--ink); }
+
+  .lang button[aria-pressed="true"] {
+    background: var(--panel);
+    border-color: var(--line-strong);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* Layout --------------------------------------------------------------- */
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-top: 26px;
+    padding-bottom: 40px;
+    align-items: start;
+  }
+
+  @media (min-width: 1000px) {
+    .layout {
+      grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+      gap: 28px;
+    }
+    .rail { position: sticky; top: 20px; }
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--r-m);
+    min-width: 0;
+  }
+
+  .panel__head {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .panel__title {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .panel__hint {
+    margin: 4px 0 0;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* Rail ----------------------------------------------------------------- */
+
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+    display: grid;
+    gap: 6px;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 3px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0 12px;
+    width: 100%;
+    min-height: 56px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 140ms ease, background-color 140ms ease,
+      transform 140ms ease;
+  }
+
+  .step::before {
+    content: "";
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: stretch;
+    background: var(--line-strong);
+    border-radius: 2px;
+    transition: background-color 140ms ease;
+  }
+
+  .step:hover { border-color: var(--line-strong); background: var(--panel-2); }
+
+  .step[aria-current="step"] {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .step[aria-current="step"]::before { background: var(--accent); }
+
+  .step__label {
+    grid-column: 2;
+    grid-row: 1;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .step__changes {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .step[aria-current="step"] .step__changes { color: var(--ink); }
+
+  .step__versions {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .step[aria-current="step"] .step__versions { color: var(--accent); font-weight: 700; }
+
+  .rail__legend {
+    margin: 0;
+    padding: 0 16px 14px;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .rail__legend code { font-size: 0.95em; }
+
+  /* Board ---------------------------------------------------------------- */
+
+  .board { display: grid; gap: 20px; min-width: 0; }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .progress {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-s);
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease;
+  }
+
+  .btn:hover { background: var(--panel-2); }
+
+  .btn[disabled] {
+    cursor: not-allowed;
+    color: var(--muted);
+    opacity: 0.55;
+    background: var(--panel);
+  }
+
+  .btn--primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+
+  .btn--primary:hover { background: var(--accent); filter: brightness(1.08); }
+  .btn--primary:focus-visible { outline-color: var(--ink); }
+  .btn--primary[disabled] { background: var(--panel); color: var(--muted); border-color: var(--line-strong); filter: none; }
+
+  /* Command -------------------------------------------------------------- */
+
+  .command {
+    margin: 0;
+    padding: 16px;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .command__prompt { color: var(--accent); font-weight: 700; }
+  .command--idle { color: var(--muted); font-style: normal; }
+
+  /* Columns -------------------------------------------------------------- */
+
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  @media (min-width: 720px) {
+    .columns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-m);
+    background: var(--panel);
+    transition: border-color 200ms ease, background-color 200ms ease;
+  }
+
+  .column.is-changed {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .column__name {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .column__role {
+    margin: 4px 0 12px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    min-height: 2.6em;
+  }
+
+  .column__file {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--line-strong);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .column__value {
+    margin: 0;
+    padding: 14px 0 4px;
+    font-family: var(--font-mono);
+    font-size: clamp(1.05rem, 0.95rem + 0.6vw, 1.35rem);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .column__flag {
+    margin: 6px 0 0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .column__flag[hidden] { display: none; }
+
+  @keyframes value-in {
+    from { opacity: 0; transform: translateY(7px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .column.is-animating .column__value { animation: value-in 320ms cubic-bezier(0.2, 0.7, 0.3, 1); }
+  .column.is-animating .column__flag { animation: value-in 380ms cubic-bezier(0.2, 0.7, 0.3, 1); }
+
+  /* Status --------------------------------------------------------------- */
+
+  .status__body { padding: 16px; display: grid; gap: 14px; }
+
+  .status__out {
+    margin: 0;
+    padding: 12px 14px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+    font-size: 0.98rem;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .status__out[hidden] { display: none; }
+
+  .status__empty {
+    margin: 0;
+    padding: 12px 14px;
+    background: var(--panel-2);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--r-s);
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+  }
+
+  .status__empty[hidden] { display: none; }
+
+  .status__note { margin: 0; font-size: 0.92rem; }
+
+  .codes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+  }
+
+  @media (max-width: 520px) {
+    .codes { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  .code-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+    background: var(--panel-2);
+    min-width: 0;
+  }
+
+  .code-cell__char {
+    order: -1;
+    margin: 0;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-s);
+    background: var(--panel);
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .code-cell.is-empty .code-cell__char {
+    border-style: dashed;
+    color: var(--muted);
+  }
+
+  .code-cell.is-set .code-cell__char {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .code-cell__label { font-size: 0.82rem; color: var(--muted); min-width: 0; }
+
+  .legend {
+    margin: 0;
+    display: grid;
+    gap: 8px;
+    font-size: 0.86rem;
+  }
+
+  .legend div { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: baseline; }
+
+  .legend dt {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .legend dd { margin: 0; color: var(--muted); }
+
+  /* Explanation ---------------------------------------------------------- */
+
+  .readout__body { padding: 16px; }
+
+  .readout__text { margin: 0; font-size: 1rem; max-width: 72ch; }
+
+  .readout__text code {
+    padding: 1px 5px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+    background: var(--panel-2);
+    font-size: 0.92em;
+  }
+
+  .keyhint {
+    margin: 0;
+    padding: 0 16px 14px;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  kbd {
+    padding: 1px 6px;
+    border: 1px solid var(--line-strong);
+    border-bottom-width: 2px;
+    border-radius: var(--r-s);
+    background: var(--panel-2);
+    font-size: 0.85em;
+  }
+
+  /* noscript ------------------------------------------------------------- */
+
+  .fallback {
+    margin: 20px 0 0;
+    padding: 16px;
+    border: 1px solid var(--accent);
+    border-radius: var(--r-m);
+    background: var(--accent-soft);
+  }
+
+  .fallback p { margin: 0 0 10px; }
+  .fallback p:last-child { margin-bottom: 0; }
+
+  .fallback__scroll {
+    overflow-x: auto;
+    margin-bottom: 10px;
+  }
+
+  .fallback table {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    font-size: 0.86rem;
+  }
+
+  .fallback th, .fallback td {
+    padding: 6px 8px;
+    border: 1px solid var(--line-strong);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .fallback td { font-family: var(--font-mono); }
+
+  /* Footer --------------------------------------------------------------- */
+
+  .colophon {
+    border-top: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .colophon__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .colophon__note { margin: 0; max-width: 46ch; }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 600;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#board" data-en="Skip to the interactive demo">跳到交互演示</a>
+
+<header class="masthead">
+  <div class="shell masthead__inner">
+    <div class="masthead__text">
+      <h1>
+        <span data-en="Three states of one file:">同一个文件的三个状态：</span>
+        <span class="h1-file">HEAD / index / working tree</span>
+      </h1>
+      <p class="deck" data-en="One file named app.txt can hold three different versions at the same time. Step through five states and watch which state each command actually changes.">一个名为 app.txt 的文件，可以同时存在三个不同版本。走完下面五个状态，看清每条命令真正改动了哪一层。</p>
+    </div>
+    <div class="lang" role="group" aria-label="Language / 语言">
+      <button type="button" id="lang-zh" aria-pressed="true" lang="zh-CN">中文</button>
+      <button type="button" id="lang-en" aria-pressed="false" lang="en">English</button>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <noscript>
+    <div class="fallback">
+      <p data-en="JavaScript is disabled, so this page shows the initial state only: HEAD, the index, and the working tree all hold version=1. The full five-state walkthrough is listed below."><strong>提示：</strong>浏览器停用了 JavaScript，页面只显示初始状态：HEAD、索引、工作区都是 version=1。完整的五个状态见下表。</p>
+      <div class="fallback__scroll">
+      <table>
+        <caption class="visually-hidden">五个状态对照表 / Five states</caption>
+        <thead>
+          <tr>
+            <th scope="col">命令 / Command</th>
+            <th scope="col">HEAD</th>
+            <th scope="col">Index</th>
+            <th scope="col">Working Tree</th>
+            <th scope="col">git status --short</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>(初始状态 / initial)</td><td>version=1</td><td>version=1</td><td>version=1</td><td>(无输出 / no output)</td></tr>
+          <tr><td>printf 'version=2\n' &gt; app.txt</td><td>version=1</td><td>version=1</td><td>version=2</td><td>" M app.txt"</td></tr>
+          <tr><td>git add app.txt</td><td>version=1</td><td>version=2</td><td>version=2</td><td>"M  app.txt"</td></tr>
+          <tr><td>printf 'version=3\n' &gt; app.txt</td><td>version=1</td><td>version=2</td><td>version=3</td><td>"MM app.txt"</td></tr>
+          <tr><td>git commit -m 'record version 2'</td><td>version=2</td><td>version=2</td><td>version=3</td><td>" M app.txt"</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p data-en="The last row is the point of this page: the commit records the snapshot held in the index, and the newer working-tree edit stays uncommitted.">最后一行是这个页面的重点：提交记录的是索引里的快照，后来在工作区里做的修改没有进入这次提交。</p>
+    </div>
+  </noscript>
+
+  <div class="layout">
+
+    <nav class="panel rail" aria-label="状态步骤 / State steps">
+      <div class="panel__head">
+        <h2 class="panel__title" data-en="States">状态序列</h2>
+        <p class="panel__hint" data-en="Right column: version in HEAD / index / working tree.">右侧数字是 HEAD / 索引 / 工作区 中的版本号。</p>
+      </div>
+      <ol class="steps" id="steps">
+        <li>
+          <button type="button" class="step" data-step="0" aria-current="step">
+            <span class="step__label" data-en="Initial state">初始状态</span>
+            <span class="step__changes" data-en="All three states match">三个状态一致</span>
+            <span class="step__versions" aria-hidden="true">1 / 1 / 1</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="step" data-step="1">
+            <span class="step__label" data-en="Edit the file">修改文件</span>
+            <span class="step__changes" data-en="Changes the working tree">改动工作区</span>
+            <span class="step__versions" aria-hidden="true">1 / 1 / 2</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="step" data-step="2">
+            <span class="step__label" data-en="Stage the change">暂存改动</span>
+            <span class="step__changes" data-en="Changes the index">改动索引</span>
+            <span class="step__versions" aria-hidden="true">1 / 2 / 2</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="step" data-step="3">
+            <span class="step__label" data-en="Edit the file again">再次修改文件</span>
+            <span class="step__changes" data-en="Changes the working tree">改动工作区</span>
+            <span class="step__versions" aria-hidden="true">1 / 2 / 3</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="step" data-step="4">
+            <span class="step__label" data-en="Commit">提交</span>
+            <span class="step__changes" data-en="Changes HEAD">改动 HEAD</span>
+            <span class="step__versions" aria-hidden="true">2 / 2 / 3</span>
+          </button>
+        </li>
+      </ol>
+      <p class="rail__legend" data-en="The version number is the content of app.txt in that state, for example version=2.">版本号表示该状态里 app.txt 的内容，例如 version=2。</p>
+    </nav>
+
+    <main class="board" id="board" tabindex="-1">
+
+      <section class="panel" aria-labelledby="toolbar-title">
+        <h2 class="visually-hidden" id="toolbar-title">导航 / Navigation</h2>
+        <div class="toolbar">
+          <p class="progress" id="progress">状态 1 / 5</p>
+          <div class="controls">
+            <button type="button" class="btn" id="btn-prev" disabled data-en="Previous">上一步</button>
+            <button type="button" class="btn btn--primary" id="btn-next" data-en="Next">下一步</button>
+            <button type="button" class="btn" id="btn-reset" data-en="Reset">回到起点</button>
+          </div>
+        </div>
+        <p class="keyhint">
+          <span data-en="Keyboard:">键盘：</span>
+          <kbd>&larr;</kbd> <kbd>&rarr;</kbd>
+          <span data-en="move between states,">切换状态，</span>
+          <kbd>Home</kbd>
+          <span data-en="jumps to the initial state,">回到初始状态，</span>
+          <kbd>End</kbd>
+          <span data-en="jumps to the commit state.">跳到提交状态。</span>
+        </p>
+      </section>
+
+      <section class="panel" aria-labelledby="command-title">
+        <div class="panel__head">
+          <h2 class="panel__title" id="command-title" data-en="Command">执行的命令</h2>
+        </div>
+        <p class="command" id="command"><span class="command--idle">尚未执行命令，这是仓库刚提交完的起点。</span></p>
+      </section>
+
+      <section aria-labelledby="columns-title">
+        <h2 class="visually-hidden" id="columns-title">三个状态 / Three states</h2>
+        <div class="columns">
+          <article class="column" id="col-head">
+            <h3 class="column__name">HEAD</h3>
+            <p class="column__role" data-en="Snapshot recorded by the latest commit">最新一次提交记录下来的快照</p>
+            <p class="column__file"><span>app.txt</span><span data-en="content" class="column__filenote">内容</span></p>
+            <p class="column__value">version=1</p>
+            <p class="column__flag" hidden data-en="Updated by this command">这条命令更新了它</p>
+          </article>
+          <article class="column" id="col-index">
+            <h3 class="column__name">Index</h3>
+            <p class="column__role" data-en="What the next commit will record">下一次提交会记录的内容</p>
+            <p class="column__file"><span>app.txt</span><span data-en="content" class="column__filenote">内容</span></p>
+            <p class="column__value">version=1</p>
+            <p class="column__flag" hidden data-en="Updated by this command">这条命令更新了它</p>
+          </article>
+          <article class="column" id="col-work">
+            <h3 class="column__name">Working Tree</h3>
+            <p class="column__role" data-en="The file you are editing on disk">你正在磁盘上编辑的文件</p>
+            <p class="column__file"><span>app.txt</span><span data-en="content" class="column__filenote">内容</span></p>
+            <p class="column__value">version=1</p>
+            <p class="column__flag" hidden data-en="Updated by this command">这条命令更新了它</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="status-title">
+        <div class="panel__head">
+          <h2 class="panel__title" id="status-title"><code>git status --short</code></h2>
+        </div>
+        <div class="status__body">
+          <pre class="status__out" id="status-out" hidden><code></code></pre>
+          <p class="status__empty" id="status-empty" data-en="(no output)">（没有输出）</p>
+          <dl class="codes">
+            <div class="code-cell is-empty" id="code-1">
+              <dt class="code-cell__label" data-en="Position 1: index vs HEAD">第一位：索引与 HEAD 的差异</dt>
+              <dd class="code-cell__char"><span id="code-1-char"></span><span class="visually-hidden" id="code-1-sr">空格</span></dd>
+            </div>
+            <div class="code-cell is-empty" id="code-2">
+              <dt class="code-cell__label" data-en="Position 2: working tree vs index">第二位：工作区与索引的差异</dt>
+              <dd class="code-cell__char"><span id="code-2-char"></span><span class="visually-hidden" id="code-2-sr">空格</span></dd>
+            </div>
+          </dl>
+          <p class="status__note" id="status-note">三个状态没有差异，所以这条命令什么都不输出。</p>
+          <dl class="legend">
+            <div>
+              <dt>M<span class="visually-hidden" data-en=" in position 1">，第一位</span></dt>
+              <dd data-en="in position 1: the index differs from HEAD, the change is staged.">出现在第一位：索引与 HEAD 不同，改动已经暂存。</dd>
+            </div>
+            <div>
+              <dt>M<span class="visually-hidden" data-en=" in position 2">，第二位</span></dt>
+              <dd data-en="in position 2: the working tree differs from the index, the change is not staged.">出现在第二位：工作区与索引不同，改动还没有暂存。</dd>
+            </div>
+            <div>
+              <dt><span aria-hidden="true">&nbsp;</span><span class="visually-hidden" data-en="space">空格</span></dt>
+              <dd data-en="A space in either position means there is no difference on that side.">空格表示这一位对应的两层内容相同。</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="readout-title">
+        <div class="panel__head">
+          <h2 class="panel__title" id="readout-title" data-en="What changed">这一步发生了什么</h2>
+        </div>
+        <div class="readout__body">
+          <p class="readout__text" id="readout" aria-live="polite">仓库刚刚提交过，HEAD、索引、工作区保存的都是 version=1。三层内容一致时，git status --short 没有输出。</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<footer class="colophon">
+  <div class="shell colophon__inner">
+    <a class="back-link" id="back-link" href="../../01-getting-started/git-mental-model-01-snapshots.md" data-en="Back to the article: snapshots and state">返回文章：快照与状态</a>
+    <p class="colophon__note" data-en="The states here follow real Git behavior for one tracked file.">页面里的状态与真实 Git 对单个已跟踪文件的行为一致。</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var STEPS = [
+    {
+      command: null,
+      idle: {
+        zh: "尚未执行命令，这是仓库刚提交完的起点。",
+        en: "No command run yet. This is the starting point right after a commit."
+      },
+      head: "version=1",
+      index: "version=1",
+      work: "version=1",
+      changed: [],
+      status: "",
+      codes: ["", ""],
+      note: {
+        zh: "三个状态没有差异，所以这条命令什么都不输出。",
+        en: "The three states hold the same content, so the command prints nothing."
+      },
+      readout: {
+        zh: "仓库刚刚提交过，`HEAD`、索引、工作区保存的都是 `version=1`。三层内容一致时，`git status --short` 没有输出。",
+        en: "The repository was just committed, so `HEAD`, the index, and the working tree all hold `version=1`. When the three layers match, `git status --short` prints nothing."
+      }
+    },
+    {
+      command: "printf 'version=2\\n' > app.txt",
+      head: "version=1",
+      index: "version=1",
+      work: "version=2",
+      changed: ["work"],
+      status: " M app.txt",
+      codes: ["", "M"],
+      note: {
+        zh: "第一位是空格，第二位是 M：改动还没有暂存。",
+        en: "Position 1 is a space and position 2 is M: the change is not staged yet."
+      },
+      readout: {
+        zh: "改写文件只动了工作区。索引和 `HEAD` 仍然是 `version=1`，所以短状态的第二位出现 `M`，表示存在未暂存的修改。",
+        en: "Rewriting the file only touched the working tree. The index and `HEAD` still hold `version=1`, so position 2 of the short status shows `M`, meaning there is an unstaged change."
+      }
+    },
+    {
+      command: "git add app.txt",
+      head: "version=1",
+      index: "version=2",
+      work: "version=2",
+      changed: ["index"],
+      status: "M  app.txt",
+      codes: ["M", ""],
+      note: {
+        zh: "第一位是 M，第二位是空格：改动已经进入索引。",
+        en: "Position 1 is M and position 2 is a space: the change is now in the index."
+      },
+      readout: {
+        zh: "`git add` 把工作区当前的内容复制进索引，索引变成 `version=2`。第一位变成 `M`，表示索引与 `HEAD` 有差异；第二位回到空格，表示工作区与索引已经一致。",
+        en: "`git add` copies the current working-tree content into the index, so the index becomes `version=2`. Position 1 turns into `M` because the index now differs from `HEAD`, and position 2 returns to a space because the working tree matches the index."
+      }
+    },
+    {
+      command: "printf 'version=3\\n' > app.txt",
+      head: "version=1",
+      index: "version=2",
+      work: "version=3",
+      changed: ["work"],
+      status: "MM app.txt",
+      codes: ["M", "M"],
+      note: {
+        zh: "两位都是 M：索引和工作区各自都有差异。",
+        en: "Both positions are M: the index and the working tree each carry a difference."
+      },
+      readout: {
+        zh: "第三次改写同样只影响工作区，索引仍然停在 `version=2`。两位都是 `M`：索引相对 `HEAD` 有差异，工作区相对索引也有差异。这时同一个文件在三层里是三个版本。",
+        en: "The third edit again touches only the working tree, while the index stays at `version=2`. Both positions show `M`: the index differs from `HEAD`, and the working tree differs from the index. One file now holds three versions across the three layers."
+      }
+    },
+    {
+      command: "git commit -m 'record version 2'",
+      head: "version=2",
+      index: "version=2",
+      work: "version=3",
+      changed: ["head"],
+      status: " M app.txt",
+      codes: ["", "M"],
+      note: {
+        zh: "第一位回到空格，第二位是 M：只剩工作区里的 version=3 还没有暂存。",
+        en: "Position 1 returns to a space and position 2 is M: only the version=3 edit in the working tree is still unstaged."
+      },
+      readout: {
+        zh: "`git commit` 记录的是索引里的快照，所以这次提交的内容是 `version=2`，`HEAD` 前进到 `version=2`。工作区里的 `version=3` 没有进入这次提交，它依然是未暂存的修改，要再执行一次 `git add` 才会被下一个提交记录。",
+        en: "`git commit` records the snapshot held in the index, so the new commit contains `version=2` and `HEAD` moves to `version=2`. The `version=3` edit in the working tree stayed out of this commit and remains an unstaged change until you run `git add` again."
+      }
+    }
+  ];
+
+  var SPACE_WORD = { zh: "空格", en: "space" };
+
+  var els = {
+    steps: Array.prototype.slice.call(document.querySelectorAll(".step")),
+    progress: document.getElementById("progress"),
+    prev: document.getElementById("btn-prev"),
+    next: document.getElementById("btn-next"),
+    reset: document.getElementById("btn-reset"),
+    command: document.getElementById("command"),
+    statusOut: document.getElementById("status-out"),
+    statusEmpty: document.getElementById("status-empty"),
+    statusNote: document.getElementById("status-note"),
+    readout: document.getElementById("readout"),
+    backLink: document.getElementById("back-link"),
+    langZh: document.getElementById("lang-zh"),
+    langEn: document.getElementById("lang-en"),
+    codes: [
+      {
+        box: document.getElementById("code-1"),
+        char: document.getElementById("code-1-char"),
+        sr: document.getElementById("code-1-sr")
+      },
+      {
+        box: document.getElementById("code-2"),
+        char: document.getElementById("code-2-char"),
+        sr: document.getElementById("code-2-sr")
+      }
+    ],
+    columns: {
+      head: document.getElementById("col-head"),
+      index: document.getElementById("col-index"),
+      work: document.getElementById("col-work")
+    }
+  };
+
+  var TITLES = {
+    zh: "快照与三个状态：HEAD、索引、工作区",
+    en: "Snapshots and three states: HEAD, index, working tree"
+  };
+
+  var lang = "zh";
+  var current = 0;
+
+  function pick(pair) {
+    return lang === "en" ? pair.en : pair.zh;
+  }
+
+  /* Renders text where `backticks` become inline code elements. */
+  function renderRich(target, text) {
+    target.textContent = "";
+    var parts = text.split("`");
+    for (var i = 0; i < parts.length; i += 1) {
+      if (!parts[i]) { continue; }
+      if (i % 2 === 1) {
+        var code = document.createElement("code");
+        code.textContent = parts[i];
+        target.appendChild(code);
+      } else {
+        target.appendChild(document.createTextNode(parts[i]));
+      }
+    }
+  }
+
+  function renderCommand(step) {
+    els.command.textContent = "";
+    if (!step.command) {
+      var idle = document.createElement("span");
+      idle.className = "command--idle";
+      idle.textContent = pick(step.idle);
+      els.command.appendChild(idle);
+      return;
+    }
+    var prompt = document.createElement("span");
+    prompt.className = "command__prompt";
+    prompt.textContent = "$ ";
+    els.command.appendChild(prompt);
+    els.command.appendChild(document.createTextNode(step.command));
+  }
+
+  function renderStatus(step) {
+    if (step.status) {
+      els.statusOut.hidden = false;
+      els.statusOut.firstChild.textContent = step.status;
+      els.statusEmpty.hidden = true;
+    } else {
+      els.statusOut.hidden = true;
+      els.statusOut.firstChild.textContent = "";
+      els.statusEmpty.hidden = false;
+    }
+
+    for (var i = 0; i < els.codes.length; i += 1) {
+      var value = step.codes[i];
+      var cell = els.codes[i];
+      cell.char.textContent = value;
+      cell.sr.textContent = value ? value : pick(SPACE_WORD);
+      cell.box.classList.toggle("is-set", Boolean(value));
+      cell.box.classList.toggle("is-empty", !value);
+    }
+
+    els.statusNote.textContent = pick(step.note);
+  }
+
+  function renderColumns(step, animate) {
+    var keys = ["head", "index", "work"];
+    for (var i = 0; i < keys.length; i += 1) {
+      var key = keys[i];
+      var col = els.columns[key];
+      var value = col.querySelector(".column__value");
+      var flag = col.querySelector(".column__flag");
+      var changed = step.changed.indexOf(key) !== -1;
+
+      value.textContent = step[key];
+      flag.hidden = !changed;
+      col.classList.toggle("is-changed", changed);
+      col.classList.remove("is-animating");
+
+      if (changed && animate) {
+        /* Force a reflow so the animation restarts on every transition. */
+        void col.offsetWidth;
+        col.classList.add("is-animating");
+      }
+    }
+  }
+
+  function renderNav() {
+    for (var i = 0; i < els.steps.length; i += 1) {
+      if (i === current) {
+        els.steps[i].setAttribute("aria-current", "step");
+      } else {
+        els.steps[i].removeAttribute("aria-current");
+      }
+    }
+    els.prev.disabled = current === 0;
+    els.next.disabled = current === STEPS.length - 1;
+    els.progress.textContent = lang === "en"
+      ? "State " + (current + 1) + " of " + STEPS.length
+      : "状态 " + (current + 1) + " / " + STEPS.length;
+  }
+
+  /* Keeps focus usable when the focused control becomes disabled or stale. */
+  function restoreFocus(active) {
+    if (!active || active === document.body) { return; }
+    if (active === els.next && els.next.disabled) { els.prev.focus(); return; }
+    if (active === els.prev && els.prev.disabled) { els.next.focus(); return; }
+    if (active.classList && active.classList.contains("step")) {
+      els.steps[current].focus();
+    }
+  }
+
+  function render(animate) {
+    var active = document.activeElement;
+    var step = STEPS[current];
+    renderCommand(step);
+    renderColumns(step, animate);
+    renderStatus(step);
+    renderRich(els.readout, pick(step.readout));
+    renderNav();
+    restoreFocus(active);
+  }
+
+  function goTo(index) {
+    var next = Math.min(Math.max(index, 0), STEPS.length - 1);
+    if (next === current) { return; }
+    current = next;
+    render(true);
+  }
+
+  function setLang(nextLang) {
+    lang = nextLang;
+    document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+    document.title = lang === "en" ? TITLES.en : TITLES.zh;
+    els.langZh.setAttribute("aria-pressed", String(lang === "zh"));
+    els.langEn.setAttribute("aria-pressed", String(lang === "en"));
+
+    var swappable = document.querySelectorAll("[data-en]");
+    for (var i = 0; i < swappable.length; i += 1) {
+      var el = swappable[i];
+      if (!el.dataset.zh) { el.dataset.zh = el.textContent; }
+      el.textContent = lang === "en" ? el.dataset.en : el.dataset.zh;
+    }
+
+    render(false);
+  }
+
+  for (var i = 0; i < els.steps.length; i += 1) {
+    (function (button) {
+      button.addEventListener("click", function () {
+        goTo(Number(button.dataset.step));
+      });
+    })(els.steps[i]);
+  }
+
+  els.prev.addEventListener("click", function () { goTo(current - 1); });
+  els.next.addEventListener("click", function () { goTo(current + 1); });
+  els.reset.addEventListener("click", function () { goTo(0); });
+  els.langZh.addEventListener("click", function () { setLang("zh"); });
+  els.langEn.addEventListener("click", function () { setLang("en"); });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.altKey || event.ctrlKey || event.metaKey) { return; }
+    var handled = true;
+    switch (event.key) {
+      case "ArrowLeft": goTo(current - 1); break;
+      case "ArrowRight": goTo(current + 1); break;
+      case "Home": goTo(0); break;
+      case "End": goTo(STEPS.length - 1); break;
+      default: handled = false;
+    }
+    if (handled) { event.preventDefault(); }
+  });
+
+  /* The noscript fallback keeps its own copy, so only live UI is rendered. */
+  render(false);
+})();
+</script>
+
+</body>
+</html>

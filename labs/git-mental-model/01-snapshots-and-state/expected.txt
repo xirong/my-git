@@ -1,0 +1,9 @@
+Snapshots and State / 快照与状态
+
+HEAD:         version=1
+Index:        version=2
+Working Tree: version=3
+Status:       MM app.txt
+
+After `git commit`, Git records version=2 from the index. The version=3
+working-tree edit remains uncommitted.

@@ -34,6 +34,7 @@ DOC_ROOTS = [
     "08-templates",
     "09-resources",
     "10-company-practices",
+    "labs",
 ]
 
 SKIP_PARTS = {

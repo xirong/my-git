@@ -1,5 +1,17 @@
 # Git Mental Model
 
+[English](01-getting-started_en/git-mental-model_en.md)
+
+这篇是 Git 心智模型系列的总入口。四区域模型适合快速判断日常操作，更深入的系列会从快照、对象、引用和历史变化解释 Git 为什么这样工作。
+
+## 旗舰系列
+
+1. [快照与状态：HEAD、Index 与 Working Tree](git-mental-model-01-snapshots.md)
+
+第一章通过同一个文件的三个版本，演示 `git add` 和 `git commit` 实际记录什么，并提供[交互演示](../interactive/git-mental-model/snapshots-and-state.html)和[可运行实验](../labs/git-mental-model/01-snapshots-and-state/README.md)。
+
+## 四区域快速模型
+
 理解 Git，先理解四个区域：
 
 ```text
@@ -56,7 +68,7 @@ Git 大多数命令都在移动这几个区域之间的内容。
 | `git add` | 工作区 -> 暂存区 |
 | `git commit` | 暂存区 -> 本地仓库 |
 | `git restore` | 丢弃或恢复工作区内容 |
-| `git restore --staged` | 暂存区 -> 工作区 |
+| `git restore --staged` | 默认用 `HEAD` 恢复 Index，Working Tree 保持不变 |
 | `git push` | 本地仓库 -> 远端仓库 |
 | `git fetch` | 远端仓库 -> 本地远端引用 |
 | `git pull` | fetch + merge 或 fetch + rebase |
