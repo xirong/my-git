@@ -7,8 +7,11 @@ This page is the entry point to the Git Mental Model series. The four-area model
 ## Flagship series
 
 1. [Snapshots and State: HEAD, Index, and Working Tree](git-mental-model-01-snapshots_en.md)
+2. [The Object Graph: Blobs, Trees, and Commits](git-mental-model-02-object-graph_en.md)
 
 The first chapter uses three versions of one file to show what `git add` and `git commit` actually record. It includes an [interactive demo](../../interactive/git-mental-model/snapshots-and-state.html) and a [runnable lab](../../labs/git-mental-model/01-snapshots-and-state/README.md).
+
+The second chapter follows a commit into the object database, separates the responsibilities of blobs, trees, and commits, and includes an [object-graph interactive](../../interactive/git-mental-model/object-graph.html) and a [runnable lab](../../labs/git-mental-model/02-object-graph/README.md).
 
 ## Four-area quick model
 

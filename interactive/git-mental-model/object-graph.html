@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>对象图：blob、tree 与 commit</title>
+<meta name="description" content="交互式演示：blob、tree、commit 如何组成 Git 对象图，以及每类对象真正负责保存什么。">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f4f6f8;
+    --panel: #ffffff;
+    --panel-2: #eef1f5;
+    --ink: #10151b;
+    --muted: #545f6d;
+    --line: #d5dbe3;
+    --line-strong: #aeb8c4;
+    --accent: #b93d0b;
+    --accent-ink: #ffffff;
+    --accent-soft: #fbeee6;
+    --blob: #19705f;
+    --blob-soft: #e6f4f0;
+    --tree: #8b5a00;
+    --tree-soft: #fff3d6;
+    --commit: #9b2c2c;
+    --commit-soft: #fce8e8;
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+      "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+      "Liberation Mono", monospace;
+    --r-s: 4px;
+    --r-m: 8px;
+    --shell: 1220px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --panel: #151b23;
+      --panel-2: #1b222b;
+      --ink: #e6edf3;
+      --muted: #9aa6b2;
+      --line: #28313b;
+      --line-strong: #465261;
+      --accent: #fb923c;
+      --accent-ink: #12171d;
+      --accent-soft: #2a1d15;
+      --blob: #5bd2b7;
+      --blob-soft: #142924;
+      --tree: #f2bd5b;
+      --tree-soft: #2b2517;
+      --commit: #ff8a8a;
+      --commit-soft: #301b1d;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+  }
+  code, kbd, pre, samp { font-family: var(--font-mono); }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  button { font: inherit; }
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--r-s);
+  }
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    z-index: 10;
+    padding: 10px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-s);
+    background: var(--panel);
+    color: var(--ink);
+  }
+  .skip:focus { left: 16px; }
+  .shell { width: min(100% - 40px, var(--shell)); margin: 0 auto; }
+
+  .masthead { border-bottom: 1px solid var(--line); background: var(--panel); }
+  .masthead__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px 32px;
+    padding-top: 28px;
+    padding-bottom: 26px;
+  }
+  .masthead__text { flex: 1 1 420px; min-width: 0; }
+  h1 {
+    margin: 0 0 10px;
+    font-size: clamp(1.55rem, 1.15rem + 1.7vw, 2.3rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .h1-code { color: var(--accent); font-family: var(--font-mono); font-size: 0.76em; }
+  .deck { margin: 0; max-width: 70ch; color: var(--muted); }
+  .lang {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 6px;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-m);
+    background: var(--panel-2);
+  }
+  .lang button {
+    min-width: 78px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: var(--r-s);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .lang button:hover { color: var(--ink); }
+  .lang button[aria-pressed="true"] {
+    border-color: var(--line-strong);
+    background: var(--panel);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 26px 0 42px;
+    align-items: start;
+  }
+  @media (min-width: 1040px) {
+    .layout { grid-template-columns: minmax(260px, 310px) minmax(0, 1fr); gap: 28px; }
+    .rail { position: sticky; top: 20px; }
+  }
+  .panel {
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--r-m);
+    background: var(--panel);
+  }
+  .panel__head { padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  .panel__title {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .panel__hint { margin: 4px 0 0; color: var(--muted); font-size: 0.8rem; }
+
+  .steps { display: grid; gap: 6px; margin: 0; padding: 8px; list-style: none; }
+  .step {
+    display: grid;
+    grid-template-columns: 3px minmax(0, 1fr) auto;
+    gap: 0 12px;
+    align-items: center;
+    width: 100%;
+    min-height: 62px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+    background: var(--panel);
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 140ms ease, background-color 140ms ease;
+  }
+  .step::before {
+    content: "";
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: stretch;
+    border-radius: 2px;
+    background: var(--line-strong);
+  }
+  .step:hover { border-color: var(--line-strong); background: var(--panel-2); }
+  .step[aria-current="step"] { border-color: var(--accent); background: var(--accent-soft); }
+  .step[aria-current="step"]::before { background: var(--accent); }
+  .step__label { grid-column: 2; font-weight: 650; font-size: 0.92rem; }
+  .step__change { grid-column: 2; grid-row: 2; color: var(--muted); font-size: 0.78rem; }
+  .step__count {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  .step[aria-current="step"] .step__count { color: var(--accent); font-weight: 700; }
+  .responsibility { display: grid; gap: 10px; margin: 0; padding: 4px 16px 16px; }
+  .responsibility div { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 10px; }
+  .responsibility dt { font-family: var(--font-mono); font-weight: 750; }
+  .responsibility dd { margin: 0; color: var(--muted); font-size: 0.8rem; }
+  .type--blob { color: var(--blob); }
+  .type--tree { color: var(--tree); }
+  .type--commit { color: var(--commit); }
+
+  .board { display: grid; gap: 18px; min-width: 0; }
+  .toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; }
+  .progress { margin: 0; color: var(--muted); font-family: var(--font-mono); font-size: 0.9rem; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-s);
+    background: var(--panel);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .btn:hover { background: var(--panel-2); }
+  .btn[disabled] { cursor: not-allowed; opacity: 0.55; }
+  .btn--primary { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); font-weight: 650; }
+  .btn--primary:hover { background: var(--accent); filter: brightness(1.08); }
+  .btn--primary[disabled] { border-color: var(--line-strong); background: var(--panel); color: var(--muted); filter: none; }
+  .keyhint { margin: 0; padding: 0 16px 14px; color: var(--muted); font-size: 0.8rem; }
+  kbd { padding: 1px 6px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: var(--r-s); background: var(--panel-2); font-size: 0.85em; }
+
+  .terminal-grid { display: grid; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .terminal-grid { grid-template-columns: 1fr 1fr; } }
+  .terminal-cell { min-width: 0; }
+  .terminal-cell + .terminal-cell { border-top: 1px solid var(--line); }
+  @media (min-width: 720px) {
+    .terminal-cell + .terminal-cell { border-top: 0; border-left: 1px solid var(--line); }
+  }
+  .terminal-cell__title { margin: 0; padding: 10px 14px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .terminal {
+    min-height: 92px;
+    margin: 0;
+    padding: 14px 16px;
+    overflow-x: auto;
+    background: var(--panel-2);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    white-space: pre;
+  }
+  .prompt { color: var(--accent); font-weight: 750; }
+  .empty-output { color: var(--muted); }
+
+  .graph-panel { overflow: hidden; }
+  .graph-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 20px; }
+  .graph-head__aside { color: var(--muted); font-family: var(--font-mono); font-size: 0.76rem; }
+  .graph-wrap { position: relative; min-height: 410px; overflow: hidden; background-color: var(--panel-2); background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 24px 24px; }
+  .graph-empty { display: grid; place-content: center; min-height: 410px; padding: 30px; text-align: center; }
+  .graph-empty strong { display: block; margin-bottom: 6px; font-family: var(--font-mono); font-size: 1.05rem; }
+  .graph-empty span { max-width: 42ch; color: var(--muted); font-size: 0.9rem; }
+  .graph-stage { position: relative; width: 100%; min-height: 410px; }
+  .graph-svg { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .edge { fill: none; stroke: var(--line-strong); stroke-width: 2; marker-end: url(#arrow); vector-effect: non-scaling-stroke; }
+  .edge.is-new { stroke: var(--accent); }
+  .edge-label-html {
+    position: absolute;
+    z-index: 1;
+    max-width: 150px;
+    padding: 1px 4px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--panel-2);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+  .graph-node {
+    position: absolute;
+    z-index: 2;
+    width: 144px;
+    min-height: 66px;
+    padding: 10px 12px;
+    border: 2px solid var(--line-strong);
+    border-radius: var(--r-m);
+    background: var(--panel);
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+  }
+  .graph-node:hover { transform: translate(-50%, -50%) translateY(-2px); }
+  .graph-node[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--accent-soft); }
+  .graph-node--blob { border-color: var(--blob); }
+  .graph-node--tree { border-color: var(--tree); }
+  .graph-node--commit { border-color: var(--commit); }
+  .graph-node__top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .graph-node__label { font-family: var(--font-mono); font-weight: 800; }
+  .graph-node__type { color: var(--muted); font-family: var(--font-mono); font-size: 0.7rem; }
+  .graph-node__hash { display: block; margin-top: 3px; overflow: hidden; color: var(--muted); font-family: var(--font-mono); font-size: 0.72rem; text-overflow: ellipsis; white-space: nowrap; }
+  .graph-note { margin: 0; padding: 11px 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.82rem; }
+  @keyframes trace-edge { from { stroke-dashoffset: 32; } to { stroke-dashoffset: 0; } }
+  @keyframes reveal-node { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+  .is-commit-moment .edge { stroke: var(--accent); stroke-dasharray: 7 5; animation: trace-edge 900ms linear 1; }
+  .is-commit-moment .graph-node { animation: reveal-node 360ms ease-out both; }
+  .is-commit-moment .graph-node:nth-of-type(2) { animation-delay: 100ms; }
+  .is-commit-moment .graph-node:nth-of-type(3),
+  .is-commit-moment .graph-node:nth-of-type(4) { animation-delay: 200ms; }
+  .is-commit-moment .graph-node:nth-of-type(5) { animation-delay: 300ms; }
+
+  .support-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  @media (min-width: 760px) { .support-grid { grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr); } }
+  .readout { display: grid; gap: 14px; padding: 16px; }
+  .readout p { margin: 0; }
+  .readout__main { font-size: 0.98rem; }
+  .readout__main code, .callout code { padding: 1px 4px; border: 1px solid var(--line); border-radius: var(--r-s); background: var(--panel-2); font-size: 0.92em; }
+  .mini-index { overflow-x: auto; }
+  .mini-index table { width: 100%; min-width: 450px; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.78rem; }
+  .mini-index th, .mini-index td { padding: 7px 9px; border: 1px solid var(--line); text-align: left; }
+  .mini-index th { color: var(--muted); font-family: var(--font-ui); font-weight: 650; }
+  .object-picker { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .object-chip { min-width: 42px; min-height: 36px; padding: 4px 10px; border: 1px solid var(--line-strong); border-radius: var(--r-s); background: var(--panel); color: var(--ink); font-family: var(--font-mono); cursor: pointer; }
+  .object-chip:hover { background: var(--panel-2); }
+  .object-chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 750; }
+  .inspector { padding: 14px 16px 16px; }
+  .inspector__meta { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 10px; }
+  .inspector__name { margin: 0; font-family: var(--font-mono); font-size: 1.02rem; }
+  .inspector__id { color: var(--muted); font-family: var(--font-mono); font-size: 0.72rem; }
+  .inspector pre { margin: 0; padding: 12px; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-s); background: var(--panel-2); font-size: 0.78rem; line-height: 1.6; white-space: pre; }
+  .inspector__empty { margin: 0; color: var(--muted); }
+
+  .lesson-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  @media (min-width: 720px) { .lesson-grid { grid-template-columns: 1fr 1fr; } }
+  .callout { padding: 15px 16px; border-left: 4px solid var(--line-strong); }
+  .callout--misconception { border-left-color: var(--tree); }
+  .callout--agent { border-left-color: var(--accent); }
+  .callout--recovery { grid-column: 1 / -1; border-left-color: var(--blob); }
+  .callout h2 { margin: 0 0 5px; font-size: 0.88rem; }
+  .callout p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+
+  .fallback { margin-top: 20px; padding: 16px; border: 1px solid var(--accent); border-radius: var(--r-m); background: var(--accent-soft); }
+  .fallback p { margin: 0 0 8px; }
+  .fallback p:last-child { margin-bottom: 0; }
+  .fallback pre { overflow-x: auto; font-size: 0.8rem; }
+  .colophon { border-top: 1px solid var(--line); background: var(--panel); }
+  .colophon__inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 26px; padding: 20px 0; font-size: 0.88rem; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .footer-note { margin: 0; max-width: 50ch; color: var(--muted); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+  [hidden] { display: none !important; }
+
+  @media (max-width: 620px) {
+    .shell { width: min(100% - 24px, var(--shell)); }
+    .masthead__inner { padding-top: 20px; padding-bottom: 20px; }
+    .lang { width: 100%; }
+    .lang button { flex: 1; }
+    .toolbar { align-items: flex-start; }
+    .controls { width: 100%; }
+    .controls .btn { flex: 1 1 80px; padding-inline: 10px; }
+    .graph-wrap, .graph-empty, .graph-stage { min-height: 480px; }
+    .graph-node { width: 126px; min-height: 60px; padding: 8px 9px; }
+    .edge-label-html[data-edge="C1-T0"] { margin-top: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" id="skip-link" href="#board">跳到交互演示</a>
+
+<header class="masthead">
+  <div class="shell masthead__inner">
+    <div class="masthead__text">
+      <h1><span id="heading-prefix">Git 保存的是对象图：</span> <span class="h1-code">blob / tree / commit</span></h1>
+      <p class="deck" id="deck">内容、名字与提交说明分别属于不同对象。沿六个状态建立一个真实的小仓库，看清每一条边由谁保存。</p>
+    </div>
+    <div class="lang" id="lang-group" role="group" aria-label="语言">
+      <button type="button" id="lang-zh" aria-pressed="true" lang="zh-CN">中文</button>
+      <button type="button" id="lang-en" aria-pressed="false" lang="en">English</button>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <noscript>
+    <div class="fallback">
+      <p><strong>提示：</strong>需要启用 JavaScript 才能浏览六个状态。最终对象图如下：</p>
+      <pre>commit C1
+└── root tree T0
+    ├── app.txt → blob B1
+    └── docs → tree T1
+        └── note.txt → blob B2</pre>
+      <p>blob 保存原始内容；tree 保存模式、名字和子对象 ID；commit 保存根 tree、作者/提交者信息与消息。</p>
+    </div>
+  </noscript>
+
+  <div class="layout">
+    <nav class="panel rail" id="step-nav" aria-label="对象图步骤">
+      <div class="panel__head">
+        <h2 class="panel__title" id="steps-title">构建序列</h2>
+        <p class="panel__hint" id="steps-hint">每一步都来自同一个仓库状态模型。</p>
+      </div>
+      <ol class="steps" id="steps"></ol>
+      <div class="panel__head">
+        <h2 class="panel__title" id="legend-title">职责边界</h2>
+      </div>
+      <dl class="responsibility">
+        <div><dt class="type--blob">blob</dt><dd id="legend-blob">只保存文件原始内容，不保存文件名。</dd></div>
+        <div><dt class="type--tree">tree</dt><dd id="legend-tree">保存模式、名字和子对象 ID。</dd></div>
+        <div><dt class="type--commit">commit</dt><dd id="legend-commit">保存根 tree、父提交、作者/提交者与消息。</dd></div>
+      </dl>
+    </nav>
+
+    <main class="board" id="board" tabindex="-1">
+      <section class="panel" aria-labelledby="navigation-title">
+        <h2 class="visually-hidden" id="navigation-title">步骤导航</h2>
+        <div class="toolbar">
+          <p class="progress" id="progress">状态 1 / 6</p>
+          <div class="controls">
+            <button class="btn" type="button" id="btn-prev" disabled>上一步</button>
+            <button class="btn btn--primary" type="button" id="btn-next">下一步</button>
+            <button class="btn" type="button" id="btn-reset">回到起点</button>
+          </div>
+        </div>
+        <p class="keyhint" id="keyhint">键盘：<kbd>←</kbd> <kbd>→</kbd> 切换状态，<kbd>Home</kbd> 回到起点，<kbd>End</kbd> 跳到最终状态。</p>
+      </section>
+
+      <section class="panel" aria-labelledby="terminal-title">
+        <h2 class="visually-hidden" id="terminal-title">命令与预期输出</h2>
+        <div class="terminal-grid">
+          <div class="terminal-cell">
+            <h3 class="terminal-cell__title" id="command-title">命令</h3>
+            <pre class="terminal" id="command"></pre>
+          </div>
+          <div class="terminal-cell">
+            <h3 class="terminal-cell__title" id="output-title">规范化预期输出</h3>
+            <pre class="terminal" id="output"></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel graph-panel" aria-labelledby="graph-title">
+        <div class="panel__head graph-head">
+          <div>
+            <h2 class="panel__title" id="graph-title">对象数据库工作台</h2>
+            <p class="panel__hint" id="graph-hint">选择对象，可在检查器中查看它真正保存的内容。</p>
+          </div>
+          <span class="graph-head__aside" id="id-note">短哈希为示意 ID，长度不固定</span>
+        </div>
+        <div class="graph-wrap" id="graph-wrap" role="group" aria-label="当前 Git 对象图"></div>
+        <p class="graph-note" id="graph-note"></p>
+      </section>
+
+      <div class="support-grid">
+        <section class="panel" aria-labelledby="explanation-title">
+          <div class="panel__head"><h2 class="panel__title" id="explanation-title">这一步发生了什么</h2></div>
+          <div class="readout">
+            <p class="readout__main" id="explanation"></p>
+            <div class="mini-index" id="index-wrap" hidden>
+              <table>
+                <thead><tr><th id="index-mode">模式</th><th id="index-id">对象 ID</th><th id="index-path">路径</th></tr></thead>
+                <tbody id="index-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="inspector-title">
+          <div class="panel__head"><h2 class="panel__title" id="inspector-title">对象检查器</h2></div>
+          <div class="object-picker" id="object-picker" role="group" aria-label="选择对象"></div>
+          <div class="inspector" id="inspector"></div>
+        </section>
+      </div>
+
+      <div class="lesson-grid">
+        <section class="panel callout callout--misconception" aria-labelledby="misconception-title">
+          <h2 id="misconception-title">常见误解</h2>
+          <p id="misconception"></p>
+        </section>
+        <section class="panel callout callout--agent" aria-labelledby="agent-title">
+          <h2 id="agent-title">这对 AI Agent 意味着什么</h2>
+          <p id="agent-meaning"></p>
+        </section>
+        <section class="panel callout callout--recovery" aria-labelledby="recovery-title">
+          <h2 id="recovery-title">恢复提示</h2>
+          <p id="recovery"></p>
+        </section>
+      </div>
+      <div class="visually-hidden" id="live" aria-live="polite" aria-atomic="true"></div>
+    </main>
+  </div>
+</div>
+
+<footer class="colophon">
+  <div class="shell colophon__inner">
+    <div class="footer-links" id="footer-links">
+      <a href="../../01-getting-started/git-mental-model-02-object-graph.md" data-link="zh">中文文章</a>
+      <a href="../../01-getting-started/01-getting-started_en/git-mental-model-02-object-graph_en.md" data-link="en">English article</a>
+      <a href="../../labs/git-mental-model/02-object-graph/README.md" data-link="lab">运行实验</a>
+      <a href="snapshots-and-state.html" data-link="previous">上一章：快照与状态</a>
+    </div>
+    <p class="footer-note" id="footer-note">对象图中的名字位于 tree 条目和边上，blob 里只有内容。</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var TEXT = {
+    zh: {
+      title: "对象图：blob、tree 与 commit",
+      skip: "跳到交互演示",
+      langLabel: "语言",
+      heading: "Git 保存的是对象图：",
+      deck: "内容、名字与提交说明分别属于不同对象。沿六个状态建立一个真实的小仓库，看清每一条边由谁保存。",
+      navLabel: "对象图步骤",
+      stepsTitle: "构建序列",
+      stepsHint: "每一步都来自同一个仓库状态模型。",
+      legendTitle: "职责边界",
+      legendBlob: "只保存文件原始内容，不保存文件名。",
+      legendTree: "保存模式、名字和子对象 ID。",
+      legendCommit: "保存根 tree、父提交、作者/提交者与消息。",
+      navigationTitle: "步骤导航",
+      previous: "上一步",
+      next: "下一步",
+      reset: "回到起点",
+      keyhint: "键盘：`←` `→` 切换状态，`Home` 回到起点，`End` 跳到最终状态。",
+      commandTitle: "命令",
+      outputTitle: "规范化预期输出",
+      graphTitle: "对象数据库工作台",
+      graphHint: "选择对象，可在检查器中查看它真正保存的内容。",
+      idNote: "短哈希为示意 ID，长度不固定",
+      graphLabel: "当前 Git 对象图",
+      explanationTitle: "这一步发生了什么",
+      inspectorTitle: "对象检查器",
+      pickerLabel: "选择对象",
+      inspectorEmpty: "当前还没有可检查的 Git 对象。",
+      misconceptionTitle: "常见误解",
+      agentTitle: "这对 AI Agent 意味着什么",
+      recoveryTitle: "恢复提示",
+      progress: function (n, total) { return "状态 " + n + " / " + total; },
+      objectCount: function (n) { return n + " 个对象"; },
+      announce: function (n, total, label) { return "已切换到状态 " + n + "，共 " + total + " 个状态：" + label; },
+      inspect: function (label, type) { return "检查 " + label + "，类型 " + type; },
+      emptyOutput: "（没有输出）",
+      indexHeaders: ["模式", "对象 ID", "路径"],
+      hashLabel: "示意 ID",
+      links: { zh: "中文文章", en: "English article", lab: "运行实验", previous: "上一章：快照与状态" },
+      footerNote: "对象图中的名字位于 tree 条目和边上，blob 里只有内容。"
+    },
+    en: {
+      title: "Object graph: blobs, trees, and commits",
+      skip: "Skip to the interactive demo",
+      langLabel: "Language",
+      heading: "Git stores an object graph:",
+      deck: "Content, names, and commit context belong to different objects. Build a small repository through six states and see which object owns each edge.",
+      navLabel: "Object graph steps",
+      stepsTitle: "Build sequence",
+      stepsHint: "Every view comes from one repository state model.",
+      legendTitle: "Responsibility boundaries",
+      legendBlob: "Stores raw file content only, never its filename.",
+      legendTree: "Stores modes, names, and child object IDs.",
+      legendCommit: "Stores the root tree, parents, author/committer, and message.",
+      navigationTitle: "Step navigation",
+      previous: "Previous",
+      next: "Next",
+      reset: "Reset",
+      keyhint: "Keyboard: `←` `→` move between states, `Home` returns to the start, and `End` jumps to the final state.",
+      commandTitle: "Command",
+      outputTitle: "Normalized expected output",
+      graphTitle: "Object database workbench",
+      graphHint: "Select an object to inspect what it actually stores.",
+      idNote: "Short hashes are illustrative IDs; their length is not fixed",
+      graphLabel: "Current Git object graph",
+      explanationTitle: "What changed",
+      inspectorTitle: "Object inspector",
+      pickerLabel: "Select an object",
+      inspectorEmpty: "There is no Git object to inspect yet.",
+      misconceptionTitle: "Common misconception",
+      agentTitle: "Why this matters for AI agents",
+      recoveryTitle: "Recovery note",
+      progress: function (n, total) { return "State " + n + " of " + total; },
+      objectCount: function (n) { return n + (n === 1 ? " object" : " objects"); },
+      announce: function (n, total, label) { return "State " + n + " of " + total + ": " + label; },
+      inspect: function (label, type) { return "Inspect " + label + ", type " + type; },
+      emptyOutput: "(no output)",
+      indexHeaders: ["Mode", "Object ID", "Path"],
+      hashLabel: "illustrative ID",
+      links: { zh: "Chinese article", en: "English article", lab: "Run the lab", previous: "Previous chapter: snapshots and state" },
+      footerNote: "Names in this graph live on tree entries and edges; a blob contains content only."
+    }
+  };
+
+  /* One authoritative model owns reusable object payloads and every
+     step-specific view, so the graph, terminal, inspector, and lessons cannot
+     describe different repository states. */
+  var MODEL = {
+    objects: {
+    B1: {
+      id: "B1", type: "blob", hash: "7917f3e",
+      inspector: {
+        zh: "hello object graph\n",
+        en: "hello object graph\n"
+      }
+    },
+    B2: {
+      id: "B2", type: "blob", hash: "bbc27d0",
+      inspector: {
+        zh: "trees name objects\n",
+        en: "trees name objects\n"
+      }
+    },
+    T1: {
+      id: "T1", type: "tree", hash: "b4b7b86",
+      inspector: {
+        zh: "100644 blob B2  note.txt",
+        en: "100644 blob B2  note.txt"
+      }
+    },
+    T0: {
+      id: "T0", type: "tree", hash: "a8c20f8",
+      inspector: {
+        zh: "100644 blob B1  app.txt\n040000 tree T1  docs",
+        en: "100644 blob B1  app.txt\n040000 tree T1  docs"
+      }
+    },
+    C1: {
+      id: "C1", type: "commit", hash: "5451a47",
+      inspector: {
+        zh: "tree T0\nauthor My Git Lab <lab@example.com>\ncommitter My Git Lab <lab@example.com>\n\nbuild object graph",
+        en: "tree T0\nauthor My Git Lab <lab@example.com>\ncommitter My Git Lab <lab@example.com>\n\nbuild object graph"
+      }
+    }
+    },
+    steps: [
+    {
+      label: { zh: "空仓库", en: "Empty repository" },
+      change: { zh: "还没有相关对象", en: "No relevant objects yet" },
+      command: "git init -q object-graph-demo\ncd object-graph-demo\ngit config user.name 'My Git Lab'\ngit config user.email 'lab@example.com'\nfind .git/objects -type f",
+      output: null,
+      objects: [], edges: [], selected: null, index: [],
+      empty: {
+        zh: ".git/objects 中还没有 blob、tree 或 commit。",
+        en: ".git/objects does not contain a blob, tree, or commit yet."
+      },
+      graphNote: {
+        zh: "初始化只建立仓库结构；当前没有内容可达，也没有对象边。",
+        en: "Initialization creates repository structure only; no content or object edge exists yet."
+      },
+      explanation: {
+        zh: "`git init` 创建对象数据库目录，但没有凭空创建内容对象。对象图从写入第一个对象时才开始出现。",
+        en: "`git init` creates the object database directory, but it does not invent content objects. The graph starts when the first object is written."
+      },
+      misconception: {
+        zh: "误以为初始化后已经有一个空 commit。实际上，尚未提交的仓库没有 commit 对象。",
+        en: "It is easy to assume initialization creates an empty commit. An unborn repository has no commit object."
+      },
+      agent: {
+        zh: "Agent 不能把“仓库已初始化”当作“修改已进入历史”。此时没有任何可审计的提交边。",
+        en: "An agent must not treat “repository initialized” as “changes recorded in history.” There is no auditable commit edge yet."
+      },
+      recovery: {
+        zh: "没有被写入对象数据库的内容，没有可沿对象图恢复的路径。",
+        en: "Content never written to the object database has no graph path to recover."
+      }
+    },
+    {
+      label: { zh: "创建工作文件", en: "Create working files" },
+      change: { zh: "文件存在，对象仍为空", en: "Files exist; objects remain empty" },
+      command: "mkdir docs\nprintf 'hello object graph\\n' > app.txt\nprintf 'trees name objects\\n' > docs/note.txt",
+      output: null,
+      objects: [], edges: [], selected: null, index: [],
+      empty: {
+        zh: "工作区已有 app.txt 和 docs/note.txt，但 Git 对象数据库仍为空。",
+        en: "The working tree has app.txt and docs/note.txt, but Git's object database is still empty."
+      },
+      graphNote: {
+        zh: "磁盘上的工作文件还不是 Git 对象。",
+        en: "Working files on disk are not Git objects yet."
+      },
+      explanation: {
+        zh: "写文件只改变工作区。文件路径和内容都存在于磁盘上，但此时 `.git/objects` 中仍没有与它们对应的对象。",
+        en: "Writing files changes the working tree only. Paths and content exist on disk, but `.git/objects` still has no corresponding objects."
+      },
+      misconception: {
+        zh: "误以为 Git 会持续把工作区自动保存为对象。Git 只在明确操作时写入对象。",
+        en: "Git does not continuously save the working tree as objects. Objects are written by explicit operations."
+      },
+      agent: {
+        zh: "Agent 声称“已改文件”只说明工作区可能变化，仍需检查索引或 commit 才能判断是否可审计。",
+        en: "An agent saying “I changed the file” only describes a possible working-tree change. Inspect the index or commit to establish auditability."
+      },
+      recovery: {
+        zh: "现在删除这些从未暂存的文件，Git 没有对象边可以帮助恢复。",
+        en: "If these never-staged files are deleted now, Git has no object edge that can recover them."
+      }
+    },
+    {
+      label: { zh: "写入 blob", en: "Write blobs" },
+      change: { zh: "git add 创建两个 blob", en: "git add creates two blobs" },
+      command: "git add app.txt docs/note.txt\ngit ls-files --stage",
+      output: "100644 B1 0\tapp.txt\n100644 B2 0\tdocs/note.txt",
+      objects: ["B1", "B2"], edges: [], selected: "B1",
+      index: [
+        ["100644", "B1", "app.txt"],
+        ["100644", "B2", "docs/note.txt"]
+      ],
+      graphNote: {
+        zh: "索引条目保存路径和模式，并指向 blob；文件名没有写进 blob。",
+        en: "Index entries store paths and modes and point to blobs; filenames are not written into blobs."
+      },
+      explanation: {
+        zh: "`git add` 为两份内容写入 `B1` 和 `B2`，同时让索引把完整路径和模式映射到 blob ID。打开 blob 只能看到原始字节，看不到 `app.txt` 或 `note.txt`。",
+        en: "`git add` writes `B1` and `B2` for the two contents, then maps full paths and modes to blob IDs in the index. Open a blob and you see raw bytes, never `app.txt` or `note.txt`."
+      },
+      misconception: {
+        zh: "误以为 blob 是“文件对象”，会携带文件名。blob 只由内容决定，同一内容可被多个名字引用。",
+        en: "A blob is often mistaken for a named file object. It is content-addressed raw data that multiple names can reference."
+      },
+      agent: {
+        zh: "检查 Agent 改动时，只看到 blob 不足以证明目标路径存在；还要检查索引或后续 tree 中的路径和模式。",
+        en: "A blob alone does not prove an agent changed the claimed path. Inspect the index or later tree for that path and mode."
+      },
+      recovery: {
+        zh: "blob 已经存在，但尚未被 commit 可达。短期可能能找回，长期不应依赖悬空对象。",
+        en: "The blobs exist but are not commit-reachable. They may be recoverable briefly, but dangling objects are not durable recovery points."
+      }
+    },
+    {
+      label: { zh: "建立 tree", en: "Build trees" },
+      change: { zh: "tree 为内容命名", en: "Trees name the content" },
+      command: "ROOT_TREE=$(git write-tree)\ngit ls-tree \"$ROOT_TREE\"\nNESTED_TREE=$(git ls-tree \"$ROOT_TREE\" docs | awk '{print $3}')\ngit ls-tree \"$NESTED_TREE\"",
+      output: "T0\n100644 blob B1\tapp.txt\n040000 tree T1\tdocs\n100644 blob B2\tnote.txt",
+      objects: ["B1", "B2", "T1", "T0"],
+      edges: [
+        { from: "T0", to: "B1", label: "app.txt", mode: "100644" },
+        { from: "T0", to: "T1", label: "docs", mode: "040000" },
+        { from: "T1", to: "B2", label: "note.txt", mode: "100644" }
+      ],
+      selected: "T0",
+      index: [
+        ["100644", "B1", "app.txt"],
+        ["100644", "B2", "docs/note.txt"]
+      ],
+      graphNote: {
+        zh: "名字位于 tree 条目和边上：T0 命名 app.txt 与 docs，T1 命名 note.txt。",
+        en: "Names live on tree entries and edges: T0 names app.txt and docs; T1 names note.txt."
+      },
+      explanation: {
+        zh: "`git write-tree` 先为 `docs/` 创建嵌套 tree `T1`，再创建根 tree `T0`。tree 条目保存模式、名字和对象 ID；`git ls-tree` 根据模式与对象解析并显示类型。目录层级由 tree 指向 tree 表达。",
+        en: "`git write-tree` creates nested tree `T1` for `docs/`, then root tree `T0`. A serialized tree entry stores mode, name, and object ID; `git ls-tree` resolves and displays the type. Directory hierarchy is represented by tree-to-tree edges."
+      },
+      misconception: {
+        zh: "误以为一个 tree 是整棵目录树的扁平清单。每个目录对应自己的 tree，父 tree 通过条目指向子 tree。",
+        en: "A tree is not a flat listing of every descendant. Each directory has its own tree, linked from its parent tree."
+      },
+      agent: {
+        zh: "要核实 Agent 声称的路径，沿根 tree 逐层查 `docs`、`note.txt`，同时核对 `100644` 等模式。",
+        en: "To verify an agent's claimed path, walk from the root tree through `docs` to `note.txt`, checking modes such as `100644` along the way."
+      },
+      recovery: {
+        zh: "tree 已能把名字重新关联到 blob，但没有 commit 或 ref 时，它仍可能最终成为不可达对象。",
+        en: "Trees can now reconnect names to blobs, but without a commit or ref they can still become unreachable."
+      }
+    },
+    {
+      label: { zh: "创建 commit", en: "Create the commit" },
+      change: { zh: "对象图完整且可达", en: "The graph becomes reachable" },
+      command: "git commit -m 'build object graph'\ngit cat-file -p HEAD",
+      output: "[main (root-commit) C1] build object graph\ntree T0\nauthor My Git Lab <lab@example.com>\ncommitter My Git Lab <lab@example.com>\n\nbuild object graph",
+      objects: ["B1", "B2", "T1", "T0", "C1"],
+      edges: [
+        { from: "C1", to: "T0", label: { zh: "根 tree", en: "root tree" } },
+        { from: "T0", to: "B1", label: "app.txt", mode: "100644" },
+        { from: "T0", to: "T1", label: "docs", mode: "040000" },
+        { from: "T1", to: "B2", label: "note.txt", mode: "100644" }
+      ],
+      selected: "C1", index: [], commitMoment: true,
+      graphNote: {
+        zh: "提交出现时，完整可达路径被强调：C1 → T0 → B1 / T1 → B2。",
+        en: "When the commit appears, the full reachable path is traced: C1 → T0 → B1 / T1 → B2."
+      },
+      explanation: {
+        zh: "commit `C1` 保存根 tree `T0` 的 ID、作者/提交者信息和消息。它不复制文件内容或文件名；从 commit 沿 tree 边才会到达两个 blob。",
+        en: "Commit `C1` stores root tree `T0` plus author/committer details and the message. It does not copy file content or names; those are reached by following tree edges to the blobs."
+      },
+      misconception: {
+        zh: "误以为 commit 直接包含全部文件。commit 只指向根 tree，文件内容通过 tree 层级间接可达。",
+        en: "A commit does not directly contain every file. It points to one root tree, which makes content reachable through the tree hierarchy."
+      },
+      agent: {
+        zh: "验收 Agent 提交时，从 commit 的根 tree 核实目标路径、文件模式和最终 blob 内容，不能只信提交消息或工作区 diff。",
+        en: "When accepting an agent commit, verify the claimed path, file mode, and final blob content from the commit's root tree; do not trust only the message or working-tree diff."
+      },
+      recovery: {
+        zh: "只要 commit 仍可达，被覆盖前的内容就可通过对应 commit → tree → blob 路径恢复。",
+        en: "As long as a commit remains reachable, overwritten content can be restored through its commit → tree → blob path."
+      }
+    },
+    {
+      label: { zh: "内容寻址去重", en: "Content-addressed reuse" },
+      change: { zh: "相同内容仍得到 B1", en: "Identical content resolves to B1" },
+      command: "printf 'hello object graph\\n' | git hash-object --stdin",
+      output: "B1",
+      objects: ["B1", "B2", "T1", "T0", "C1"],
+      edges: [
+        { from: "C1", to: "T0", label: { zh: "根 tree", en: "root tree" } },
+        { from: "T0", to: "B1", label: "app.txt", mode: "100644" },
+        { from: "T0", to: "T1", label: "docs", mode: "040000" },
+        { from: "T1", to: "B2", label: "note.txt", mode: "100644" }
+      ],
+      selected: "B1", index: [], highlight: "B1",
+      graphNote: {
+        zh: "相同字节再次计算仍得到 B1；`--stdin` 未加 `-w`，不会写入新对象。",
+        en: "Hashing the same bytes resolves to B1 again; `--stdin` without `-w` does not write a new object."
+      },
+      explanation: {
+        zh: "对象 ID 由类型、长度和内容共同计算。完全相同的 blob 内容得到同一个 ID。这里命令只计算 ID，没有创建第二个 blob；示意短哈希也不代表固定长度。",
+        en: "An object ID is computed from type, length, and content. Identical blob content produces the same ID. This command only computes the ID; it does not create a second blob, and the illustrative short hash has no fixed length."
+      },
+      misconception: {
+        zh: "误以为每次 `hash-object` 都生成新对象。内容相同则 ID 相同，且没有 `-w` 时只计算、不写入。",
+        en: "`hash-object` does not always create a new object. Identical content yields the same ID, and without `-w` it computes without writing."
+      },
+      agent: {
+        zh: "如果 Agent 复制相同内容到另一路径，可能复用同一 blob；路径差异必须从 tree 条目判断。",
+        en: "If an agent copies identical content to another path, Git may reuse the blob; path differences must be established from tree entries."
+      },
+      recovery: {
+        zh: "已提交内容因 commit 仍沿 tree 到达 B1 而可恢复；从未写入过的内容依然没有恢复边。",
+        en: "Committed content remains recoverable because the commit still reaches B1 through trees; content never written still has no recovery edge."
+      }
+    }
+    ]
+  };
+
+  var OBJECTS = MODEL.objects;
+  var STEPS = MODEL.steps;
+
+  var POSITIONS = {
+    desktop: {
+      C1: [14, 50], T0: [39, 50], B1: [75, 22], T1: [65, 66], B2: [88, 78]
+    },
+    mobile: {
+      C1: [50, 10], T0: [50, 30], B1: [24, 55], T1: [72, 55], B2: [72, 82]
+    }
+  };
+
+  var els = {
+    skip: document.getElementById("skip-link"),
+    heading: document.getElementById("heading-prefix"),
+    deck: document.getElementById("deck"),
+    langGroup: document.getElementById("lang-group"),
+    langZh: document.getElementById("lang-zh"),
+    langEn: document.getElementById("lang-en"),
+    nav: document.getElementById("step-nav"),
+    stepsTitle: document.getElementById("steps-title"),
+    stepsHint: document.getElementById("steps-hint"),
+    steps: document.getElementById("steps"),
+    legendTitle: document.getElementById("legend-title"),
+    legendBlob: document.getElementById("legend-blob"),
+    legendTree: document.getElementById("legend-tree"),
+    legendCommit: document.getElementById("legend-commit"),
+    navigationTitle: document.getElementById("navigation-title"),
+    progress: document.getElementById("progress"),
+    prev: document.getElementById("btn-prev"),
+    next: document.getElementById("btn-next"),
+    reset: document.getElementById("btn-reset"),
+    keyhint: document.getElementById("keyhint"),
+    commandTitle: document.getElementById("command-title"),
+    outputTitle: document.getElementById("output-title"),
+    command: document.getElementById("command"),
+    output: document.getElementById("output"),
+    graphTitle: document.getElementById("graph-title"),
+    graphHint: document.getElementById("graph-hint"),
+    idNote: document.getElementById("id-note"),
+    graphWrap: document.getElementById("graph-wrap"),
+    graphNote: document.getElementById("graph-note"),
+    explanationTitle: document.getElementById("explanation-title"),
+    explanation: document.getElementById("explanation"),
+    indexWrap: document.getElementById("index-wrap"),
+    indexHeaders: [document.getElementById("index-mode"), document.getElementById("index-id"), document.getElementById("index-path")],
+    indexBody: document.getElementById("index-body"),
+    inspectorTitle: document.getElementById("inspector-title"),
+    picker: document.getElementById("object-picker"),
+    inspector: document.getElementById("inspector"),
+    misconceptionTitle: document.getElementById("misconception-title"),
+    misconception: document.getElementById("misconception"),
+    agentTitle: document.getElementById("agent-title"),
+    agent: document.getElementById("agent-meaning"),
+    recoveryTitle: document.getElementById("recovery-title"),
+    recovery: document.getElementById("recovery"),
+    live: document.getElementById("live"),
+    footerLinks: document.getElementById("footer-links"),
+    footerNote: document.getElementById("footer-note")
+  };
+
+  var lang = "zh";
+  var current = 0;
+  var selected = null;
+
+  function pick(pair) { return pair[lang]; }
+
+  function renderRich(target, text) {
+    target.textContent = "";
+    var parts = text.split("`");
+    for (var i = 0; i < parts.length; i += 1) {
+      if (!parts[i]) { continue; }
+      if (i % 2) {
+        var code = document.createElement("code");
+        code.textContent = parts[i];
+        target.appendChild(code);
+      } else {
+        target.appendChild(document.createTextNode(parts[i]));
+      }
+    }
+  }
+
+  function renderKeyboardHint() { renderRich(els.keyhint, TEXT[lang].keyhint); }
+
+  function renderSteps() {
+    els.steps.textContent = "";
+    STEPS.forEach(function (step, index) {
+      var li = document.createElement("li");
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "step";
+      button.dataset.step = String(index);
+      if (index === current) { button.setAttribute("aria-current", "step"); }
+      var label = document.createElement("span");
+      label.className = "step__label";
+      label.textContent = pick(step.label);
+      var change = document.createElement("span");
+      change.className = "step__change";
+      change.textContent = pick(step.change);
+      var count = document.createElement("span");
+      count.className = "step__count";
+      count.setAttribute("aria-hidden", "true");
+      count.textContent = TEXT[lang].objectCount(step.objects.length);
+      button.append(label, change, count);
+      button.addEventListener("click", function () { goTo(index, true); });
+      li.appendChild(button);
+      els.steps.appendChild(li);
+    });
+  }
+
+  function renderTerminal(step) {
+    els.command.textContent = "";
+    var lines = step.command.split("\n");
+    lines.forEach(function (line, index) {
+      if (index) { els.command.appendChild(document.createTextNode("\n")); }
+      var prompt = document.createElement("span");
+      prompt.className = "prompt";
+      prompt.textContent = "$ ";
+      els.command.append(prompt, document.createTextNode(line));
+    });
+    els.output.textContent = step.output || TEXT[lang].emptyOutput;
+    els.output.classList.toggle("empty-output", !step.output);
+  }
+
+  function getPositions() { return window.matchMedia("(max-width: 620px)").matches ? POSITIONS.mobile : POSITIONS.desktop; }
+
+  function renderGraph(step, animate) {
+    els.graphWrap.textContent = "";
+    els.graphWrap.setAttribute("aria-label", TEXT[lang].graphLabel + ": " + pick(step.label));
+    if (!step.objects.length) {
+      var empty = document.createElement("div");
+      empty.className = "graph-empty";
+      var strong = document.createElement("strong");
+      strong.textContent = TEXT[lang].objectCount(0);
+      var span = document.createElement("span");
+      span.textContent = pick(step.empty);
+      empty.append(strong, span);
+      els.graphWrap.appendChild(empty);
+      return;
+    }
+
+    var stage = document.createElement("div");
+    stage.className = "graph-stage";
+    if (animate && step.commitMoment) { stage.classList.add("is-commit-moment"); }
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("class", "graph-svg");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    svg.setAttribute("preserveAspectRatio", "none");
+    svg.setAttribute("aria-hidden", "true");
+    var defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    var marker = document.createElementNS("http://www.w3.org/2000/svg", "marker");
+    marker.setAttribute("id", "arrow");
+    marker.setAttribute("viewBox", "0 0 10 10");
+    marker.setAttribute("refX", "8");
+    marker.setAttribute("refY", "5");
+    marker.setAttribute("markerWidth", "5");
+    marker.setAttribute("markerHeight", "5");
+    marker.setAttribute("orient", "auto-start-reverse");
+    var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M 0 0 L 10 5 L 0 10 z");
+    path.setAttribute("fill", "currentColor");
+    marker.appendChild(path);
+    defs.appendChild(marker);
+    svg.appendChild(defs);
+    var positions = getPositions();
+
+    var edgeLabels = [];
+    step.edges.forEach(function (edge) {
+      var from = positions[edge.from];
+      var to = positions[edge.to];
+      var dx = to[0] - from[0];
+      var dy = to[1] - from[1];
+      var distance = Math.sqrt(dx * dx + dy * dy) || 1;
+      var offset = 8;
+      var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("class", "edge");
+      line.setAttribute("x1", from[0] + dx / distance * offset);
+      line.setAttribute("y1", from[1] + dy / distance * offset);
+      line.setAttribute("x2", to[0] - dx / distance * offset);
+      line.setAttribute("y2", to[1] - dy / distance * offset);
+      svg.appendChild(line);
+      var edgeName = typeof edge.label === "string" ? edge.label : pick(edge.label);
+      edgeLabels.push({
+        edgeId: edge.from + "-" + edge.to,
+        left: (from[0] + to[0]) / 2,
+        top: (from[1] + to[1]) / 2 - 2,
+        text: edgeName
+      });
+    });
+    stage.appendChild(svg);
+
+    edgeLabels.forEach(function (item) {
+      var label = document.createElement("span");
+      label.className = "edge-label-html";
+      label.dataset.edge = item.edgeId;
+      label.style.left = item.left + "%";
+      label.style.top = item.top + "%";
+      label.textContent = item.text;
+      stage.appendChild(label);
+    });
+
+    step.objects.forEach(function (id) {
+      var object = OBJECTS[id];
+      var pos = positions[id];
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "graph-node graph-node--" + object.type;
+      button.dataset.object = id;
+      button.style.left = pos[0] + "%";
+      button.style.top = pos[1] + "%";
+      button.setAttribute("aria-pressed", String(selected === id));
+      button.setAttribute("aria-label", TEXT[lang].inspect(id, object.type));
+      var top = document.createElement("span");
+      top.className = "graph-node__top";
+      var label = document.createElement("span");
+      label.className = "graph-node__label type--" + object.type;
+      label.textContent = id;
+      var type = document.createElement("span");
+      type.className = "graph-node__type";
+      type.textContent = object.type;
+      top.append(label, type);
+      var hash = document.createElement("span");
+      hash.className = "graph-node__hash";
+      hash.textContent = object.hash + " · " + TEXT[lang].hashLabel;
+      button.append(top, hash);
+      button.addEventListener("click", function () { selectObject(id); });
+      stage.appendChild(button);
+    });
+    els.graphWrap.appendChild(stage);
+  }
+
+  function renderIndex(step) {
+    els.indexBody.textContent = "";
+    els.indexWrap.hidden = !step.index.length;
+    step.index.forEach(function (row) {
+      var tr = document.createElement("tr");
+      row.forEach(function (value) {
+        var td = document.createElement("td");
+        td.textContent = value;
+        tr.appendChild(td);
+      });
+      els.indexBody.appendChild(tr);
+    });
+  }
+
+  function renderInspector(step) {
+    els.picker.textContent = "";
+    els.picker.setAttribute("aria-label", TEXT[lang].pickerLabel);
+    step.objects.forEach(function (id) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "object-chip";
+      button.dataset.object = id;
+      button.textContent = id;
+      button.setAttribute("aria-pressed", String(selected === id));
+      button.setAttribute("aria-label", TEXT[lang].inspect(id, OBJECTS[id].type));
+      button.addEventListener("click", function () { selectObject(id); });
+      els.picker.appendChild(button);
+    });
+    els.inspector.textContent = "";
+    if (!selected || step.objects.indexOf(selected) === -1) {
+      var empty = document.createElement("p");
+      empty.className = "inspector__empty";
+      empty.textContent = TEXT[lang].inspectorEmpty;
+      els.inspector.appendChild(empty);
+      return;
+    }
+    var object = OBJECTS[selected];
+    var meta = document.createElement("div");
+    meta.className = "inspector__meta";
+    var name = document.createElement("h3");
+    name.className = "inspector__name type--" + object.type;
+    name.textContent = object.id + " · " + object.type;
+    var hash = document.createElement("span");
+    hash.className = "inspector__id";
+    hash.textContent = object.hash + " · " + TEXT[lang].hashLabel;
+    meta.append(name, hash);
+    var pre = document.createElement("pre");
+    pre.textContent = pick(object.inspector);
+    els.inspector.append(meta, pre);
+  }
+
+  function selectObject(id) {
+    var active = document.activeElement;
+    var source = active && active.classList && active.classList.contains("graph-node") ? "graph-node" : "object-chip";
+    selected = id;
+    var step = STEPS[current];
+    renderGraph(step, false);
+    renderInspector(step);
+    var replacement = document.querySelector("." + source + "[data-object=\"" + id + "\"]");
+    if (replacement) { replacement.focus(); }
+  }
+
+  function renderStaticText() {
+    var t = TEXT[lang];
+    document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+    document.title = t.title;
+    els.skip.textContent = t.skip;
+    els.heading.textContent = t.heading;
+    els.deck.textContent = t.deck;
+    els.langGroup.setAttribute("aria-label", t.langLabel);
+    els.langZh.setAttribute("aria-pressed", String(lang === "zh"));
+    els.langEn.setAttribute("aria-pressed", String(lang === "en"));
+    els.nav.setAttribute("aria-label", t.navLabel);
+    els.stepsTitle.textContent = t.stepsTitle;
+    els.stepsHint.textContent = t.stepsHint;
+    els.legendTitle.textContent = t.legendTitle;
+    els.legendBlob.textContent = t.legendBlob;
+    els.legendTree.textContent = t.legendTree;
+    els.legendCommit.textContent = t.legendCommit;
+    els.navigationTitle.textContent = t.navigationTitle;
+    els.prev.textContent = t.previous;
+    els.next.textContent = t.next;
+    els.reset.textContent = t.reset;
+    renderKeyboardHint();
+    els.commandTitle.textContent = t.commandTitle;
+    els.outputTitle.textContent = t.outputTitle;
+    els.graphTitle.textContent = t.graphTitle;
+    els.graphHint.textContent = t.graphHint;
+    els.idNote.textContent = t.idNote;
+    els.explanationTitle.textContent = t.explanationTitle;
+    els.inspectorTitle.textContent = t.inspectorTitle;
+    els.misconceptionTitle.textContent = t.misconceptionTitle;
+    els.agentTitle.textContent = t.agentTitle;
+    els.recoveryTitle.textContent = t.recoveryTitle;
+    els.indexHeaders.forEach(function (el, i) { el.textContent = t.indexHeaders[i]; });
+    Array.prototype.forEach.call(els.footerLinks.querySelectorAll("[data-link]"), function (link) {
+      link.textContent = t.links[link.dataset.link];
+    });
+    els.footerNote.textContent = t.footerNote;
+  }
+
+  function render(animate, announce) {
+    var active = document.activeElement;
+    var activeWasStep = active && active.classList && active.classList.contains("step");
+    var activeId = active ? active.id : "";
+    var step = STEPS[current];
+    if (!selected || step.objects.indexOf(selected) === -1) { selected = step.selected; }
+    renderStaticText();
+    renderSteps();
+    renderTerminal(step);
+    renderGraph(step, animate);
+    renderIndex(step);
+    renderInspector(step);
+    renderRich(els.explanation, pick(step.explanation));
+    renderRich(els.misconception, pick(step.misconception));
+    renderRich(els.agent, pick(step.agent));
+    renderRich(els.recovery, pick(step.recovery));
+    els.graphNote.textContent = pick(step.graphNote);
+    els.progress.textContent = TEXT[lang].progress(current + 1, STEPS.length);
+    els.prev.disabled = current === 0;
+    els.next.disabled = current === STEPS.length - 1;
+    if (activeWasStep) {
+      var activeStep = els.steps.querySelector(".step[aria-current=\"step\"]");
+      if (activeStep) { activeStep.focus(); }
+    } else if (activeId === "btn-next" && els.next.disabled) {
+      els.prev.focus();
+    } else if (activeId === "btn-prev" && els.prev.disabled) {
+      els.next.focus();
+    }
+    if (announce) { els.live.textContent = TEXT[lang].announce(current + 1, STEPS.length, pick(step.label)); }
+  }
+
+  function goTo(index, announce) {
+    var next = Math.max(0, Math.min(index, STEPS.length - 1));
+    if (next === current) { return; }
+    current = next;
+    selected = STEPS[current].selected;
+    render(true, announce);
+  }
+
+  function setLang(nextLang) {
+    if (nextLang === lang) { return; }
+    lang = nextLang;
+    render(false, true);
+  }
+
+  els.prev.addEventListener("click", function () { goTo(current - 1, true); });
+  els.next.addEventListener("click", function () { goTo(current + 1, true); });
+  els.reset.addEventListener("click", function () { goTo(0, true); });
+  els.langZh.addEventListener("click", function () { setLang("zh"); });
+  els.langEn.addEventListener("click", function () { setLang("en"); });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.altKey || event.ctrlKey || event.metaKey) { return; }
+    var handled = true;
+    switch (event.key) {
+      case "ArrowLeft": goTo(current - 1, true); break;
+      case "ArrowRight": goTo(current + 1, true); break;
+      case "Home": goTo(0, true); break;
+      case "End": goTo(STEPS.length - 1, true); break;
+      default: handled = false;
+    }
+    if (handled) { event.preventDefault(); }
+  });
+
+  window.addEventListener("resize", function () { renderGraph(STEPS[current], false); });
+  render(false, false);
+})();
+</script>
+</body>
+</html>
