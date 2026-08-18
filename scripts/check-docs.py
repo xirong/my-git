@@ -12,7 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 DOC_ROOTS = [
     "README.md",
-    "README_zh.md",
+    "README_en.md",
     "README.zh-CN.md",
     "AGENTS.md",
     "CONTRIBUTING.md",
