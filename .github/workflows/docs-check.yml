@@ -20,3 +20,6 @@ jobs:
 
       - name: Run docs checks
         run: python scripts/check-docs.py
+
+      - name: Run Git mental model labs
+        run: bash labs/git-mental-model/01-snapshots-and-state/test.sh

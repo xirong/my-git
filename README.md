@@ -48,8 +48,9 @@ Therefore, v2.0 upgrades this repository into:
 
 1.  [Why Use Git](01-getting-started/01-getting-started_en/why-git_en.md)
 2.  [Git Mental Model](01-getting-started/01-getting-started_en/git-mental-model_en.md)
-3.  [Git Basic Commands](01-getting-started/01-getting-started_en/git-basic-commands_en.md)
-4.  [Everyday Git Commands](02-daily-workflow/02-daily-workflow_en/everyday-git-commands_en.md)
+3.  [Snapshots and State: HEAD, Index, and Working Tree](01-getting-started/01-getting-started_en/git-mental-model-01-snapshots_en.md)
+4.  [Git Basic Commands](01-getting-started/01-getting-started_en/git-basic-commands_en.md)
+5.  [Everyday Git Commands](02-daily-workflow/02-daily-workflow_en/everyday-git-commands_en.md)
 
 ### Daily Development Path
 

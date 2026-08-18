@@ -30,6 +30,8 @@ DOC_ROOTS = [
     "08-templates",
     "09-resources",
     "10-company-practices",
+    "interactive",
+    "labs",
 ]
 
 SKIP_PARTS = {
@@ -90,42 +92,46 @@ def is_skipped(path: Path) -> bool:
     return any(rel_path == part or rel_path.startswith(part + "/") for part in SKIP_PARTS)
 
 
-def markdown_files() -> list[Path]:
+def content_files() -> list[Path]:
     files: list[Path] = []
     for item in DOC_ROOTS:
         path = REPO_ROOT / item
         if not path.exists():
             continue
-        if path.is_file() and path.suffix == ".md" and not is_skipped(path):
+        if path.is_file() and path.suffix in {".html", ".md"} and not is_skipped(path):
             files.append(path)
         elif path.is_dir():
             files.extend(
-                p for p in path.rglob("*.md")
-                if p.is_file() and not is_skipped(p)
+                p for p in path.rglob("*")
+                if p.is_file() and p.suffix in {".html", ".md"} and not is_skipped(p)
             )
     return sorted(set(files))
 
 
 def check_local_links(files: list[Path]) -> list[str]:
-    pattern = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+    patterns = [
+        re.compile(r"\[[^\]]+\]\(([^)]+)\)"),
+        re.compile(r"href=[\"']([^\"']+)[\"']"),
+    ]
     errors: list[str] = []
 
     for path in files:
         text = path.read_text(encoding="utf-8")
-        for match in pattern.finditer(text):
-            raw = match.group(1).strip()
-            if not raw or raw.startswith(("#", "http://", "https://", "mailto:")):
-                continue
+        for pattern in patterns:
+            for match in pattern.finditer(text):
+                raw = match.group(1).strip()
+                if not raw or raw.startswith(("#", "http://", "https://", "mailto:")):
+                    continue
 
-            target = raw.split("#", 1)[0]
-            target = urllib.parse.unquote(target)
-            if target.startswith("<") and target.endswith(">"):
-                target = target[1:-1]
+                target = raw.split("#", 1)[0]
+                target = urllib.parse.unquote(target)
+                if target.startswith("<") and target.endswith(">"):
+                    target = target[1:-1]
 
-            resolved = (path.parent / target).resolve()
-            if not resolved.exists():
-                line = text[:match.start()].count("\n") + 1
-                errors.append(f"{rel(path)}:{line}: broken local link: {raw}")
+                resolved = (path.parent / target).resolve()
+                if not resolved.exists():
+                    line = text[:match.start()].count("\n") + 1
+                    errors.append(f"{rel(path)}:{line}: broken local link: {raw}")
 
     return errors
 
@@ -169,7 +175,7 @@ def check_tracked_files(files: list[Path]) -> list[str]:
 
 
 def main() -> int:
-    files = markdown_files()
+    files = content_files()
     checks = {
         "local links": check_local_links(files),
         "forbidden text": check_forbidden_text(files),
@@ -189,7 +195,7 @@ def main() -> int:
     if failed:
         return 1
 
-    print(f"checked {len(files)} markdown files")
+    print(f"checked {len(files)} documentation files")
     return 0
 
 
