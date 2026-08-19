@@ -25,3 +25,4 @@ jobs:
         run: |
           bash labs/git-mental-model/01-snapshots-and-state/test.sh
           bash labs/git-mental-model/02-object-graph/test.sh
+          bash labs/git-mental-model/03-index/test.sh
