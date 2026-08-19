@@ -8,10 +8,13 @@
 
 1. [快照与状态：HEAD、Index 与 Working Tree](git-mental-model-01-snapshots.md)
 2. [对象图：blob、tree 与 commit](git-mental-model-02-object-graph.md)
+3. [Index 是下一次 commit 的草稿](git-mental-model-03-index.md)
 
 第一章通过同一个文件的三个版本，演示 `git add` 和 `git commit` 实际记录什么，并提供[交互演示](../interactive/git-mental-model/snapshots-and-state.html)和[可运行实验](../labs/git-mental-model/01-snapshots-and-state/README.md)。
 
 第二章沿 commit 进入对象库，拆解 blob、tree 与 commit 的责任边界，并提供[对象图交互演示](../interactive/git-mental-model/object-graph.html)和[可运行实验](../labs/git-mental-model/02-object-graph/README.md)。
+
+第三章深入 Index，演示部分暂存、`git diff --cached`、安全取消暂存与冲突 stage 1、2、3，并提供[Index 草稿交互演示](../interactive/git-mental-model/index-as-draft.html)和[可运行实验](../labs/git-mental-model/03-index/README.md)。
 
 ## 四区域快速模型
 

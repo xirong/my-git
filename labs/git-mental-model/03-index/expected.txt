@@ -1,0 +1,27 @@
+Index Draft / Index 草稿
+
+git status --short
+
+MM app.txt
+UU conflict.txt
+ M settings.ini
+
+app.txt
+
+- HEAD: owner=team and deploy=off
+- Index: owner=agent and deploy=off
+- Working Tree: owner=agent and deploy=on
+- git diff --cached contains only the selected owner hunk
+- git diff contains only the remaining deploy hunk
+
+conflict.txt
+
+- stage 1: owner=base
+- stage 2: owner=human
+- stage 3: owner=agent
+
+settings.ini
+
+- Index: mode=safe
+- Working Tree: mode=fast
+- The change is outside the next commit draft
