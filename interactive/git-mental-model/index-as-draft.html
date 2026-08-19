@@ -348,7 +348,16 @@
       },
       {
         label: { zh: '编辑工作区', en: 'Edit the working tree' },
-        command: "sed -i '' 's/owner=team/owner=agent/' app.txt\nsed -i '' 's/deploy=off/deploy=on/' app.txt\nsed -i '' 's/mode=safe/mode=fast/' settings.ini\ngit status --short",
+        command: [
+          "python3 - <<'PY'",
+          'from pathlib import Path',
+          'app = Path("app.txt")',
+          'app.write_text(app.read_text().replace("owner=team", "owner=agent").replace("deploy=off", "deploy=on"))',
+          'settings = Path("settings.ini")',
+          'settings.write_text(settings.read_text().replace("mode=safe", "mode=fast"))',
+          'PY',
+          'git status --short'
+        ].join('\n'),
         output: ' M app.txt\n M settings.ini', status: ' M · 2', entries: normalEntries, draft: [],
         files: [['app', null, 'owner=agent\n...\ndeploy=on'], ['conflict', null, null], ['settings', null, 'mode=fast']],
         explanation: { zh: '第二列 M 表示 Working Tree 相对 Index 已改变。Index 仍保持原草稿，所以 git diff --cached 为空。', en: 'M in the second column means the working tree differs from the index. The draft is unchanged, so git diff --cached is empty.' },
