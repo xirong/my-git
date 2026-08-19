@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore how Git's index becomes the next commit draft through partial staging, recovery, and conflict stages.">
+  <title>Index as the next commit draft | Git Mental Model</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f3f0e9;
+      --panel: #fffdf8;
+      --panel-2: #ebe6dc;
+      --ink: #25231f;
+      --muted: #6f6a60;
+      --line: #d8d1c4;
+      --accent: #c55426;
+      --accent-soft: #f5d8c8;
+      --blue: #276b8a;
+      --blue-soft: #d8eaf1;
+      --green: #34745c;
+      --green-soft: #dbece4;
+      --violet: #72568f;
+      --violet-soft: #e9def2;
+      --danger: #a63d32;
+      --shadow: 0 16px 44px rgba(45, 38, 28, .1);
+      --ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171715;
+        --panel: #211f1c;
+        --panel-2: #2b2823;
+        --ink: #f1ede5;
+        --muted: #aaa398;
+        --line: #403b34;
+        --accent: #ef8758;
+        --accent-soft: #4a2d21;
+        --blue: #75b7d4;
+        --blue-soft: #203946;
+        --green: #73b597;
+        --green-soft: #203a30;
+        --violet: #b79ad0;
+        --violet-soft: #382d43;
+        --danger: #ef8e84;
+        --shadow: 0 18px 50px rgba(0, 0, 0, .25);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 8% 4%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 31rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: var(--ui);
+    }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    code, pre { font-family: var(--mono); }
+    a { color: inherit; }
+
+    .shell { width: min(1500px, calc(100% - 32px)); margin: 0 auto; padding: 30px 0 44px; }
+    .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; margin-bottom: 22px; }
+    .kicker { margin: 0 0 8px; color: var(--accent); font: 700 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 0; max-width: 820px; font-size: clamp(29px, 4vw, 54px); line-height: .98; letter-spacing: -.045em; }
+    .lead { max-width: 760px; margin: 15px 0 0; color: var(--muted); font-size: 16px; line-height: 1.65; }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    .tool {
+      border: 1px solid var(--line); border-radius: 6px; padding: 9px 11px; background: var(--panel);
+      color: var(--ink); cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.04);
+    }
+    .tool:hover { border-color: var(--accent); }
+    .tool:focus-visible, .step:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 35%, transparent); outline-offset: 2px; }
+
+    .progress { height: 3px; background: var(--line); margin: 0 0 18px; overflow: hidden; }
+    .progress > span { display: block; height: 100%; width: 12.5%; background: var(--accent); transition: width 250ms ease; }
+    .workspace { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 16px; align-items: start; }
+    .rail { position: sticky; top: 16px; border: 1px solid var(--line); background: color-mix(in srgb, var(--panel) 92%, transparent); box-shadow: var(--shadow); }
+    .rail-head { padding: 16px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; color: var(--muted); font: 600 12px/1 var(--mono); }
+    .steps { padding: 7px; display: grid; gap: 3px; }
+    .step {
+      display: grid; grid-template-columns: 28px 1fr; align-items: center; gap: 9px; width: 100%; padding: 10px;
+      border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--muted); text-align: left; cursor: pointer;
+    }
+    .step:hover { background: var(--panel-2); color: var(--ink); }
+    .step[aria-current="step"] { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 34%, var(--line)); color: var(--ink); }
+    .step-num { font: 700 11px/1 var(--mono); color: var(--accent); }
+    .step-label { font-size: 13px; font-weight: 700; line-height: 1.25; }
+
+    .stage { min-width: 0; display: grid; gap: 16px; }
+    .card { border: 1px solid var(--line); background: var(--panel); box-shadow: var(--shadow); }
+    .card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--line); }
+    .card-title { margin: 0; font-size: 13px; letter-spacing: .02em; }
+    .badge { border-radius: 99px; padding: 5px 9px; color: var(--accent); background: var(--accent-soft); font: 700 11px/1 var(--mono); }
+
+    .terminal { background: #141516; color: #ece9e1; border-color: #2d2f30; box-shadow: 0 18px 50px rgba(0,0,0,.22); }
+    .terminal .card-head { border-color: #303233; }
+    .dots { display: flex; gap: 6px; }
+    .dots i { width: 8px; height: 8px; border-radius: 50%; background: #5a5d5f; }
+    .dots i:first-child { background: #d56a4d; }
+    .dots i:nth-child(2) { background: #d6a84c; }
+    .dots i:last-child { background: #62a479; }
+    .terminal-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(240px, .85fr); }
+    .terminal-pane { min-width: 0; padding: 17px; }
+    .terminal-pane + .terminal-pane { border-left: 1px solid #303233; }
+    .terminal-label { margin: 0 0 10px; color: #8f9698; font: 700 10px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; line-height: 1.65; }
+    .prompt { color: #84c69f; }
+    #command::first-line { color: #f2d48b; }
+
+    .views { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+    .view { min-width: 0; padding: 16px; }
+    .view + .view { border-left: 1px solid var(--line); }
+    .view-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 13px; }
+    .view-name { font-weight: 800; font-size: 15px; }
+    .view-note { color: var(--muted); font: 10px/1 var(--mono); text-align: right; }
+    .file-list { display: grid; gap: 8px; }
+    .file {
+      min-height: 84px; padding: 10px; border: 1px solid var(--line); border-radius: 5px; background: var(--bg);
+      transition: border-color 180ms ease, transform 180ms ease;
+    }
+    .file.changed { border-color: var(--accent); transform: translateY(-1px); }
+    .file-top { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .file-path { font: 700 11px/1.2 var(--mono); }
+    .file-tag { color: var(--muted); font: 700 10px/1 var(--mono); }
+    .file pre { color: var(--muted); font-size: 10px; line-height: 1.45; }
+
+    .lower { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr); gap: 16px; }
+    .index-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font: 11px/1.45 var(--mono); }
+    th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+    th { color: var(--muted); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+    tbody tr:last-child td { border-bottom: 0; }
+    .stage-pill { display: inline-grid; place-items: center; width: 24px; height: 22px; border-radius: 4px; background: var(--panel-2); font-weight: 800; }
+    .stage-pill.s1 { background: var(--blue-soft); color: var(--blue); }
+    .stage-pill.s2 { background: var(--green-soft); color: var(--green); }
+    .stage-pill.s3 { background: var(--violet-soft); color: var(--violet); }
+
+    .draft { padding: 16px; }
+    .draft-empty { min-height: 125px; display: grid; place-items: center; border: 1px dashed var(--line); color: var(--muted); text-align: center; font-size: 13px; line-height: 1.55; }
+    .draft-files { display: grid; gap: 8px; }
+    .draft-file { padding: 11px; background: var(--green-soft); border-left: 3px solid var(--green); }
+    .draft-file strong { display: block; margin-bottom: 5px; font: 700 11px/1 var(--mono); }
+    .draft-file span { color: var(--muted); font-size: 12px; }
+
+    .conflict { padding: 16px; border-top: 1px solid var(--line); }
+    .conflict[hidden] { display: none; }
+    .candidates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .candidate { border: 1px solid var(--line); padding: 10px; min-width: 0; }
+    .candidate strong { display: block; margin-bottom: 7px; font: 700 10px/1 var(--mono); }
+    .candidate pre { font-size: 10px; color: var(--muted); }
+    .candidate.base { border-top: 3px solid var(--blue); }
+    .candidate.ours { border-top: 3px solid var(--green); }
+    .candidate.theirs { border-top: 3px solid var(--violet); }
+
+    .notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+    .note { padding: 16px; min-width: 0; }
+    .note + .note { border-left: 1px solid var(--line); }
+    .note h3 { margin: 0 0 8px; font-size: 12px; }
+    .note p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .note.agent h3 { color: var(--green); }
+    .note.recovery h3 { color: var(--accent); }
+    .note.misconception h3 { color: var(--violet); }
+
+    .explain { padding: 17px 19px; display: flex; align-items: flex-start; gap: 13px; }
+    .explain-mark { flex: 0 0 auto; width: 28px; height: 28px; display: grid; place-items: center; background: var(--accent); color: white; border-radius: 4px; font-weight: 900; }
+    .explain p { margin: 1px 0 0; line-height: 1.65; font-size: 14px; }
+    .footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 18px; color: var(--muted); font-size: 12px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 14px; }
+    .footer a:hover { color: var(--accent); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    @media (max-width: 1000px) {
+      .workspace { grid-template-columns: 1fr; }
+      .rail { position: static; }
+      .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .step { grid-template-columns: 20px 1fr; padding: 8px; }
+      .lower { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .shell { width: min(100% - 20px, 1500px); padding-top: 18px; }
+      .topbar { display: block; }
+      .toolbar { justify-content: flex-start; margin-top: 16px; }
+      .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .terminal-grid, .views, .notes { grid-template-columns: 1fr; }
+      .terminal-pane + .terminal-pane, .view + .view, .note + .note { border-left: 0; border-top: 1px solid var(--line); }
+      .candidates { grid-template-columns: 1fr; }
+      .footer { display: block; }
+      .footer-links { margin-bottom: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="kicker">Git mental model 03</p>
+        <h1 id="page-title">Index 是下一次 commit 的草稿</h1>
+        <p class="lead" id="page-lead">沿着 8 个状态观察同一个文件如何同时拥有已暂存与未暂存修改，并看清冲突时的 stage 1、2、3。</p>
+      </div>
+      <div class="toolbar" aria-label="Page controls">
+        <button class="tool" id="prev" type="button" aria-label="Previous state">←</button>
+        <button class="tool" id="next" type="button" aria-label="Next state">→</button>
+        <button class="tool" id="lang" type="button">English</button>
+      </div>
+    </header>
+
+    <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+
+    <div class="workspace">
+      <aside class="rail" aria-label="Experiment states">
+        <div class="rail-head"><span id="rail-title">状态路径</span><span id="counter">1 / 8</span></div>
+        <nav class="steps" id="steps"></nav>
+      </aside>
+
+      <section class="stage" aria-labelledby="state-title">
+        <article class="card terminal">
+          <div class="card-head">
+            <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <span class="badge" id="state-title">干净起点</span>
+          </div>
+          <div class="terminal-grid">
+            <div class="terminal-pane">
+              <p class="terminal-label" id="command-label">命令</p>
+              <pre><span class="prompt">$ </span><span id="command"></span></pre>
+            </div>
+            <div class="terminal-pane">
+              <p class="terminal-label" id="output-label">预期输出</p>
+              <pre id="output"></pre>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h2 class="card-title" id="comparison-title">同一路径的三份视图</h2>
+            <span class="badge" id="status-badge">clean</span>
+          </div>
+          <div class="views" id="views"></div>
+        </article>
+
+        <div class="lower">
+          <article class="card">
+            <div class="card-head">
+              <h2 class="card-title" id="index-title">Index 条目</h2>
+              <span class="badge">git ls-files --stage</span>
+            </div>
+            <div class="index-wrap">
+              <table>
+                <thead><tr><th id="th-mode">模式</th><th>Object ID</th><th>Stage</th><th id="th-path">路径</th></tr></thead>
+                <tbody id="entries"></tbody>
+              </table>
+            </div>
+            <div class="conflict" id="conflict" hidden>
+              <div class="candidates" id="candidates"></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-head">
+              <h2 class="card-title" id="draft-title">下一次 commit 预览</h2>
+              <span class="badge">HEAD → Index</span>
+            </div>
+            <div class="draft" id="draft"></div>
+          </article>
+        </div>
+
+        <article class="card">
+          <div class="explain"><span class="explain-mark">i</span><p id="explanation"></p></div>
+          <div class="notes">
+            <div class="note misconception"><h3 id="mis-title">常见误解</h3><p id="misconception"></p></div>
+            <div class="note recovery"><h3 id="rec-title">恢复动作</h3><p id="recovery"></p></div>
+            <div class="note agent"><h3 id="agent-title">AI Agent 检查点</h3><p id="agent"></p></div>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="../../01-getting-started/git-mental-model-03-index.md" id="article-link">中文文章</a>
+        <a href="../../01-getting-started/01-getting-started_en/git-mental-model-03-index_en.md">English article</a>
+        <a href="../../labs/git-mental-model/03-index/README.md" id="lab-link">运行临时仓库实验</a>
+      </div>
+      <span id="keyboard-help">键盘：← → 切换，Home / End 跳转</span>
+    </footer>
+    <div class="sr-only" id="live" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const TEXT = {
+      zh: {
+        title: 'Index 是下一次 commit 的草稿',
+        lead: '沿着 8 个状态观察同一个文件如何同时拥有已暂存与未暂存修改，并看清冲突时的 stage 1、2、3。',
+        rail: '状态路径', command: '命令', output: '预期输出', comparison: '同一路径的三份视图',
+        index: 'Index 条目', draft: '下一次 commit 预览', mode: '模式', path: '路径',
+        misconception: '常见误解', recovery: '恢复动作', agent: 'AI Agent 检查点',
+        article: '中文文章', lab: '运行临时仓库实验', keyboard: '键盘：← → 切换，Home / End 跳转',
+        views: [['HEAD', '上一次 commit'], ['Index', '提交草稿'], ['Working Tree', '磁盘文件']],
+        empty: 'Index 与 HEAD 相同。\n下一次 commit 暂时没有变化。', fileCount: n => `${n} 个路径进入草稿`, changed: '已改变', same: '相同',
+        announced: (n, label) => `状态 ${n}：${label}`
+      },
+      en: {
+        title: 'The index is the next commit draft',
+        lead: 'Follow eight repository states to see staged and unstaged changes coexist, then inspect conflict stages 1, 2, and 3.',
+        rail: 'State path', command: 'Command', output: 'Expected output', comparison: 'Three views of the same paths',
+        index: 'Index entries', draft: 'Next commit preview', mode: 'Mode', path: 'Path',
+        misconception: 'Common misconception', recovery: 'Recovery move', agent: 'AI Agent checkpoint',
+        article: 'Chinese article', lab: 'Run the temporary-repo lab', keyboard: 'Keyboard: ← → move, Home / End jump',
+        views: [['HEAD', 'last commit'], ['Index', 'commit draft'], ['Working Tree', 'files on disk']],
+        empty: 'The index matches HEAD.\nThe next commit has no changes yet.', fileCount: n => `${n} path${n === 1 ? '' : 's'} in the draft`, changed: 'changed', same: 'same',
+        announced: (n, label) => `State ${n}: ${label}`
+      }
+    };
+
+    const baseFiles = {
+      app: { path: 'app.txt', head: 'owner=team\n...\ndeploy=off' },
+      conflict: { path: 'conflict.txt', head: 'owner=human' },
+      settings: { path: 'settings.ini', head: 'mode=safe' }
+    };
+
+    const normalEntries = [
+      ['100644', 'a39e044', 0, 'app.txt'],
+      ['100644', 'c3efd06', 0, 'conflict.txt'],
+      ['100644', '7cd75d5', 0, 'settings.ini']
+    ];
+
+    const STEPS = [
+      {
+        label: { zh: '干净起点', en: 'Clean starting point' },
+        command: 'git status --short\ngit ls-files --stage',
+        output: '100644 a39e044 0\tapp.txt\n100644 c3efd06 0\tconflict.txt\n100644 7cd75d5 0\tsettings.ini',
+        status: 'clean', entries: normalEntries, draft: [],
+        files: [['app', null, null], ['conflict', null, null], ['settings', null, null]],
+        explanation: { zh: '普通路径只有 stage 0。此时 Index 与 HEAD 指向相同的内容，Working Tree 也没有额外编辑。', en: 'Normal paths use stage 0. The index matches HEAD, and the working tree has no extra edits.' },
+        misconception: { zh: 'Index 不是空目录。干净状态下，它仍保存整棵待提交树的路径条目。', en: 'The index is not empty when clean. It still contains entries for the complete draft tree.' },
+        recovery: { zh: '先用 git status --short 建立起点，再执行会改变草稿的命令。', en: 'Establish a baseline with git status --short before changing the draft.' },
+        agent: { zh: 'Agent 开始工作前记录干净状态，能区分原有改动与本次任务改动。', en: 'Record the clean baseline so the agent can separate existing work from task changes.' }
+      },
+      {
+        label: { zh: '编辑工作区', en: 'Edit the working tree' },
+        command: [
+          "python3 - <<'PY'",
+          'from pathlib import Path',
+          'app = Path("app.txt")',
+          'app.write_text(app.read_text().replace("owner=team", "owner=agent").replace("deploy=off", "deploy=on"))',
+          'settings = Path("settings.ini")',
+          'settings.write_text(settings.read_text().replace("mode=safe", "mode=fast"))',
+          'PY',
+          'git status --short'
+        ].join('\n'),
+        output: ' M app.txt\n M settings.ini', status: ' M · 2', entries: normalEntries, draft: [],
+        files: [['app', null, 'owner=agent\n...\ndeploy=on'], ['conflict', null, null], ['settings', null, 'mode=fast']],
+        explanation: { zh: '第二列 M 表示 Working Tree 相对 Index 已改变。Index 仍保持原草稿，所以 git diff --cached 为空。', en: 'M in the second column means the working tree differs from the index. The draft is unchanged, so git diff --cached is empty.' },
+        misconception: { zh: '磁盘上改过的内容不会自动进入下一次 commit。', en: 'Edits on disk do not automatically enter the next commit.' },
+        recovery: { zh: '如果编辑有误，先确认路径，再用 git restore -- <path> 恢复 Working Tree。', en: 'If an edit is wrong, confirm the path before restoring the working tree with git restore -- <path>.' },
+        agent: { zh: 'Agent 声称“修改完成”时，仍要区分已修改与已进入提交草稿。', en: 'When an agent says the edit is done, distinguish modified content from content placed in the commit draft.' }
+      },
+      {
+        label: { zh: '只暂存一个 hunk', en: 'Stage one hunk' },
+        command: "printf 'y\\nn\\n' | git add -p app.txt\ngit status --short", output: 'MM app.txt\n M settings.ini', status: 'MM · M',
+        entries: [['100644', '42c4cc2', 0, 'app.txt'], normalEntries[1], normalEntries[2]],
+        draft: [['app.txt', 'owner=team → owner=agent']],
+        files: [['app', 'owner=agent\n...\ndeploy=off', 'owner=agent\n...\ndeploy=on'], ['conflict', null, null], ['settings', null, 'mode=fast']],
+        explanation: { zh: '第一个 M 来自 HEAD 与 Index，第二个 M 来自 Index 与 Working Tree。同一路径现在有三份可区分的内容。', en: 'The first M compares HEAD to index; the second compares index to working tree. One path now has three distinguishable versions.' },
+        misconception: { zh: 'MM 不是重复报告同一份修改，它代表两个比较边界都存在差异。', en: 'MM is not a duplicate report. Both comparison boundaries contain a difference.' },
+        recovery: { zh: '选错 hunk 时，用 git restore --staged -- app.txt 取消暂存，磁盘编辑仍保留。', en: 'If the wrong hunk was selected, unstage app.txt while preserving disk edits with git restore --staged.' },
+        agent: { zh: '部分暂存可以隔离无关修改，但要确认拆分后的 commit 仍可独立构建和解释。', en: 'Partial staging isolates unrelated edits, but the resulting commit must still build and make sense on its own.' }
+      },
+      {
+        label: { zh: '审查提交草稿', en: 'Review the draft' },
+        command: 'git diff --cached -- app.txt\ngit diff -- app.txt',
+        output: 'cached:   owner=team → owner=agent\nunstaged: deploy=off → deploy=on', status: 'MM · M',
+        entries: [['100644', '42c4cc2', 0, 'app.txt'], normalEntries[1], normalEntries[2]],
+        draft: [['app.txt', 'owner=team → owner=agent']],
+        files: [['app', 'owner=agent\n...\ndeploy=off', 'owner=agent\n...\ndeploy=on'], ['conflict', null, null], ['settings', null, 'mode=fast']],
+        explanation: { zh: 'git diff --cached 展示 HEAD 到 Index，是提交前最直接的内容审查；git diff 展示还留在 Working Tree 的修改。', en: 'git diff --cached reviews HEAD to index, the most direct content preview before commit. git diff shows what remains only in the working tree.' },
+        misconception: { zh: '只看 git diff 会漏掉已经暂存的内容。', en: 'Looking only at git diff hides content that is already staged.' },
+        recovery: { zh: '如果草稿边界不对，先调整 Index，再重新运行两条 diff。', en: 'If the draft boundary is wrong, adjust the index and rerun both diffs.' },
+        agent: { zh: '验收 Agent 的 commit 范围时，以 git diff --cached 为主要证据。', en: 'Use git diff --cached as primary evidence when accepting an agent commit scope.' }
+      },
+      {
+        label: { zh: '误暂存配置', en: 'Stage config by mistake' },
+        command: 'git add settings.ini\ngit status --short\ngit diff --cached --stat',
+        output: 'MM app.txt\nM  settings.ini\n\n2 files changed, 2 insertions(+), 2 deletions(-)', status: 'MM · M ',
+        entries: [['100644', '42c4cc2', 0, 'app.txt'], normalEntries[1], ['100644', 'cd63ffb', 0, 'settings.ini']],
+        draft: [['app.txt', 'owner=team → owner=agent'], ['settings.ini', 'mode=safe → mode=fast']],
+        files: [['app', 'owner=agent\n...\ndeploy=off', 'owner=agent\n...\ndeploy=on'], ['conflict', null, null], ['settings', 'mode=fast', 'mode=fast']],
+        explanation: { zh: 'settings.ini 已进入 Index。即使它只是本地配置，只要草稿里存在，下一次 commit 就会包含它。', en: 'settings.ini is now in the index. Even if it is local configuration, the next commit includes it while it remains in the draft.' },
+        misconception: { zh: '文件“看起来无害”不代表它不在提交范围内。范围由 Index 决定。', en: 'A file looking harmless does not exclude it from the commit. The index defines scope.' },
+        recovery: { zh: '不要覆盖 Working Tree，只需要从 Index 精确移除这个路径。', en: 'Do not overwrite the working tree. Remove only this path from the index.' },
+        agent: { zh: 'Agent 执行 git add -A 后，必须用路径列表和 cached diff 复核草稿。', en: 'After an agent runs git add -A, verify the draft with both the path list and cached diff.' }
+      },
+      {
+        label: { zh: '安全取消暂存', en: 'Unstage safely' },
+        command: 'git restore --staged -- settings.ini\ngit status --short', output: 'MM app.txt\n M settings.ini', status: 'MM · M',
+        entries: [['100644', '42c4cc2', 0, 'app.txt'], normalEntries[1], normalEntries[2]],
+        draft: [['app.txt', 'owner=team → owner=agent']],
+        files: [['app', 'owner=agent\n...\ndeploy=off', 'owner=agent\n...\ndeploy=on'], ['conflict', null, null], ['settings', null, 'mode=fast']],
+        explanation: { zh: 'git restore --staged 默认用 HEAD 恢复该路径的 Index 条目，Working Tree 中的 mode=fast 仍然保留。', en: 'git restore --staged restores this index entry from HEAD by default, while mode=fast remains in the working tree.' },
+        misconception: { zh: '取消暂存不需要丢弃本地编辑。Index 与 Working Tree 可以分别恢复。', en: 'Unstaging does not require discarding local edits. The index and working tree can be restored separately.' },
+        recovery: { zh: '优先使用带明确路径的 git restore --staged，避免扩大影响范围。', en: 'Prefer git restore --staged with an explicit path to keep the recovery scope narrow.' },
+        agent: { zh: '恢复后再次检查 status 与 cached diff，确认无关配置已离开草稿。', en: 'After recovery, check status and the cached diff again to prove the unrelated config left the draft.' }
+      },
+      {
+        label: { zh: '进入合并冲突', en: 'Enter a merge conflict' },
+        command: 'git merge agent-change\ngit ls-files --unmerged\ngit show :1:conflict.txt\ngit show :2:conflict.txt\ngit show :3:conflict.txt',
+        output: '100644 8227059 1\tconflict.txt\n100644 c3efd06 2\tconflict.txt\n100644 d17b9a9 3\tconflict.txt\n\nbase: owner=base\nours: owner=human\ntheirs: owner=agent', status: 'UU conflict.txt',
+        entries: [['100644', '42c4cc2', 0, 'app.txt'], ['100644', '8227059', 1, 'conflict.txt'], ['100644', 'c3efd06', 2, 'conflict.txt'], ['100644', 'd17b9a9', 3, 'conflict.txt'], normalEntries[2]],
+        draft: [['app.txt', 'owner=team → owner=agent']],
+        files: [['app', 'owner=agent\n...\ndeploy=off', 'owner=agent\n...\ndeploy=on'], ['conflict', 'stage 1 / 2 / 3', '<<<<<<< HEAD\nowner=human\n=======\nowner=agent\n>>>>>>> agent-change'], ['settings', null, 'mode=fast']],
+        conflict: [['base · stage 1', 'owner=base', 'base'], ['ours · stage 2', 'owner=human', 'ours'], ['theirs · stage 3', 'owner=agent', 'theirs']],
+        explanation: { zh: '冲突路径暂时没有正常 stage 0。Index 保存共同祖先、当前分支和被合入分支三个候选 blob。', en: 'A conflicted path temporarily has no normal stage 0. The index stores base, current-branch, and merged-branch blob candidates.' },
+        misconception: { zh: '冲突信息不只存在于带标记的磁盘文件中，三个原始版本还保存在 Index。', en: 'Conflict information is not limited to marker text on disk. The index retains all three original versions.' },
+        recovery: { zh: '先读取三个 stage，再编辑解决结果；不要只凭冲突标记猜测来源。', en: 'Read all three stages before editing the resolution. Do not infer origins only from conflict markers.' },
+        agent: { zh: 'Agent 解决冲突时，应解释 base、ours、theirs 的业务差异，并展示解决后的 staged diff。', en: 'An agent resolving a conflict should explain the business differences across base, ours, and theirs, then show the staged result.' }
+      },
+      {
+        label: { zh: '写入解决结果', en: 'Record the resolution' },
+        command: "printf 'owner=human+agent\\n' > conflict.txt\ngit add conflict.txt\ngit ls-files --stage conflict.txt\ngit diff --cached --stat",
+        output: '100644 d64f293 0\tconflict.txt\n\n2 files changed, 2 insertions(+), 2 deletions(-)', status: 'M  conflict.txt',
+        entries: [['100644', '42c4cc2', 0, 'app.txt'], ['100644', 'd64f293', 0, 'conflict.txt'], normalEntries[2]],
+        draft: [['app.txt', 'owner=team → owner=agent'], ['conflict.txt', 'owner=human → owner=human+agent']],
+        files: [['app', 'owner=agent\n...\ndeploy=off', 'owner=agent\n...\ndeploy=on'], ['conflict', 'owner=human+agent', 'owner=human+agent'], ['settings', null, 'mode=fast']],
+        explanation: { zh: 'git add conflict.txt 接受当前解决内容，移除 stage 1、2、3，并为新 blob 建立 stage 0 条目。', en: 'git add conflict.txt accepts the resolution, removes stages 1, 2, and 3, and creates a stage 0 entry for the new blob.' },
+        misconception: { zh: '解决冲突后只保存文件还不够，git add 才会让 Index 记录“这个路径已解决”。', en: 'Saving the resolved file is not enough. git add tells the index that this path is resolved.' },
+        recovery: { zh: '提交前运行 git diff --cached 和测试；若结果不对，可继续编辑并再次 git add。', en: 'Run the cached diff and tests before committing. If the result is wrong, keep editing and stage it again.' },
+        agent: { zh: '最终草稿包含两个路径，deploy 与 settings 修改仍在 Working Tree，提交边界清晰可复核。', en: 'The final draft contains two paths; deploy and settings edits remain in the working tree, making the commit boundary auditable.' }
+      }
+    ];
+
+    let lang = 'zh';
+    let active = 0;
+
+    const $ = id => document.getElementById(id);
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char]);
+
+    function getFiles(step) {
+      return step.files.map(([key, indexValue, workValue]) => {
+        const base = baseFiles[key];
+        return { path: base.path, head: base.head, index: indexValue ?? base.head, work: workValue ?? (indexValue ?? base.head) };
+      });
+    }
+
+    function renderSteps() {
+      $('steps').innerHTML = STEPS.map((step, index) => `
+        <button class="step" type="button" data-index="${index}" ${index === active ? 'aria-current="step"' : ''}>
+          <span class="step-num">${String(index + 1).padStart(2, '0')}</span>
+          <span class="step-label">${escapeHtml(step.label[lang])}</span>
+        </button>`).join('');
+      document.querySelectorAll('.step').forEach(button => button.addEventListener('click', () => setActive(Number(button.dataset.index))));
+    }
+
+    function renderViews(step) {
+      const t = TEXT[lang];
+      const files = getFiles(step);
+      const keys = ['head', 'index', 'work'];
+      $('views').innerHTML = t.views.map(([name, note], viewIndex) => {
+        const key = keys[viewIndex];
+        return `<section class="view">
+          <div class="view-head"><span class="view-name">${name}</span><span class="view-note">${escapeHtml(note)}</span></div>
+          <div class="file-list">${files.map(file => {
+            const changed = key === 'head' ? false : file[key] !== file[key === 'index' ? 'head' : 'index'];
+            return `<div class="file ${changed ? 'changed' : ''}">
+              <div class="file-top"><span class="file-path">${escapeHtml(file.path)}</span><span class="file-tag">${changed ? t.changed : t.same}</span></div>
+              <pre>${escapeHtml(file[key])}</pre>
+            </div>`;
+          }).join('')}</div>
+        </section>`;
+      }).join('');
+    }
+
+    function renderEntries(step) {
+      $('entries').innerHTML = step.entries.map(([mode, oid, stage, path]) => `
+        <tr><td>${mode}</td><td>${oid}</td><td><span class="stage-pill s${stage}">${stage}</span></td><td>${escapeHtml(path)}</td></tr>`).join('');
+      const conflict = $('conflict');
+      if (step.conflict) {
+        conflict.hidden = false;
+        $('candidates').innerHTML = step.conflict.map(([label, content, kind]) => `
+          <div class="candidate ${kind}"><strong>${escapeHtml(label)}</strong><pre>${escapeHtml(content)}</pre></div>`).join('');
+      } else {
+        conflict.hidden = true;
+        $('candidates').innerHTML = '';
+      }
+    }
+
+    function renderDraft(step) {
+      const t = TEXT[lang];
+      if (!step.draft.length) {
+        $('draft').innerHTML = `<div class="draft-empty"><pre>${escapeHtml(t.empty)}</pre></div>`;
+        return;
+      }
+      $('draft').innerHTML = `<div class="draft-files">${step.draft.map(([path, change]) => `
+        <div class="draft-file"><strong>${escapeHtml(path)}</strong><span>${escapeHtml(change)}</span></div>`).join('')}</div>`;
+    }
+
+    function renderStaticText() {
+      const t = TEXT[lang];
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      $('page-title').textContent = t.title;
+      $('page-lead').textContent = t.lead;
+      $('rail-title').textContent = t.rail;
+      $('command-label').textContent = t.command;
+      $('output-label').textContent = t.output;
+      $('comparison-title').textContent = t.comparison;
+      $('index-title').textContent = t.index;
+      $('draft-title').textContent = t.draft;
+      $('th-mode').textContent = t.mode;
+      $('th-path').textContent = t.path;
+      $('mis-title').textContent = t.misconception;
+      $('rec-title').textContent = t.recovery;
+      $('agent-title').textContent = t.agent;
+      $('article-link').textContent = t.article;
+      $('lab-link').textContent = t.lab;
+      $('keyboard-help').textContent = t.keyboard;
+      $('lang').textContent = lang === 'zh' ? 'English' : '中文';
+    }
+
+    function render(announce = true) {
+      const step = STEPS[active];
+      const t = TEXT[lang];
+      renderStaticText();
+      renderSteps();
+      $('state-title').textContent = step.label[lang];
+      $('command').textContent = step.command;
+      $('output').textContent = step.output;
+      $('status-badge').textContent = step.status;
+      $('counter').textContent = `${active + 1} / ${STEPS.length}`;
+      $('progress').style.width = `${((active + 1) / STEPS.length) * 100}%`;
+      $('explanation').textContent = step.explanation[lang];
+      $('misconception').textContent = step.misconception[lang];
+      $('recovery').textContent = step.recovery[lang];
+      $('agent').textContent = step.agent[lang];
+      renderViews(step);
+      renderEntries(step);
+      renderDraft(step);
+      $('prev').disabled = active === 0;
+      $('next').disabled = active === STEPS.length - 1;
+      if (announce) $('live').textContent = t.announced(active + 1, step.label[lang]);
+    }
+
+    function setActive(index) {
+      active = Math.max(0, Math.min(STEPS.length - 1, index));
+      render();
+      document.querySelector(`[data-index="${active}"]`)?.focus({ preventScroll: true });
+    }
+
+    $('prev').addEventListener('click', () => setActive(active - 1));
+    $('next').addEventListener('click', () => setActive(active + 1));
+    $('lang').addEventListener('click', () => { lang = lang === 'zh' ? 'en' : 'zh'; render(); });
+    document.addEventListener('keydown', event => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.key === 'ArrowLeft') { event.preventDefault(); setActive(active - 1); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); setActive(active + 1); }
+      if (event.key === 'Home') { event.preventDefault(); setActive(0); }
+      if (event.key === 'End') { event.preventDefault(); setActive(STEPS.length - 1); }
+    });
+
+    render(false);
+  </script>
+</body>
+</html>
