@@ -738,7 +738,7 @@
     {
       label: { zh: "建立 tree", en: "Build trees" },
       change: { zh: "tree 为内容命名", en: "Trees name the content" },
-      command: "ROOT_TREE=$(git write-tree)\ngit ls-tree \"$ROOT_TREE\"\nNESTED_TREE=$(git ls-tree \"$ROOT_TREE\" docs | awk '{print $3}')\ngit ls-tree \"$NESTED_TREE\"",
+      command: "ROOT_TREE=$(git write-tree)\nprintf '%s\\n' \"$ROOT_TREE\"\ngit ls-tree \"$ROOT_TREE\"\nNESTED_TREE=$(git ls-tree \"$ROOT_TREE\" docs | awk '{print $3}')\ngit ls-tree \"$NESTED_TREE\"",
       output: "T0\n100644 blob B1\tapp.txt\n040000 tree T1\tdocs\n100644 blob B2\tnote.txt",
       objects: ["B1", "B2", "T1", "T0"],
       edges: [
