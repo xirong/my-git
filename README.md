@@ -1,165 +1,165 @@
 # My Git Handbook
 
-English | [中文](README_zh.md)
+[English](README_en.md) | 中文
 
-A practical Git/GitHub handbook for modern engineering teams and AI-native development workflows.
+面向现代工程团队与 AI 编程时代的 Git / GitHub 实战手册。
 
-## Why Maintain This Repository
+## 为什么维护这个仓库
 
-This repository started as a collection of Git learning materials and has helped many Chinese developers get started with Git.
+这个仓库最早是 Git 学习资料合集，帮助很多中文开发者入门 Git。
 
-Today, a link collection is no longer enough. The core challenges of Git have expanded from "how to use commands" to more practical questions:
+如果今天还只是做“资料导航”，价值已经不够了。Git 的核心问题，已经从“命令怎么用”扩展到这些更真实的问题：
 
-1.  How individual developers understand Git's mental model.
-2.  How to handle conflicts, rollbacks, and accidental commits in daily development.
-3.  How teams choose the right branch and PR workflows.
-4.  How engineering leads establish collaboration standards using GitHub.
-5.  How to review, split, verify, and revert AI-generated code changes in AI-native development workflows.
+1. 个人开发者如何理解 Git 的心智模型
+2. 日常开发中如何处理冲突、回滚、误提交
+3. 团队如何选择合适的分支和 PR 工作流
+4. 技术负责人如何用 GitHub 建立工程协作规范
+5. AI 编程时代，如何审查、拆分、验证和回滚 AI 生成的代码变更
 
-Therefore, v2.0 upgrades this repository into:
+v2.0 版本的定位是：
 
-> A practical Git/GitHub handbook for modern engineering teams and AI-native development workflows.
+> 一个面向现代工程团队与 AI 编程时代的 Git / GitHub 实战手册。
 
-## Who Is This For?
+## 适合谁
 
-- **Git beginners** looking to build the right mental model.
-- **Practicing developers** who frequently need to handle conflicts, rollbacks, and accidental commits.
-- **Senior developers** focused on PRs, Review, CI, and release collaboration.
-- **Technical leads** who need to design team Git workflows and GitHub governance standards.
-- **AI coding users** who need to control the risks of code changes brought by tools like Codex, Claude Code, Cursor, and Cline.
+- Git 新手，希望建立正确心智模型
+- 普通开发者，经常需要处理冲突、回滚、误提交
+- 高级开发者，关心 PR、Review、CI、发布协作
+- 技术负责人，需要设计团队 Git 工作流和 GitHub 治理规范
+- AI 编程用户，需要控制 Codex、Claude Code、Cursor、Cline 等工具带来的代码变更风险
 
-## Directory Navigation
+## 目录导航
 
-| Directory | Problems Solved |
+| 目录 | 主要内容 |
 | --- | --- |
-| [01-getting-started](01-getting-started/01-getting-started_en/git-learning-path_en.md) | Git basics, mental models, and the difference between Git and SVN |
-| [02-daily-workflow](02-daily-workflow/02-daily-workflow_en/everyday-git-commands_en.md) | Daily commands, branching and merging, rebase, stash, and worktree |
-| [03-team-collaboration](03-team-collaboration/03-team-collaboration_en/README_en.md) | Team workflows, PRs, Code Review, and selecting collaboration models |
-| [04-github-engineering](04-github-engineering/04-github-engineering_en/README_en.md) | Branch protection, Rulesets, CODEOWNERS, CI, releases, and security |
-| [05-ai-native-development](05-ai-native-development/05-ai-native-development_en/README_en.md) | Diff review, commit splitting, worktree, and multi-agent strategies for AI coding |
-| [06-troubleshooting](06-troubleshooting/06-troubleshooting_en/README_en.md) | Recovering from Git mishaps, conflict resolution, secret cleaning, and force push recovery |
-| [07-large-repo](07-large-repo/07-large-repo_en/README_en.md) | Large repositories, monorepos, partial clone, sparse checkout, and Git LFS |
-| [08-templates](08-templates/08-templates_en/README_en.md) | Templates for PRs, Issues, Reviews, Hotfixes, Releases, and AI Reviews |
-| [10-company-practices](10-company-practices/10-company-practices_en/README_en.md) | Enterprise engineering practice cases and decision maps |
+| [01-getting-started](01-getting-started/) | Git 入门、心智模型、Git 和 SVN 的区别 |
+| [02-daily-workflow](02-daily-workflow/) | 日常命令、分支合并、rebase、stash、worktree |
+| [03-team-collaboration](03-team-collaboration/README.md) | 团队工作流、PR、Code Review、协作模型选型 |
+| [04-github-engineering](04-github-engineering/README.md) | 分支保护、Rulesets、CODEOWNERS、CI、发布、安全 |
+| [05-ai-native-development](05-ai-native-development/README.md) | AI 编程下的 diff 审查、commit 拆分、worktree、多 Agent |
+| [06-troubleshooting](06-troubleshooting/README.md) | Git 误操作恢复、冲突处理、secret 清理、force push 恢复 |
+| [07-large-repo](07-large-repo/README.md) | 大仓库、monorepo、partial clone、sparse checkout、Git LFS |
+| [08-templates](08-templates/README.md) | PR、Issue、Review、Hotfix、Release、AI Review 模板 |
+| [10-company-practices](10-company-practices/README.md) | 大厂工程实践案例和决策图谱 |
 
-## Learning Paths
+## 学习路径
 
-### Beginner Path
+### 新手路径
 
-1.  [Why Use Git](01-getting-started/01-getting-started_en/why-git_en.md)
-2.  [Git Mental Model](01-getting-started/01-getting-started_en/git-mental-model_en.md)
-3.  [Snapshots and State: HEAD, Index, and Working Tree](01-getting-started/01-getting-started_en/git-mental-model-01-snapshots_en.md)
-4.  [The Object Graph: Blobs, Trees, and Commits](01-getting-started/01-getting-started_en/git-mental-model-02-object-graph_en.md)
-5.  [Git Basic Commands](01-getting-started/01-getting-started_en/git-basic-commands_en.md)
-6.  [Everyday Git Commands](02-daily-workflow/02-daily-workflow_en/everyday-git-commands_en.md)
+1. [为什么使用 Git](01-getting-started/why-git.md)
+2. [Git 心智模型](01-getting-started/git-mental-model.md)
+3. [快照与状态：HEAD、Index 与 Working Tree](01-getting-started/git-mental-model-01-snapshots.md)
+4. [对象图：blob、tree 与 commit](01-getting-started/git-mental-model-02-object-graph.md)
+5. [Git 基础命令](01-getting-started/git-basic-commands.md)
+6. [日常 Git 命令](02-daily-workflow/everyday-git-commands.md)
 
-### Daily Development Path
+### 日常开发路径
 
-1.  [Branch and Merge](02-daily-workflow/02-daily-workflow_en/branch-and-merge_en.md)
-2.  [Rebase vs. Merge](02-daily-workflow/02-daily-workflow_en/rebase-vs-merge_en.md)
-3.  [Stash](02-daily-workflow/02-daily-workflow_en/stash_en.md)
-4.  [Worktree](02-daily-workflow/02-daily-workflow_en/worktree_en.md)
+1. [分支与合并](02-daily-workflow/branch-and-merge.md)
+2. [Rebase 与 Merge](02-daily-workflow/rebase-vs-merge.md)
+3. [Stash](02-daily-workflow/stash.md)
+4. [Worktree](02-daily-workflow/worktree.md)
 
-### Team Collaboration Path
+### 团队协作路径
 
-1.  [Team Git Workflow Guide](03-team-collaboration/03-team-collaboration_en/team-git-workflow-guide_en.md)
-2.  [GitLab Flow](03-team-collaboration/03-team-collaboration_en/gitlab-flow_en.md)
-3.  [Pull Request Best Practices](03-team-collaboration/03-team-collaboration_en/pull-request-best-practices_en.md)
-4.  [Code Review Best Practices](03-team-collaboration/03-team-collaboration_en/code-review-best-practices_en.md)
-5.  [GitHub Flow](03-team-collaboration/03-team-collaboration_en/github-flow_en.md)
-6.  [Trunk-Based Development](03-team-collaboration/03-team-collaboration_en/trunk-based-development_en.md)
-7.  [Gitflow](03-team-collaboration/03-team-collaboration_en/gitflow_en.md)
+1. [团队 Git 工作流指南](03-team-collaboration/team-git-workflow-guide.md)
+2. [GitLab Flow](03-team-collaboration/gitlab-flow.md)
+3. [Pull Request 最佳实践](03-team-collaboration/pull-request-best-practices.md)
+4. [Code Review 最佳实践](03-team-collaboration/code-review-best-practices.md)
+5. [GitHub Flow](03-team-collaboration/github-flow.md)
+6. [Trunk-Based Development](03-team-collaboration/trunk-based-development.md)
+7. [Gitflow](03-team-collaboration/gitflow.md)
 
-### GitHub Engineering Governance Path
+### GitHub 工程治理路径
 
-1.  [GitHub Engineering Governance Manual](04-github-engineering/04-github-engineering_en/github-engineering-governance_en.md)
-2.  [Enterprise GitHub Workflow Stack](04-github-engineering/04-github-engineering_en/enterprise-github-workflow-stack_en.md)
-3.  [Branch Protection](04-github-engineering/04-github-engineering_en/branch-protection_en.md)
-4.  [Rulesets](04-github-engineering/04-github-engineering_en/rulesets_en.md)
-5.  [Merge Queue](04-github-engineering/04-github-engineering_en/merge-queue_en.md)
-6.  [GitOps and Config as Code](04-github-engineering/04-github-engineering_en/gitops-and-config-as-code_en.md)
-7.  [Release Management](04-github-engineering/04-github-engineering_en/release-management_en.md)
-8.  [AI Agent Governance](04-github-engineering/04-github-engineering_en/ai-agent-governance_en.md)
+1. [GitHub 工程治理手册](04-github-engineering/github-engineering-governance.md)
+2. [企业 GitHub 协作配置栈](04-github-engineering/enterprise-github-workflow-stack.md)
+3. [分支保护](04-github-engineering/branch-protection.md)
+4. [Rulesets](04-github-engineering/rulesets.md)
+5. [Merge Queue](04-github-engineering/merge-queue.md)
+6. [GitOps and Config as Code](04-github-engineering/gitops-and-config-as-code.md)
+7. [发布管理](04-github-engineering/release-management.md)
+8. [AI Agent 治理](04-github-engineering/ai-agent-governance.md)
 
-### AI Native Development Path
+### AI Native 开发路径
 
-1.  [AI Native Git Workflow](05-ai-native-development/05-ai-native-development_en/ai-native-git-workflow_en.md)
-2.  [AI-Generated Code Review](05-ai-native-development/05-ai-native-development_en/ai-generated-code-review_en.md)
-3.  [Codex / Claude Code Git Practices](05-ai-native-development/05-ai-native-development_en/codex-claude-code-git-practices_en.md)
-4.  [Git Integration Practices for AI Coding Tools](05-ai-native-development/05-ai-native-development_en/ai-coding-tools-git-integration_en.md)
-5.  [Worktree for AI Agents](05-ai-native-development/05-ai-native-development_en/worktree-for-ai-agents_en.md)
-6.  [Stacked PR for AI-Generated Changes](05-ai-native-development/05-ai-native-development_en/stacked-pr-for-ai-generated-changes_en.md)
-7.  [AI Reviewer and Human Reviewer](05-ai-native-development/05-ai-native-development_en/ai-reviewer-and-human-reviewer_en.md)
+1. [AI Native Git Workflow](05-ai-native-development/ai-native-git-workflow.md)
+2. [AI 生成代码 Review](05-ai-native-development/ai-generated-code-review.md)
+3. [Codex / Claude Code Git 实践](05-ai-native-development/codex-claude-code-git-practices.md)
+4. [AI 编程工具的 Git 集成实践](05-ai-native-development/ai-coding-tools-git-integration.md)
+5. [Worktree for AI Agents](05-ai-native-development/worktree-for-ai-agents.md)
+6. [Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md)
+7. [AI Reviewer 与 Human Reviewer](05-ai-native-development/ai-reviewer-and-human-reviewer.md)
 
-### Troubleshooting Path
+### 故障处理路径
 
-1.  [Git Troubleshooting Playbook](06-troubleshooting/06-troubleshooting_en/git-troubleshooting-playbook_en.md)
-2.  [Undo Anything](06-troubleshooting/06-troubleshooting_en/undo-anything_en.md)
-3.  [Recover Lost Commit](06-troubleshooting/06-troubleshooting_en/recover-lost-commit_en.md)
-4.  [Remove Secret from History](06-troubleshooting/06-troubleshooting_en/remove-secret-from-history_en.md)
+1. [Git 高频事故处理手册](06-troubleshooting/git-troubleshooting-playbook.md)
+2. [Undo Anything](06-troubleshooting/undo-anything.md)
+3. [Recover Lost Commit](06-troubleshooting/recover-lost-commit.md)
+4. [Remove Secret from History](06-troubleshooting/remove-secret-from-history.md)
 
-## Find Answers by Problem
+## 按问题找答案
 
-| The problem I'm facing | Suggested reading |
+| 我现在遇到的问题 | 建议先看 |
 | --- | --- |
-| Just committed to the wrong branch | [Committed to Wrong Branch](06-troubleshooting/06-troubleshooting_en/committed-to-wrong-branch_en.md) |
-| Don't know how to recover after reset, rebase, or force push | [Git Troubleshooting Playbook](06-troubleshooting/06-troubleshooting_en/git-troubleshooting-playbook_en.md) |
-| Team doesn't know whether to choose GitHub Flow, Gitflow, or Trunk-Based Development | [Team Git Workflow Guide](03-team-collaboration/03-team-collaboration_en/team-git-workflow-guide_en.md) |
-| PR is too large, review is slow | [Pull Request Best Practices](03-team-collaboration/03-team-collaboration_en/pull-request-best-practices_en.md) |
-| AI changed too many files at once, don't know how to review | [AI Change Review Examples](05-ai-native-development/05-ai-native-development_en/ai-change-review-example_en.md) |
-| Large AI-generated diff needs to be split into commits or PRs | [AI Commit Splitting](05-ai-native-development/05-ai-native-development_en/ai-commit-splitting_en.md), [Stacked PR for AI-Generated Changes](05-ai-native-development/05-ai-native-development_en/stacked-pr-for-ai-generated-changes_en.md) |
-| Want to protect the main branch | [Branch Protection](04-github-engineering/04-github-engineering_en/branch-protection_en.md) |
-| AI agents are pushing code and opening PRs, and I don't know how to govern them | [AI Agent Governance](04-github-engineering/04-github-engineering_en/ai-agent-governance_en.md) |
-| Want an agent collaboration convention for the team repository | [AGENTS.md Template](08-templates/08-templates_en/agents-md-template_en.md) |
-| Too many PRs, main branch often broken after merge | [Merge Queue](04-github-engineering/04-github-engineering_en/merge-queue_en.md) |
-| Clone, status, or checkout is slow in a large repository | [Large Repository Git Practices](07-large-repo/07-large-repo_en/large-repo-git-practices_en.md) |
-| Want to directly copy team templates | [Templates](08-templates/08-templates_en/README_en.md) |
+| 刚把 commit 提交到了错误分支 | [Committed to Wrong Branch](06-troubleshooting/committed-to-wrong-branch.md) |
+| reset、rebase、force push 后不知道怎么恢复 | [Git 高频事故处理手册](06-troubleshooting/git-troubleshooting-playbook.md) |
+| 团队不知道该选 GitHub Flow、Gitflow 还是 Trunk-Based Development | [团队 Git 工作流指南](03-team-collaboration/team-git-workflow-guide.md) |
+| PR 太大，Review 很慢 | [Pull Request 最佳实践](03-team-collaboration/pull-request-best-practices.md) |
+| AI 一次改了很多文件，不知道怎么审 | [AI 变更审查实战样例](05-ai-native-development/ai-change-review-example.md) |
+| AI 生成的大 diff 需要拆 commit 或拆 PR | [AI Commit Splitting](05-ai-native-development/ai-commit-splitting.md)、[Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md) |
+| 想保护 main 分支 | [Branch Protection](04-github-engineering/branch-protection.md) |
+| AI agent 开始直接提交代码、发 PR，不知道怎么管 | [AI Agent 治理](04-github-engineering/ai-agent-governance.md) |
+| 想给团队仓库写一份 agent 协作约定 | [AGENTS.md 模板](08-templates/agents-md-template.md) |
+| PR 很多，主分支经常被合坏 | [Merge Queue](04-github-engineering/merge-queue.md) |
+| 大仓库 clone、status、checkout 很慢 | [Large Repository Git Practices](07-large-repo/large-repo-git-practices.md) |
+| 想直接复制团队模板 | [Templates](08-templates/) |
 
-## Phase 1: Must-Read Articles
+## 第一阶段最值得读
 
-- [AI Native Git Workflow](05-ai-native-development/05-ai-native-development_en/ai-native-git-workflow_en.md)
-- [Codex / Claude Code Git Practices](05-ai-native-development/05-ai-native-development_en/codex-claude-code-git-practices_en.md)
-- [Git Integration Practices for AI Coding Tools](05-ai-native-development/05-ai-native-development_en/ai-coding-tools-git-integration_en.md)
-- [AI Change Review Examples](05-ai-native-development/05-ai-native-development_en/ai-change-review-example_en.md)
-- [Stacked PR for AI-Generated Changes](05-ai-native-development/05-ai-native-development_en/stacked-pr-for-ai-generated-changes_en.md)
-- [Git Troubleshooting Playbook](06-troubleshooting/06-troubleshooting_en/git-troubleshooting-playbook_en.md)
-- [Team Git Workflow Guide](03-team-collaboration/03-team-collaboration_en/team-git-workflow-guide_en.md)
-- [GitHub Engineering Governance Manual](04-github-engineering/04-github-engineering_en/github-engineering-governance_en.md)
-- [Enterprise Engineering Practice Case Library](10-company-practices/10-company-practices_en/README_en.md)
-- [Decision Map for Enterprise Engineering Practices](10-company-practices/10-company-practices_en/company-practices-decision-map_en.md)
-- [AI Code Review Checklist](08-templates/08-templates_en/ai-code-review-checklist_en.md)
+- [AI Native Git Workflow](05-ai-native-development/ai-native-git-workflow.md)
+- [Codex / Claude Code Git 实践](05-ai-native-development/codex-claude-code-git-practices.md)
+- [AI 编程工具的 Git 集成实践](05-ai-native-development/ai-coding-tools-git-integration.md)
+- [AI 变更审查实战样例](05-ai-native-development/ai-change-review-example.md)
+- [Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md)
+- [Git 高频事故处理手册](06-troubleshooting/git-troubleshooting-playbook.md)
+- [团队 Git 工作流指南](03-team-collaboration/team-git-workflow-guide.md)
+- [GitHub 工程治理手册](04-github-engineering/github-engineering-governance.md)
+- [企业工程实践案例库](10-company-practices/README.md)
+- [大厂工程实践决策图谱](10-company-practices/company-practices-decision-map.md)
+- [AI 代码 Review 清单](08-templates/ai-code-review-checklist.md)
 
-## Recommended Resources
+## 推荐资料来源
 
-New content will prioritize official documentation and industry-standard materials:
+新内容会优先参考官方文档和业界常用资料：
 
 - [Pro Git](https://git-scm.com/book/en/v2)
-- [Git Official Documentation](https://git-scm.com/docs)
+- [Git 官方文档](https://git-scm.com/docs)
 - [GitHub Docs](https://docs.github.com)
 - [Atlassian Git tutorials](https://www.atlassian.com/git)
 - [Trunk Based Development](https://trunkbaseddevelopment.com)
 - [Git Flight Rules](https://github.com/k88hudson/git-flight-rules)
 
-For a more complete index of materials, see [Recommended Reading](09-resources/09-resources_en/recommended-reading_en.md).
+更完整的资料索引见 [推荐阅读](09-resources/recommended-reading.md)。
 
-## v2.0 Maintenance Plan
+## v2.0 维护计划
 
-See the [roadmap](00-meta/00-meta_en/roadmap_en.md) for detailed plans.
+详细计划见 [roadmap](00-meta/roadmap.md)。
 
-Existing content will be gradually incorporated into new learning paths. See the [legacy content migration](00-meta/00-meta_en/legacy-content-migration_en.md) for the migration list and the [resources index](09-resources/09-resources_en/resources-index_en.md) for the materials index.
+已有内容会逐步纳入新的学习路径，迁移清单见 [legacy content migration](00-meta/legacy-content-migration.md)，资料索引见 [resources](09-resources/resources-index.md)。
 
-## Project Governance
+## 项目治理
 
 - [License](LICENSE)
 - [Contributing](CONTRIBUTING.md)
 - [Roadmap](ROADMAP.md)
 - [Maintainers](MAINTAINERS.md)
-- [Agent Conventions](AGENTS.md)
+- [Agent 协作约定](AGENTS.md)
 
-Original project content is licensed under the MIT License. Third-party materials, archived ebooks, external articles, linked resources, and quoted references remain under their original licenses and copyrights.
+本仓库原创内容采用 MIT License。第三方资料、历史电子书、外部文章、链接资源和引用内容仍遵循其原始许可证和版权声明。
 
 ## Contributing
 
-We welcome contributions of real-world problems, team practices, incident recovery experiences, AI programming workflows, and reusable templates.
+欢迎贡献真实问题、团队实践、事故恢复经验、AI 编程工作流和可复用模板。
 
-Please follow the [Content Style Guide](00-meta/00-meta_en/content-style-guide_en.md) for new content.
+新内容请遵循 [Content Style Guide](00-meta/content-style-guide.md)。
