@@ -1,0 +1,10 @@
+Object Graph / 对象图
+
+commit <commit-id>
+└── tree <root-tree-id>
+    ├── blob <app-blob-id> app.txt
+    └── tree <docs-tree-id> docs
+        └── blob <note-blob-id> note.txt
+
+The verifier confirms every edge, object type, blob content, and that identical
+content produces the same blob ID.

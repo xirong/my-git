@@ -18,14 +18,16 @@ Recommended reading:
 
 1. [Git Mental Model](git-mental-model_en.md)
 2. [Snapshots and State: HEAD, Index, and Working Tree](git-mental-model-01-snapshots_en.md)
-3. [Git Basic Commands](git-basic-commands_en.md)
-4. [Why Use Git](why-git_en.md)
+3. [The Object Graph: Blobs, Trees, and Commits](git-mental-model-02-object-graph_en.md)
+4. [Git Basic Commands](git-basic-commands_en.md)
+5. [Why Use Git](why-git_en.md)
 
 Mastery Goals:
 
 - Understand `git status`.
 - Know the relationship between `git add` and `git commit`.
 - Distinguish different versions in HEAD, the index, and the working tree.
+- Explain how a path resolves through commits, trees, and blobs to file content.
 - Know the difference between local commit and remote push.
 
 ## Phase 2: Daily Development

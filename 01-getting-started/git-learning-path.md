@@ -16,14 +16,16 @@ Git 不适合靠背命令学习。
 
 1. [Git 心智模型](git-mental-model.md)
 2. [快照与状态：HEAD、Index 与 Working Tree](git-mental-model-01-snapshots.md)
-3. [Git 基础命令](git-basic-commands.md)
-4. [为什么使用 Git](why-git.md)
+3. [对象图：blob、tree 与 commit](git-mental-model-02-object-graph.md)
+4. [Git 基础命令](git-basic-commands.md)
+5. [为什么使用 Git](why-git.md)
 
 掌握目标：
 
 - 看懂 `git status`
 - 知道 `git add` 和 `git commit` 的关系
 - 能区分 HEAD、Index 和 Working Tree 中的不同版本
+- 能沿 commit、tree 和 blob 解释一个路径如何解析为文件内容
 - 知道本地 commit 和远端 push 的区别
 
 ## 第二阶段：日常开发

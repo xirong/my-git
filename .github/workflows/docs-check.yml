@@ -22,4 +22,6 @@ jobs:
         run: python scripts/check-docs.py
 
       - name: Run Git mental model labs
-        run: bash labs/git-mental-model/01-snapshots-and-state/test.sh
+        run: |
+          bash labs/git-mental-model/01-snapshots-and-state/test.sh
+          bash labs/git-mental-model/02-object-graph/test.sh

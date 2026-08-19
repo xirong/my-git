@@ -277,6 +277,7 @@ No. Reflog records ref updates and has no recorded content for a file that never
 
 ## Further reading
 
+- [Next chapter: The Object Graph](git-mental-model-02-object-graph_en.md)
 - [Pro Git: What is Git?](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 - [Git User Manual: history and snapshots](https://git-scm.com/docs/user-manual)
 - [`git diff` documentation](https://git-scm.com/docs/git-diff)

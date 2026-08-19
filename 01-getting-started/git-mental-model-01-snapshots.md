@@ -279,6 +279,7 @@ Index 中的版本相对 HEAD 已修改，同时 Working Tree 中的版本相对
 
 ## 延伸阅读
 
+- [下一章：对象图](git-mental-model-02-object-graph.md)
 - [Pro Git：Git 是什么](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F)
 - [Git User Manual：理解历史与快照](https://git-scm.com/docs/user-manual)
 - [`git diff` 官方文档](https://git-scm.com/docs/git-diff)
