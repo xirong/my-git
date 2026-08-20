@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Git 心智模型：交互学习路径</title>
+<meta name="description" content="Git 心智模型交互演示入口：按顺序学习快照与三个状态、对象图、Index 草稿。">
+<!--
+  Entrance hub for the my-git mental-model interactives.
+
+  DESIGN_VARIANCE: 5
+  MOTION_INTENSITY: 3
+  VISUAL_DENSITY: 5
+
+  Greenfield hub page inside the established cool-gray and burnt-orange
+  system shared by the lesson pages. Signature idea: one continuous route
+  line down the left edge whose numbered nodes are anchor links, so the
+  recommended learning order is the navigation itself. Instructional copy
+  lives in the single I18N object at the bottom; the static HTML carries
+  the Chinese strings so the page works with JavaScript disabled.
+-->
+<style>
+  :root {
+    color-scheme: light dark;
+
+    --bg: #f4f6f8;
+    --panel: #ffffff;
+    --panel-2: #eef1f5;
+    --ink: #10151b;
+    --muted: #545f6d;
+    --line: #d5dbe3;
+    --line-strong: #b6c0cb;
+    --accent: #b93d0b;
+    --accent-ink: #ffffff;
+    --accent-soft: #fbeee6;
+
+    --commit: #9b2c2c;
+    --tree: #8b5a00;
+    --blob: #19705f;
+
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+      "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+      "Liberation Mono", monospace;
+
+    --r-s: 4px;
+    --r-m: 8px;
+
+    --shell: 1080px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --panel: #151b23;
+      --panel-2: #1b222b;
+      --ink: #e6edf3;
+      --muted: #9aa6b2;
+      --line: #28313b;
+      --line-strong: #3b4653;
+      --accent: #fb923c;
+      --accent-ink: #12171d;
+      --accent-soft: #251d16;
+
+      --commit: #ff8a8a;
+      --tree: #f2bd5b;
+      --blob: #5bd2b7;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+  }
+
+  code, kbd, pre, samp { font-family: var(--font-mono); }
+
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--r-s);
+  }
+
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    background: var(--panel);
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-s);
+    padding: 10px 14px;
+    z-index: 5;
+  }
+  .skip:focus { left: 16px; }
+
+  .shell {
+    max-width: var(--shell);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Masthead ------------------------------------------------------------- */
+
+  .masthead {
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .masthead__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px 32px;
+    padding-top: 30px;
+    padding-bottom: 28px;
+  }
+
+  .masthead__text { flex: 1 1 340px; min-width: 0; }
+
+  h1 {
+    margin: 0 0 10px;
+    font-size: clamp(1.55rem, 1.15rem + 1.7vw, 2.3rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .deck {
+    margin: 0;
+    max-width: 64ch;
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .lang {
+    display: flex;
+    gap: 6px;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-m);
+    background: var(--panel-2);
+    flex: 0 0 auto;
+  }
+
+  .lang button {
+    min-height: 44px;
+    min-width: 78px;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: var(--r-s);
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: background-color 120ms ease, color 120ms ease;
+  }
+
+  .lang button:hover { color: var(--ink); }
+
+  .lang button[aria-pressed="true"] {
+    background: var(--panel);
+    border-color: var(--line-strong);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* Course route --------------------------------------------------------- */
+
+  .course { padding: 8px 0 40px; }
+
+  .course__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  /* The one continuous route line that connects the three lessons. */
+  .course__list::before {
+    content: "";
+    position: absolute;
+    left: 27px;
+    top: 56px;
+    bottom: 56px;
+    width: 2px;
+    background: var(--line-strong);
+  }
+
+  .lesson {
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    column-gap: 18px;
+    padding: 18px 0;
+  }
+
+  .lesson__node {
+    grid-column: 1;
+    justify-self: center;
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-top: 18px;
+    border: 2px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--panel);
+    color: var(--muted);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: border-color 140ms ease, color 140ms ease,
+      background-color 140ms ease;
+  }
+
+  .lesson__node:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .lesson__node--start {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  .lesson__node--start:hover {
+    color: var(--accent-ink);
+    filter: brightness(1.08);
+  }
+
+  .lesson__panel {
+    grid-column: 2;
+    min-width: 0;
+    display: grid;
+    gap: 18px 28px;
+    padding: 20px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--r-m);
+  }
+
+  @media (min-width: 900px) {
+    .lesson__panel {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+      align-items: start;
+      padding: 24px;
+    }
+  }
+
+  .lesson__text { min-width: 0; }
+
+  .lesson__title {
+    margin: 0 0 8px;
+    font-size: 1.3rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .lesson__point {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.98rem;
+    max-width: 56ch;
+  }
+
+  .lesson__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 18px;
+    margin-top: 18px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-s);
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease;
+  }
+
+  .btn:hover { background: var(--panel-2); }
+
+  .btn--primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+
+  .btn--primary:hover { background: var(--accent); filter: brightness(1.08); }
+  .btn--primary:focus-visible { outline-color: var(--ink); }
+
+  .lesson__article {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .lesson__alt {
+    margin: 12px 0 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* Concept previews ----------------------------------------------------- */
+
+  .preview {
+    min-width: 0;
+    padding: 16px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-m);
+  }
+
+  .preview__title {
+    margin: 0 0 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .preview__cap {
+    margin: 12px 0 0;
+    font-size: 0.86rem;
+    color: var(--muted);
+  }
+
+  .preview__cap code,
+  .lesson__point code,
+  .lesson__alt code {
+    padding: 1px 5px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+    background: var(--panel);
+    font-size: 0.92em;
+  }
+
+  /* Lesson 1: three states of one file */
+
+  .states {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  @media (max-width: 560px) {
+    .states { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  .state {
+    min-width: 0;
+    padding: 10px 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left-width: 3px;
+    border-radius: var(--r-s);
+  }
+
+  .state--head { border-left-color: var(--commit); }
+  .state--index { border-left-color: var(--accent); }
+  .state--work { border-left-color: var(--blob); }
+
+  .state__name {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .state--head .state__name { color: var(--commit); }
+  .state--index .state__name { color: var(--accent); }
+  .state--work .state__name { color: var(--blob); }
+
+  .state__role {
+    margin: 2px 0 10px;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .state__file {
+    margin: 0;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--line-strong);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .state__value {
+    margin: 0;
+    padding-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 1.02rem;
+    font-weight: 700;
+  }
+
+  /* Lesson 2: object graph chain */
+
+  .chain {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 6px;
+  }
+
+  .chain__node {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 8px 10px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left-width: 3px;
+    border-radius: var(--r-s);
+  }
+
+  .chain__node + .chain__node::before {
+    content: "\2192";
+    margin-right: 6px;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .chain__node--ref { border-left-color: var(--line-strong); }
+  .chain__node--commit { border-left-color: var(--commit); }
+  .chain__node--tree { border-left-color: var(--tree); }
+  .chain__node--blob { border-left-color: var(--blob); }
+
+  .chain__kind {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .chain__node--ref .chain__kind { color: var(--muted); }
+  .chain__node--commit .chain__kind { color: var(--commit); }
+  .chain__node--tree .chain__kind { color: var(--tree); }
+  .chain__node--blob .chain__kind { color: var(--blob); }
+
+  .chain__node code {
+    font-size: 0.86rem;
+    overflow-wrap: anywhere;
+  }
+
+  /* Lesson 3: index as the next commit draft */
+
+  .draft {
+    display: grid;
+    gap: 12px;
+  }
+
+  @media (min-width: 560px) {
+    .draft {
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+    }
+  }
+
+  .draft__col {
+    min-width: 0;
+    padding: 10px 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+  }
+
+  .draft__col--index { border-left: 3px solid var(--accent); }
+  .draft__col--work { border-left: 3px solid var(--blob); }
+
+  .draft__name {
+    margin: 0 0 8px;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  .draft__col--index .draft__name { color: var(--accent); }
+  .draft__col--work .draft__name { color: var(--blob); }
+
+  .draft__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+  }
+
+  .draft__list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 0.86rem;
+  }
+
+  .draft__list code { font-size: 0.86rem; }
+
+  .draft__mark { font-size: 0.78rem; color: var(--muted); }
+  .draft__mark--staged { color: var(--accent); font-weight: 600; }
+
+  .draft__cmd {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .draft__arrow { color: var(--accent); font-weight: 700; }
+
+  @media (max-width: 559px) {
+    .draft__cmd { justify-content: center; }
+    .draft__arrow { display: inline-block; transform: rotate(90deg); }
+  }
+
+  /* Entrance reveal ------------------------------------------------------ */
+
+  @keyframes lesson-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .lesson { animation: lesson-in 480ms cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+  .lesson:nth-child(2) { animation-delay: 90ms; }
+  .lesson:nth-child(3) { animation-delay: 180ms; }
+
+  /* Footer --------------------------------------------------------------- */
+
+  .colophon {
+    border-top: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .colophon__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .colophon__note { margin: 0; max-width: 52ch; }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 600;
+  }
+
+  /* Mobile --------------------------------------------------------------- */
+
+  @media (max-width: 767px) {
+    .course__list::before { left: 21px; top: 48px; bottom: 48px; }
+
+    .lesson {
+      grid-template-columns: 44px minmax(0, 1fr);
+      column-gap: 12px;
+      padding: 14px 0;
+    }
+
+    .lesson__node {
+      width: 38px;
+      height: 38px;
+      margin-top: 14px;
+      font-size: 0.92rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#path" data-i18n="skip">跳到学习路径</a>
+
+<header class="masthead">
+  <div class="shell masthead__inner">
+    <div class="masthead__text">
+      <h1 data-i18n="h1">Git 心智模型</h1>
+      <p class="deck" data-i18n="deck">这是一条有顺序的学习路径，三个交互演示依次回答三个问题：一个文件为什么能同时有三个状态，commit 在磁盘上长什么样，下一次提交的内容在哪里等待。按 1 到 3 的顺序走，每课五到十分钟。</p>
+    </div>
+    <div class="lang" role="group" aria-label="Language / 语言">
+      <button type="button" id="lang-zh" aria-pressed="true" lang="zh-CN">中文</button>
+      <button type="button" id="lang-en" aria-pressed="false" lang="en">English</button>
+    </div>
+  </div>
+</header>
+
+<main id="path" tabindex="-1">
+  <div class="shell">
+    <nav class="course" data-i18n-label="course-label" aria-label="学习路径">
+      <ol class="course__list">
+
+        <li class="lesson">
+          <a class="lesson__node lesson__node--start" href="#lesson-1">
+            <span aria-hidden="true">1</span>
+            <span class="visually-hidden" data-i18n="node-1">第 1 课：快照与三个状态</span>
+          </a>
+          <section class="lesson__panel" id="lesson-1" aria-labelledby="lesson-1-title">
+            <div class="lesson__text">
+              <h2 class="lesson__title" id="lesson-1-title" data-i18n="m1-title">快照与三个状态</h2>
+              <p class="lesson__point" data-i18n="m1-point">看懂 <code>HEAD</code>、<code>Index</code>、<code>Working Tree</code> 为什么能同时保存同一个文件的三个版本，以及每条命令究竟改动了哪一层。</p>
+              <div class="lesson__actions">
+                <a class="btn btn--primary" href="snapshots-and-state.html" data-i18n="m1-cta">开始演示：三个状态</a>
+                <a class="lesson__article" href="https://xirong.github.io/my-git/01-getting-started/git-mental-model-01-snapshots.html" data-href-zh="https://xirong.github.io/my-git/01-getting-started/git-mental-model-01-snapshots.html" data-href-en="https://xirong.github.io/my-git/01-getting-started/01-getting-started_en/git-mental-model-01-snapshots_en.html" data-i18n="m1-article">阅读文章：快照与状态</a>
+              </div>
+            </div>
+            <div class="preview">
+              <p class="preview__title" data-i18n="preview-label">概念预览</p>
+              <div class="states">
+                <div class="state state--head">
+                  <p class="state__name">HEAD</p>
+                  <p class="state__role" data-i18n="m1-head-role">上次提交记录的快照</p>
+                  <p class="state__file">app.txt</p>
+                  <p class="state__value">version=1</p>
+                </div>
+                <div class="state state--index">
+                  <p class="state__name">Index</p>
+                  <p class="state__role" data-i18n="m1-index-role">下一次提交将记录的内容</p>
+                  <p class="state__file">app.txt</p>
+                  <p class="state__value">version=2</p>
+                </div>
+                <div class="state state--work">
+                  <p class="state__name">Working Tree</p>
+                  <p class="state__role" data-i18n="m1-work-role">你正在编辑的文件</p>
+                  <p class="state__file">app.txt</p>
+                  <p class="state__value">version=3</p>
+                </div>
+              </div>
+              <p class="preview__cap" data-i18n="m1-cap">同一个 app.txt 此刻有三个版本：HEAD 是 version=1，Index 是 version=2，工作区是 version=3。</p>
+            </div>
+          </section>
+        </li>
+
+        <li class="lesson">
+          <a class="lesson__node" href="#lesson-2">
+            <span aria-hidden="true">2</span>
+            <span class="visually-hidden" data-i18n="node-2">第 2 课：对象图</span>
+          </a>
+          <section class="lesson__panel" id="lesson-2" aria-labelledby="lesson-2-title">
+            <div class="lesson__text">
+              <h2 class="lesson__title" id="lesson-2-title" data-i18n="m2-title">对象图</h2>
+              <p class="lesson__point" data-i18n="m2-point">看懂一次查找如何沿 ref → commit → tree → blob 走到底，以及 blob 为什么只存内容、文件名记录在 tree 里。</p>
+              <div class="lesson__actions">
+                <a class="btn btn--primary" href="object-graph-cinematic.html" data-i18n="m2-cta">开始推荐演示：路径回放</a>
+                <a class="lesson__article" href="https://xirong.github.io/my-git/01-getting-started/git-mental-model-02-object-graph.html" data-href-zh="https://xirong.github.io/my-git/01-getting-started/git-mental-model-02-object-graph.html" data-href-en="https://xirong.github.io/my-git/01-getting-started/01-getting-started_en/git-mental-model-02-object-graph_en.html" data-i18n="m2-article">阅读文章：对象图</a>
+              </div>
+              <p class="lesson__alt">
+                <span data-i18n="m2-alt-pre">想逐对象检查每个字段？</span>
+                <a href="object-graph.html" data-i18n="m2-alt-link">打开逐步详解版</a>
+              </p>
+            </div>
+            <div class="preview">
+              <p class="preview__title" data-i18n="preview-label">概念预览</p>
+              <ol class="chain">
+                <li class="chain__node chain__node--ref">
+                  <span class="chain__kind">ref</span><code>refs/heads/main</code>
+                </li>
+                <li class="chain__node chain__node--commit">
+                  <span class="chain__kind">commit</span><code>a1b2c3</code>
+                </li>
+                <li class="chain__node chain__node--tree">
+                  <span class="chain__kind">tree</span><code>docs/</code>
+                </li>
+                <li class="chain__node chain__node--blob">
+                  <span class="chain__kind">blob</span><code>"hello\n"</code>
+                </li>
+              </ol>
+              <p class="preview__cap" data-i18n="m2-cap">文件名保存在 tree 的条目里；blob 内部只有内容，所以同一份内容可以被多个路径共享。</p>
+            </div>
+          </section>
+        </li>
+
+        <li class="lesson">
+          <a class="lesson__node" href="#lesson-3">
+            <span aria-hidden="true">3</span>
+            <span class="visually-hidden" data-i18n="node-3">第 3 课：Index 是下一次提交的草稿</span>
+          </a>
+          <section class="lesson__panel" id="lesson-3" aria-labelledby="lesson-3-title">
+            <div class="lesson__text">
+              <h2 class="lesson__title" id="lesson-3-title" data-i18n="m3-title">Index 是下一次提交的草稿</h2>
+              <p class="lesson__point" data-i18n="m3-point">看懂如何只暂存一部分改动、如何安全地撤销暂存，以及冲突时 Index 里的三个 stage 各代表什么。</p>
+              <div class="lesson__actions">
+                <a class="btn btn--primary" href="index-as-draft.html" data-i18n="m3-cta">开始演示：Index 草稿</a>
+                <a class="lesson__article" href="https://xirong.github.io/my-git/01-getting-started/git-mental-model-03-index.html" data-href-zh="https://xirong.github.io/my-git/01-getting-started/git-mental-model-03-index.html" data-href-en="https://xirong.github.io/my-git/01-getting-started/01-getting-started_en/git-mental-model-03-index_en.html" data-i18n="m3-article">阅读文章：Index 草稿</a>
+              </div>
+            </div>
+            <div class="preview">
+              <p class="preview__title" data-i18n="preview-label">概念预览</p>
+              <div class="draft">
+                <div class="draft__col draft__col--work">
+                  <p class="draft__name">Working Tree</p>
+                  <ul class="draft__list">
+                    <li><code>a.txt</code><span class="draft__mark draft__mark--staged" data-i18n="m3-staged">已暂存</span></li>
+                    <li><code>b.txt</code><span class="draft__mark draft__mark--staged" data-i18n="m3-staged-2">已暂存</span></li>
+                    <li><code>c.txt</code><span class="draft__mark" data-i18n="m3-unstaged">未暂存</span></li>
+                  </ul>
+                </div>
+                <p class="draft__cmd"><span>git add a.txt b.txt</span><span class="draft__arrow" aria-hidden="true">&rarr;</span></p>
+                <div class="draft__col draft__col--index">
+                  <p class="draft__name">Index</p>
+                  <ul class="draft__list">
+                    <li><code>a.txt</code><span class="draft__mark" data-i18n="m3-in-next">进入下次提交</span></li>
+                    <li><code>b.txt</code><span class="draft__mark" data-i18n="m3-in-next-2">进入下次提交</span></li>
+                  </ul>
+                </div>
+              </div>
+              <p class="preview__cap" data-i18n="m3-cap">git add 只复制你点名的文件：提交会记录 a.txt 和 b.txt，c.txt 留在工作区等下一份草稿。</p>
+            </div>
+          </section>
+        </li>
+
+      </ol>
+    </nav>
+  </div>
+</main>
+
+<footer class="colophon">
+  <div class="shell colophon__inner">
+    <a class="back-link" href="../../" data-i18n="foot-back">返回仓库首页</a>
+    <p class="colophon__note" data-i18n="foot-note">本页是交互演示的入口，完整讲解在各课对应的文章里；建议先看演示，再读文章。</p>
+  </div>
+</footer>
+
+<noscript><style>.lang { display: none; }</style></noscript>
+
+<script>
+(function () {
+  "use strict";
+
+  /* All visible instructional copy lives in this one object. The static
+     HTML above carries the zh strings so the page reads fully with
+     JavaScript disabled; this script only swaps languages. */
+  var I18N = {
+    zh: {
+      "__title": "Git 心智模型：交互学习路径",
+      "__desc": "Git 心智模型交互演示入口：按顺序学习快照与三个状态、对象图、Index 草稿。",
+      "skip": "跳到学习路径",
+      "h1": "Git 心智模型",
+      "deck": "这是一条有顺序的学习路径，三个交互演示依次回答三个问题：一个文件为什么能同时有三个状态，commit 在磁盘上长什么样，下一次提交的内容在哪里等待。按 1 到 3 的顺序走，每课五到十分钟。",
+      "course-label": "学习路径",
+      "node-1": "第 1 课：快照与三个状态",
+      "node-2": "第 2 课：对象图",
+      "node-3": "第 3 课：Index 是下一次提交的草稿",
+      "preview-label": "概念预览",
+      "m1-title": "快照与三个状态",
+      "m1-point": "看懂 HEAD、Index、Working Tree 为什么能同时保存同一个文件的三个版本，以及每条命令究竟改动了哪一层。",
+      "m1-cta": "开始演示：三个状态",
+      "m1-article": "阅读文章：快照与状态",
+      "m1-head-role": "上次提交记录的快照",
+      "m1-index-role": "下一次提交将记录的内容",
+      "m1-work-role": "你正在编辑的文件",
+      "m1-cap": "同一个 app.txt 此刻有三个版本：HEAD 是 version=1，Index 是 version=2，工作区是 version=3。",
+      "m2-title": "对象图",
+      "m2-point": "看懂一次查找如何沿 ref → commit → tree → blob 走到底，以及 blob 为什么只存内容、文件名记录在 tree 里。",
+      "m2-cta": "开始推荐演示：路径回放",
+      "m2-article": "阅读文章：对象图",
+      "m2-alt-pre": "想逐对象检查每个字段？",
+      "m2-alt-link": "打开逐步详解版",
+      "m2-cap": "文件名保存在 tree 的条目里；blob 内部只有内容，所以同一份内容可以被多个路径共享。",
+      "m3-title": "Index 是下一次提交的草稿",
+      "m3-point": "看懂如何只暂存一部分改动、如何安全地撤销暂存，以及冲突时 Index 里的三个 stage 各代表什么。",
+      "m3-cta": "开始演示：Index 草稿",
+      "m3-article": "阅读文章：Index 草稿",
+      "m3-staged": "已暂存",
+      "m3-staged-2": "已暂存",
+      "m3-unstaged": "未暂存",
+      "m3-in-next": "进入下次提交",
+      "m3-in-next-2": "进入下次提交",
+      "m3-cap": "git add 只复制你点名的文件：提交会记录 a.txt 和 b.txt，c.txt 留在工作区等下一份草稿。",
+      "foot-back": "返回仓库首页",
+      "foot-note": "本页是交互演示的入口，完整讲解在各课对应的文章里；建议先看演示，再读文章。"
+    },
+    en: {
+      "__title": "Git mental model: an interactive learning path",
+      "__desc": "Entrance to the Git mental-model interactives: snapshots and three states, the object graph, and the index as a draft, in order.",
+      "skip": "Skip to the learning path",
+      "h1": "Git mental model",
+      "deck": "This is an ordered learning path. Three interactive demos answer three questions in sequence: why one file can hold three states at once, what a commit looks like on disk, and where the content of your next commit waits. Follow 1 to 3; each lesson takes five to ten minutes.",
+      "course-label": "Learning path",
+      "node-1": "Lesson 1: snapshots and three states",
+      "node-2": "Lesson 2: the object graph",
+      "node-3": "Lesson 3: the index is the draft of the next commit",
+      "preview-label": "Concept preview",
+      "m1-title": "Snapshots and three states",
+      "m1-point": "See why HEAD, the index, and the working tree can hold three versions of the same file at once, and which layer each command actually changes.",
+      "m1-cta": "Start the demo: three states",
+      "m1-article": "Read the article: snapshots and state",
+      "m1-head-role": "Snapshot recorded by the last commit",
+      "m1-index-role": "What the next commit will record",
+      "m1-work-role": "The file you are editing",
+      "m1-cap": "One app.txt holds three versions right now: HEAD has version=1, the index has version=2, and the working tree has version=3.",
+      "m2-title": "The object graph",
+      "m2-point": "Follow one lookup from ref to commit to tree to blob, and see why a blob stores only content while filenames are recorded in the tree.",
+      "m2-cta": "Start the recommended demo: the lookup replay",
+      "m2-article": "Read the article: the object graph",
+      "m2-alt-pre": "Want to inspect each object field by field?",
+      "m2-alt-link": "Open the step-by-step version",
+      "m2-cap": "Filenames live in tree entries; a blob holds only content, so many paths can share the same content.",
+      "m3-title": "The index is the draft of the next commit",
+      "m3-point": "See how to stage only part of your changes, how to unstage safely, and what the three index stages mean during a conflict.",
+      "m3-cta": "Start the demo: the index draft",
+      "m3-article": "Read the article: the index as a draft",
+      "m3-staged": "staged",
+      "m3-staged-2": "staged",
+      "m3-unstaged": "not staged",
+      "m3-in-next": "in the next commit",
+      "m3-in-next-2": "in the next commit",
+      "m3-cap": "git add copies only the files you name: the commit will record a.txt and b.txt, while c.txt stays in the working tree for the next draft.",
+      "foot-back": "Back to the repository home",
+      "foot-note": "This page is the entrance to the interactive demos; the linked articles carry the full explanations. Try the demo first, then read."
+    }
+  };
+
+  var lang = "zh";
+  var langZh = document.getElementById("lang-zh");
+  var langEn = document.getElementById("lang-en");
+  var descMeta = document.querySelector('meta[name="description"]');
+
+  /* m1-point and similar nodes carry inline <code> children in zh, so the
+     zh source of truth is the HTML itself, captured once before any swap. */
+  var zhSnapshot = new Map();
+
+  function captureZh() {
+    var nodes = document.querySelectorAll("[data-i18n]");
+    for (var i = 0; i < nodes.length; i += 1) {
+      var node = nodes[i];
+      zhSnapshot.set(node, { html: node.innerHTML, text: node.textContent });
+    }
+  }
+
+  function setLang(next) {
+    lang = next;
+    document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+    document.title = I18N[lang]["__title"];
+    if (descMeta) { descMeta.setAttribute("content", I18N[lang]["__desc"]); }
+    langZh.setAttribute("aria-pressed", String(lang === "zh"));
+    langEn.setAttribute("aria-pressed", String(lang === "en"));
+
+    var nodes = document.querySelectorAll("[data-i18n]");
+    for (var i = 0; i < nodes.length; i += 1) {
+      var node = nodes[i];
+      var key = node.getAttribute("data-i18n");
+      if (lang === "zh") {
+        var saved = zhSnapshot.get(node);
+        if (saved) {
+          if (saved.html !== node.textContent && saved.html.indexOf("<") !== -1) {
+            node.innerHTML = saved.html;
+          } else {
+            node.textContent = saved.text;
+          }
+        }
+      } else if (Object.prototype.hasOwnProperty.call(I18N.en, key)) {
+        node.textContent = I18N.en[key];
+      }
+    }
+
+    var labeled = document.querySelectorAll("[data-i18n-label]");
+    for (var j = 0; j < labeled.length; j += 1) {
+      var el = labeled[j];
+      var labelKey = el.getAttribute("data-i18n-label");
+      if (Object.prototype.hasOwnProperty.call(I18N[lang], labelKey)) {
+        el.setAttribute("aria-label", I18N[lang][labelKey]);
+      }
+    }
+
+    var localizedLinks = document.querySelectorAll("[data-href-zh][data-href-en]");
+    for (var k = 0; k < localizedLinks.length; k += 1) {
+      localizedLinks[k].setAttribute("href", localizedLinks[k].getAttribute("data-href-" + lang));
+    }
+  }
+
+  captureZh();
+  langZh.addEventListener("click", function () { setLang("zh"); });
+  langEn.addEventListener("click", function () { setLang("en"); });
+})();
+</script>
+
+</body>
+</html>

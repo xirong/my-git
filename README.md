@@ -42,6 +42,12 @@ v2.0 版本的定位是：
 | [08-templates](08-templates/README.md) | PR、Issue、Review、Hotfix、Release、AI Review 模板 |
 | [10-company-practices](10-company-practices/README.md) | 大厂工程实践案例和决策图谱 |
 
+## 在线交互学习
+
+通过动画理解 Git 的快照、对象图和 Index。建议按照学习顺序逐个完成，每个主题都提供可操作的演示和对应的原理文章。
+
+[打开 Git 心智模型交互实验](https://xirong.github.io/my-git/interactive/git-mental-model/)
+
 ## 学习路径
 
 ### 新手路径
