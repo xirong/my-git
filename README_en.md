@@ -42,6 +42,12 @@ Therefore, v2.0 upgrades this repository into:
 | [08-templates](08-templates/08-templates_en/README_en.md) | Templates for PRs, Issues, Reviews, Hotfixes, Releases, and AI Reviews |
 | [10-company-practices](10-company-practices/10-company-practices_en/README_en.md) | Enterprise engineering practice cases and decision maps |
 
+## Interactive Learning
+
+Use animations to understand Git snapshots, the object graph, and the Index. Follow the topics in order; each one combines a hands-on demonstration with its companion article.
+
+[Open the Git Mental Model Interactive Lab](https://xirong.github.io/my-git/interactive/git-mental-model/)
+
 ## Learning Paths
 
 ### Beginner Path

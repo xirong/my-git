@@ -46,6 +46,8 @@ LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 USER_AGENT = "my-git-link-check/1.0 (+https://github.com/xirong/my-git)"
 HTTP_TIMEOUT_SECONDS = 12
 MAX_WORKERS = 8
+REPO_PAGES_HOST = "xirong.github.io"
+REPO_PAGES_PREFIX = "/my-git/"
 
 # These statuses generally mean the URL exists but the site refuses automated
 # checks, requires authentication, or rate-limits the runner.
@@ -118,6 +120,23 @@ def collect_links(files: list[Path]) -> list[LinkOccurrence]:
 
 def is_external(target: str) -> bool:
     return target.startswith(("http://", "https://"))
+
+
+def repo_pages_target(url: str) -> Path | None:
+    """Map this repository's Pages URL to its source file when available."""
+    parsed = urllib.parse.urlparse(url)
+    if parsed.netloc.lower() != REPO_PAGES_HOST or not parsed.path.startswith(REPO_PAGES_PREFIX):
+        return None
+
+    relative_path = urllib.parse.unquote(parsed.path[len(REPO_PAGES_PREFIX):])
+    candidate = (REPO_ROOT / relative_path).resolve()
+    try:
+        candidate.relative_to(REPO_ROOT)
+    except ValueError:
+        return None
+    if candidate.is_dir():
+        candidate = candidate / "index.html"
+    return candidate if candidate.exists() else None
 
 
 def check_empty_links(links: list[LinkOccurrence]) -> list[str]:
@@ -206,6 +225,8 @@ def external_urls(links: list[LinkOccurrence]) -> dict[str, list[LinkOccurrence]
             continue
         url = strip_fragment(target)
         if not url:
+            continue
+        if repo_pages_target(url) is not None:
             continue
         urls.setdefault(url, []).append(link)
     return urls
