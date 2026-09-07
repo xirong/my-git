@@ -2,9 +2,9 @@
 
 English | [中文](../codex-claude-code-git-practices.md)
 
-AI programming tools like Codex and Claude Code accelerate code changes — and make Git workspaces far easier to get into a mess.
+AI programming tools like Codex and Claude Code accelerate code changes and can make Git workspaces far easier to get into a mess.
 
-This article focuses on a single question: when working with AI programming tools, how do you keep Git history clean, reviewable, and rollback-safe?
+This article focuses on a single question: when working with AI programming tools, how do you keep Git history clean, reviewable, and rollback-safe? [Git Integration Practices for AI Coding Tools](ai-coding-tools-git-integration_en.md) maintains tool capabilities, official sources, and version differences; this page keeps the Git practices and workflow that apply across tools.
 
 ## Core Principles
 
@@ -12,9 +12,12 @@ This article focuses on a single question: when working with AI programming tool
 
 Do not let AI explore directly on the main branch. Start from a dedicated branch instead:
 
+`<integration-branch>` is the repository's actual integration branch, such as `main`, `master`, or `develop`. First require `git status --porcelain` to print nothing; if there are edits owned by someone else, preserve the state and use a separate worktree.
+
 ```bash
-git switch main
-git pull --rebase
+git status --porcelain
+git switch <integration-branch>
+git pull --rebase origin <integration-branch>
 git switch -c ai/refactor-order-validator
 ```
 
@@ -27,9 +30,7 @@ feat/github-governance-guide
 
 ### 2. Use Worktree for Multi-Agent Parallelism
 
-The OpenAI Codex page describes the Codex app as built for multi-agent workflows, with native support for worktrees and cloud environments.
-
-The Claude Code docs explicitly recommend using Git worktrees to isolate parallel sessions and prevent them from interfering with each other.
+Whether a tool can create or manage a worktree depends on its documented capability and installed version; check the [tool fact lookup](ai-coding-tools-git-integration_en.md). This section owns the Git requirement: parallel tasks must not share one working directory.
 
 Create worktrees manually:
 
@@ -48,7 +49,7 @@ cd ../repo-task-b
 claude
 ```
 
-Exact commands may vary by version — check your local installation and the official docs.
+Tool startup commands vary by version; use the [tool fact lookup](ai-coding-tools-git-integration_en.md) to confirm them.
 
 ### 3. Always Review the Diff After AI Changes
 
@@ -72,6 +73,8 @@ Check for:
 ### 4. Split Commits for Large Diffs
 
 AI frequently modifies many files at once. Don't merge that as a single jumbled commit.
+
+Before partial staging, confirm this is a clean or isolated task worktree and that `git diff --cached` has no content from another task. If staged, unstaged, or untracked edits have another owner, stop splitting here rather than using reset or cleanup commands to make room.
 
 Split by concern, for example:
 
@@ -116,56 +119,20 @@ Create branch
 -> Merge after CI passes
 ```
 
-## Codex Usage Tips
+## Tool-Independent Execution Conventions
 
-- Give Codex a well-scoped task boundary.
-- Ask it to list changed files, how to validate, and any risks.
-- Don't let it opportunistically refactor unrelated modules.
-- Use worktrees or isolated environments when running tasks in parallel.
-- Review the diff and test results yourself before merging.
-- For remote tasks, keep the PR, logs, validation commands, and human sign-off on record.
-
-Prompt example:
-
-```text
-Fix only the order timeout validation issue.
-Do not modify interface signatures or format unrelated files.
-When done, list changed files, behavioral changes, validation commands, and risks.
-```
-
-## Claude Code Usage Tips
-
-The Claude Code docs cover parallel sessions with worktrees and also describe using Claude as a CLI tool inside validation pipelines.
-
-Tips:
-
-- Pin each Claude Code session to a dedicated worktree.
-- Use `.claude/` or project docs to capture team conventions.
-- Never share a workspace across different tasks.
-- Keep branch and directory names descriptive for long-running tasks.
-- Remove worktrees when a task is done.
-- Handle `.env` files and local config with care — don't let sensitive values leak into temporary workspaces.
-
-Cleanup:
+- State the goal, scope, acceptance method, and risk in the task so unrelated refactors do not enter the change.
+- Bind every parallel task to a separate branch or worktree, and use clear branch and directory names to retain context.
+- Before merging, a person checks the diff, test results, and rollback path. For remote tasks, also retain the PR, logs, validation commands, and human sign-off.
+- Do not copy `.env`, local configuration, or secret files into temporary workspaces by default.
+- When a task is done, check worktree state and then remove directories that are no longer needed:
 
 ```bash
 git worktree list
 git worktree remove ../repo-task-a
 ```
 
-## Other AI Tools
-
-Each tool has a different Git integration focus:
-
-| Tool | Git Workflow Focus |
-| --- | --- |
-| Codex | Sandbox, remote environment, GitHub collaboration, task logs |
-| Claude Code | Worktree isolation, parallel sessions, subagent workspaces |
-| GitHub Copilot Cloud Agent | Asynchronous process from Issue to branch, commit, and PR |
-| Aider | Automatic commits, `/diff`, `/undo`, local git-first workflow |
-| Cursor | Multi-agent parallelism, aggregated diffs, manual commit splitting |
-
-For a full breakdown, see [Git Integration Practices for AI Coding Tools](ai-coding-tools-git-integration_en.md).
+See [Git Integration Practices for AI Coding Tools](ai-coding-tools-git-integration_en.md) for current tool capabilities and Git integration differences.
 
 ## Common Anti-Patterns
 

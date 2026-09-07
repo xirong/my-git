@@ -4,6 +4,8 @@ English | [中文](../README.md)
 
 This directory is intended for tech leads and team maintainers. Its goal is to configure GitHub from just a code hosting tool into a core part of collaboration, review, CI, release, security, and auditing.
 
+It belongs to the “manage collaboration” layer of the [knowledge map](../../01-getting-started/01-getting-started_en/knowledge-map_en.md) and turns a team’s collaboration decisions into repository and platform rules.
+
 ## What to Read First
 
 | Problem to Solve | Recommended Reading |

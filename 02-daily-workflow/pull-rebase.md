@@ -17,15 +17,17 @@ git merge
 
 ## pull --rebase 做了什么
 
+`<integration-branch>` 表示团队实际的集成分支，可能是 `main`、`master` 或 `develop`。
+
 ```bash
-git pull --rebase origin main
+git pull --rebase origin <integration-branch>
 ```
 
 大致等价于：
 
 ```bash
 git fetch origin
-git rebase origin/main
+git rebase origin/<integration-branch>
 ```
 
 它会先拿到远端更新，再把你的本地提交放到远端最新提交之后。
@@ -46,11 +48,11 @@ git rebase origin/main
 
 ## 推荐流程
 
+先让 `git status --porcelain` 没有输出。已有编辑只有在全部属于自己并明确准备 stash 后恢复时才可放进 stash；其他 owner 的编辑或来源不清的未跟踪文件要留在原处，改用干净 worktree。
+
 ```bash
-git status
-git stash push -u -m "backup before pull rebase"
-git pull --rebase origin main
-git stash apply
+git status --porcelain
+git pull --rebase origin <integration-branch>
 ```
 
 如果冲突处理乱了：

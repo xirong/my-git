@@ -1,8 +1,10 @@
 # Codex / Claude Code Git 实践
 
+[English](05-ai-native-development_en/codex-claude-code-git-practices_en.md) | 中文
+
 Codex、Claude Code 这类 AI 编程工具会让代码修改速度变快，也会让 Git 工作区更容易变乱。
 
-这篇只讨论一个问题：使用 AI 编程工具时，如何让 Git 历史仍然清楚、可审查、可回滚。
+这篇只讨论一个问题：使用 AI 编程工具时，如何让 Git 历史仍然清楚、可审查、可回滚。工具能力、官方来源和版本差异由[AI 编程工具的 Git 集成实践](ai-coding-tools-git-integration.md)集中维护；这里保留跨工具都适用的 Git 实践与流程。
 
 ## 核心原则
 
@@ -10,11 +12,14 @@ Codex、Claude Code 这类 AI 编程工具会让代码修改速度变快，也�
 
 不要让 AI 直接在主分支上探索。
 
+`<integration-branch>` 是仓库实际使用的集成分支，例如 `main`、`master` 或 `develop`。先让 `git status --porcelain` 没有输出；有其他 owner 的编辑时，保留现场并使用独立 worktree。
+
 推荐：
 
 ```bash
-git switch main
-git pull --rebase
+git status --porcelain
+git switch <integration-branch>
+git pull --rebase origin <integration-branch>
 git switch -c ai/refactor-order-validator
 ```
 
@@ -27,9 +32,7 @@ feat/github-governance-guide
 
 ### 2. 多 Agent 并行用 worktree
 
-OpenAI Codex 官方页面提到 Codex app 面向 multi-agent workflows，并支持 built-in worktrees 和 cloud environments。
-
-Claude Code 官方文档也明确建议用 Git worktrees 隔离并行 Claude Code sessions，避免不同会话互相影响。
+工具能否创建或管理 worktree，要以[工具事实速查](ai-coding-tools-git-integration.md)中的官方来源和本机版本为准。本节只处理 Git 层面的要求：并行任务不能共享同一个工作目录。
 
 本地手工创建：
 
@@ -48,7 +51,7 @@ cd ../repo-task-b
 claude
 ```
 
-工具命令会随版本变化，实际以你本机安装和官方文档为准。
+工具启动命令会随版本变化；确认方式见[工具事实速查](ai-coding-tools-git-integration.md)。
 
 ### 3. AI 改完先审 diff
 
@@ -72,6 +75,8 @@ git diff
 ### 4. 大 diff 先拆 commit
 
 AI 一次改很多文件很常见，但人类不应该按大杂烩合入。
+
+部分暂存前先确认这是干净或隔离的任务工作区，`git diff --cached` 里没有其他任务的内容。发现其他 owner 的 staged、unstaged 或 untracked 编辑时，停止在这里拆分，不要用 reset 或清理命令腾位置。
 
 推荐拆成：
 
@@ -116,56 +121,20 @@ AI 可以帮你做第一轮风险扫描：
 -> CI 通过后合入
 ```
 
-## Codex 使用建议
+## 工具无关的执行约定
 
-- 给 Codex 明确任务边界
-- 要求它列出改动文件、验证方式、风险
-- 不让它顺手重构无关模块
-- 多任务并行时使用 worktree 或独立环境
-- 合入前人工检查 diff 和测试结果
-- 对远程任务保留 PR、日志、验证命令和人类复核记录
-
-提示词示例：
-
-```text
-只修复订单超时校验问题。
-不要修改接口签名，不要格式化无关文件。
-完成后列出改动文件、行为变化、验证命令和风险。
-```
-
-## Claude Code 使用建议
-
-Claude Code 官方文档提供了 worktree 并行会话说明，也提到可以把 Claude 作为命令行式工具接入验证流程。
-
-建议：
-
-- 每个 Claude Code session 绑定一个 worktree
-- 用 `.claude/` 或项目文档沉淀团队约定
-- 不同任务不要共享同一个工作区
-- 长任务保留清楚的分支名和目录名
-- 清理完成后的 worktree
-- 对需要复制的 `.env`、本地配置保持谨慎，避免把敏感信息带进临时工作区
-
-清理：
+- 任务说明要写清目标、范围、验收方式和风险，避免无关重构混入。
+- 每个并行任务绑定独立分支或 worktree，完成后用清楚的分支和目录名保留上下文。
+- 合入前由人检查 diff、测试结果和回滚路径；远程任务额外保留 PR、日志、验证命令和人工复核记录。
+- `.env`、本地配置和密钥文件不应默认复制到临时工作区。
+- 任务完成后确认 worktree 状态，再清理已经不需要的目录：
 
 ```bash
 git worktree list
 git worktree remove ../repo-task-a
 ```
 
-## 其他 AI 工具
-
-不同工具的 Git 集成重点不同：
-
-| 工具 | Git 工作流关注点 |
-| --- | --- |
-| Codex | sandbox、远程环境、GitHub 协作、任务日志 |
-| Claude Code | worktree 隔离、并行 session、subagent 工作区 |
-| GitHub Copilot Cloud Agent | Issue 到分支、提交、PR 的异步流程 |
-| Aider | 自动提交、`/diff`、`/undo`、本地 git-first 工作流 |
-| Cursor | 多 Agent 并行、聚合 diff、人工拆分提交 |
-
-详细整理见 [AI 编程工具的 Git 集成实践](ai-coding-tools-git-integration.md)。
+各工具的当前能力和 Git 集成差异见[AI 编程工具的 Git 集成实践](ai-coding-tools-git-integration.md)。
 
 ## 常见反模式
 

@@ -14,6 +14,8 @@ Stacked PR 的价值在于把一个大变更拆成一组有依赖关系的小 PR
 
 ## 1. 什么是 Stacked PR
 
+本节图示和命令里的 `main` 是一个名称为 `main` 的集成分支示例。仓库实际使用 `master`、`develop` 或其他名称时，创建分支、PR base 和 rebase 的目标都要替换为团队确认的集成分支。
+
 普通 PR：
 
 ```text

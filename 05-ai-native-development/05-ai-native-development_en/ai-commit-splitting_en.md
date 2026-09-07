@@ -15,22 +15,33 @@ When an AI modifies many files at once, split the commits before pushing.
 
 ## Commands
 
+`git add -p` belongs in a clean or isolated task worktree. Inspect the Index and Working Tree first; if they contain staged, unstaged, or untracked content from another task, stop splitting in this worktree. Do not use reset or cleanup commands to move that content out of the way.
+
 ```bash
+git status --porcelain
 git diff --stat
+git diff --cached
 git add -p
 git commit -m "test(module): cover edge case"
 git add -p
 git commit -m "fix(module): handle edge case"
 ```
 
-If already committed as one large commit, but not yet pushed:
+If already committed as one large commit, but not yet pushed or used by collaborators:
 
 ```bash
+git status --porcelain
+git log --oneline --decorate -2
 git reset --soft HEAD~1
+git reset
+git diff
 git add -p
+git diff --cached
 ```
 
-Exercise caution when rewriting history after pushing; confirm first if anyone else is continuing development based on that branch.
+After `reset --soft`, every hunk from the original commit is already in the Index. A direct `git add -p` does not unstage the hunk that was not selected. The argument-free `git reset` first restores the Index to the current `HEAD` while retaining all Working Tree edits, so partial staging can determine the next commit.
+
+Both flows expect `git status --porcelain` to print nothing. If it prints anything, preserve the current state and continue in a clean task worktree. Exercise caution when rewriting history after pushing; confirm first if anyone else is continuing development based on that branch. The runnable [Git command safety regression](../../labs/git-command-safety/README.md) asserts the exact states.
 
 ## Splitting Suggestions
 

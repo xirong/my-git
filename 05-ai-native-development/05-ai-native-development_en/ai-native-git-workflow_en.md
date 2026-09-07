@@ -6,6 +6,8 @@ AI makes writing code cheaper. It makes verifying code more expensive.
 
 Git's new role in the AI era is slicing large AI-generated changes back into engineering units that humans can understand, review, and roll back.
 
+For one continuous timeout-fix case that follows a task contract through candidate SHA, integration, artifact, and recovery, start with [One Engineering Change, from Task Contract to Recovery](engineering-change-course_en.md). This article remains the day-to-day reference for branches, worktrees, diffs, and commits.
+
 ## 1. New Risks
 
 AI-generated code tends to share a few characteristics:
@@ -73,11 +75,17 @@ Every PR must answer:
 
 ## 3. Recommended Workflow
 
-### Step 1: Create an Isolated Branch
+### Step 1: Confirm the Baseline and Create an Isolated Branch
+
+`<integration-branch>` is the integration branch selected by the team, such as `main`, `master`, or `develop`. Confirm its name from repository rules and the PR target; `main` is not a safe default for every repository.
+
+The following flow requires a workspace with no pending edits. If `git status --porcelain` prints anything, stop, preserve the state, or continue in a separate clean worktree. Do not use switch, pull, reset, restore, or clean in this workspace to remove someone else's edits.
 
 ```bash
-git switch main
-git pull --rebase
+git status --porcelain
+git branch --show-current
+git switch <integration-branch>
+git pull --rebase origin <integration-branch>
 git switch -c feat/ai-assisted-short-task
 ```
 
@@ -119,21 +127,28 @@ Look for:
 
 ### Step 5: Split Commits
 
-Use interactive staging to carve up changes:
+Use interactive staging to carve up changes. It belongs in a clean or isolated task worktree; inspect `git diff --cached` first and ensure the Index contains only the current intent:
 
 ```bash
 git add -p
 git commit -m "fix(auth): handle expired token"
 ```
 
-If the AI already landed everything in one large commit:
+If the AI already landed everything in one large commit, and that commit has not been pushed or used by collaborators, split it again. First confirm the current branch, last commit, and clean baseline:
 
 ```bash
+git status --porcelain
+git log --oneline --decorate -2
 git reset --soft HEAD~1
+git reset
+git diff
 git add -p
+git diff --cached
 ```
 
-Only do this on local commits that haven't been pushed.
+`reset --soft` leaves every change from the original commit in the Index. Running `git add -p` immediately afterward has no unstaged hunk to choose, so a normal next commit includes everything. The second argument-free `git reset` returns the Index to the current `HEAD` while leaving the Working Tree intact. Only then can `git add -p` select hunks for the next commit.
+
+If `git status --porcelain` prints anything, do not run either reset. Preserve existing staged, unstaged, or untracked content in a clean task worktree instead. See the runnable [Git command safety regression](../../labs/git-command-safety/README.md) for the counterexample and corrected flow.
 
 When AI generates a large cross-layer feature, consider breaking it into a stack of smaller dependent PRs so that tests, implementation, cleanup, and docs each go through review separately. See [Stacked PR for AI-Generated Changes](stacked-pr-for-ai-generated-changes_en.md) for details.
 
@@ -277,8 +292,11 @@ Fix: On public branches, prefer new commits for corrections. If history rewritin
 ## 8. Example Workflow
 
 ```bash
-git switch main
-git pull --rebase
+# <integration-branch> comes from team repository rules, for example main, master, or develop
+git status --porcelain
+# Expected: no output. Stop and preserve the state if there is output.
+git switch <integration-branch>
+git pull --rebase origin <integration-branch>
 git switch -c fix/order-timeout-validation
 
 # AI modifies files

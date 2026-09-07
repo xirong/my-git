@@ -4,6 +4,8 @@ English | [中文](../README.md)
 
 This directory provides templates that can be copied into your team's repository. The goal of these templates is to reduce communication costs and provide a fixed information structure for PRs, Reviews, releases, hotfixes, and AI code reviews.
 
+It belongs to the “manage collaboration” layer of the [knowledge map](../../01-getting-started/01-getting-started_en/knowledge-map_en.md). Decide the team’s responsibilities, checks, and recovery rules before choosing the smallest necessary template.
+
 ## Recommended Combinations
 
 | Team Stage | Suggested to Start With |

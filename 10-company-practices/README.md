@@ -6,6 +6,8 @@
 
 这里不追求罗列资料，重点是把公开案例里的工程判断讲清楚：什么问题、什么做法、适合什么团队、迁移时要注意什么。
 
+它属于[知识地图](../01-getting-started/knowledge-map.md)的“管理协作”层，用案例帮助团队比较约束和取舍，不能代替本团队的规则设计。
+
 ## 已整理案例
 
 如果你不知道先看哪篇，建议从 [大厂工程实践决策图谱](company-practices-decision-map.md) 开始。它按团队问题把案例和主题文章串起来。
@@ -13,6 +15,7 @@
 | 案例 | 适合阅读场景 |
 | --- | --- |
 | [大厂工程实践决策图谱](company-practices-decision-map.md) | 按团队问题选择案例，理解案例能迁移到哪些主题文章 |
+| [两个 AI Agent 工程案例](ai-native-engineering-cases.md) | 区分第一手报告、自报观察和团队可验证的试点假设 |
 | [阿里巴巴 AoneFlow 分支管理实践](alibaba-aoneflow.md) | 多 feature 并行、按环境组织 release 分支、需要灵活调整上线范围 |
 | [腾讯 Gitflow 分支规范实践](tencent-gitflow.md) | 客户端、SDK、企业交付产品，需要稳定的 release / hotfix 流程 |
 | [字节跳动 Git 工作流与研发设施实践](bytedance-git-workflow.md) | 大规模研发组织，需要把 Git 流程、权限、CI、发布平台串起来 |

@@ -14,11 +14,13 @@ git log --oneline --decorate -10
 git reflog -20
 ```
 
-If there are still uncommitted changes in the working tree:
+If there are still uncommitted changes in the working tree, first confirm that all of them belong to you and that you intend to restore them later:
 
 ```bash
 git stash push -u -m "backup before recover lost commit"
 ```
+
+If status includes edits owned by someone else or untracked files with an uncertain source, stop in this worktree, preserve the state, or use a separate worktree.
 
 ## Find Commit Using Reflog
 
@@ -35,9 +37,11 @@ git switch recovered-work
 
 This allows you to check the content first:
 
+`<integration-branch>` is the team's actual integration branch, such as `main`, `master`, or `develop`:
+
 ```bash
 git show --stat
-git diff main...HEAD
+git diff <integration-branch>...HEAD
 ```
 
 ## Common Recoverable Scenarios

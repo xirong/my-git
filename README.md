@@ -2,23 +2,29 @@
 
 [English](README_en.md) | 中文
 
-面向现代工程团队与 AI 编程时代的 Git / GitHub 实战手册。
+面向 AI Native 软件工程的 Git 变更控制手册：理解原理，验证改动，管理协作。
 
-## 为什么维护这个仓库
+## AI 会操作，人为什么还要学？
 
-这个仓库最早是 Git 学习资料合集，帮助很多中文开发者入门 Git。
+AI 可以代劳命令，理解决定我们能看见哪些选择、提出什么问题，以及凭什么接受结果。脑中没有一个概念，遇到问题时就很难想到用它。
 
-如果今天还只是做“资料导航”，价值已经不够了。Git 的核心问题，已经从“命令怎么用”扩展到这些更真实的问题：
+我维护这个仓库，是希望把 Git 中值得传承的设计讲清楚：快照如何记录状态，对象如何复用内容，引用如何组织历史，以及协作如何处理分歧。让这些思想成为人的判断依据，让 AI 帮助我们实验、执行和验证。
 
-1. 个人开发者如何理解 Git 的心智模型
-2. 日常开发中如何处理冲突、回滚、误提交
-3. 团队如何选择合适的分支和 PR 工作流
-4. 技术负责人如何用 GitHub 建立工程协作规范
-5. AI 编程时代，如何审查、拆分、验证和回滚 AI 生成的代码变更
+**学习的重心，从熟练执行，走向理解、判断与验证。** 操作仍然值得练习，尤其是读懂关键命令和识别风险；实践是检验理解的方式。
 
-v2.0 版本的定位是：
+[读完整理念](01-getting-started/why-learn-git.md) · [直接打开交互学习](https://xirong.github.io/my-git/interactive/git-mental-model/)
 
-> 一个面向现代工程团队与 AI 编程时代的 Git / GitHub 实战手册。
+## 从理解设计到管理协作
+
+先用[知识地图](01-getting-started/knowledge-map.md)确认自己正在解决的是原理、一次工程变更还是团队协作，再进入下面的文章。
+
+| 你想获得什么 | 从这里开始 | 学会后能判断什么 |
+| --- | --- | --- |
+| 理解设计 | [交互学习](https://xirong.github.io/my-git/interactive/git-mental-model/) → [完整学习路径](01-getting-started/git-learning-path.md) | 改动存在哪里，历史如何形成，恢复依赖什么 |
+| 完成工程变更 | [一次变更的完整验收](05-ai-native-development/ai-change-control-loop.md) → [AI 变更审查样例](05-ai-native-development/ai-change-review-example.md) | 范围、提交版本和测试证据是否对应 |
+| 管理协作 | [团队 Git 工作流指南](03-team-collaboration/team-git-workflow-guide.md) → [GitHub 工程治理](04-github-engineering/github-engineering-governance.md) | 如何隔离、审查、授权、发布与恢复 |
+
+Git 提供版本与历史的基础。测试、审查、权限、制品和发布系统一起，才能形成完整的变更控制。这里既讲工具的能力，也讲它的边界。
 
 ## 适合谁
 
@@ -32,7 +38,7 @@ v2.0 版本的定位是：
 
 | 目录 | 主要内容 |
 | --- | --- |
-| [01-getting-started](01-getting-started/) | Git 入门、心智模型、Git 和 SVN 的区别 |
+| [01-getting-started](01-getting-started/) | Git 入门、心智模型，以及[知识地图](01-getting-started/knowledge-map.md) |
 | [02-daily-workflow](02-daily-workflow/) | 日常命令、分支合并、rebase、stash、worktree |
 | [03-team-collaboration](03-team-collaboration/README.md) | 团队工作流、PR、Code Review、协作模型选型 |
 | [04-github-engineering](04-github-engineering/README.md) | 分支保护、Rulesets、CODEOWNERS、CI、发布、安全 |
@@ -44,21 +50,21 @@ v2.0 版本的定位是：
 
 ## 在线交互学习
 
-通过动画理解 Git 的快照、对象图和 Index。建议按照学习顺序逐个完成，每个主题都提供可操作的演示和对应的原理文章。
+通过动画、文章和临时仓库实验理解 Git 的快照、对象图、引用、历史变化、远端、worktree 与存储。十个主题按同一顺序安排，01 至 03 对应既有交互，04 至 10 对应新增交互；材料与脚本可检查，读者理解仍需要用预测、重现和迁移来验证。
 
 [打开 Git 心智模型交互实验](https://xirong.github.io/my-git/interactive/git-mental-model/)
+
+[查看十个主题的文章、交互与实验导航](01-getting-started/git-learning-path.md)
 
 ## 学习路径
 
 ### 新手路径
 
-1. [为什么使用 Git](01-getting-started/why-git.md)
+1. [为什么在 AI 时代学习 Git](01-getting-started/why-learn-git.md)
 2. [Git 心智模型](01-getting-started/git-mental-model.md)
-3. [快照与状态：HEAD、Index 与 Working Tree](01-getting-started/git-mental-model-01-snapshots.md)
-4. [对象图：blob、tree 与 commit](01-getting-started/git-mental-model-02-object-graph.md)
-5. [Index 是下一次 commit 的草稿](01-getting-started/git-mental-model-03-index.md)
-6. [Git 基础命令](01-getting-started/git-basic-commands.md)
-7. [日常 Git 命令](02-daily-workflow/everyday-git-commands.md)
+3. [十个主题的课程导航](01-getting-started/git-learning-path.md)：每个主题都连接文章、交互和临时仓库实验。
+4. [Git 基础命令](01-getting-started/git-basic-commands.md)
+5. [日常 Git 命令](02-daily-workflow/everyday-git-commands.md)
 
 ### 日常开发路径
 
@@ -90,20 +96,25 @@ v2.0 版本的定位是：
 
 ### AI Native 开发路径
 
-1. [AI Native Git Workflow](05-ai-native-development/ai-native-git-workflow.md)
-2. [AI 生成代码 Review](05-ai-native-development/ai-generated-code-review.md)
-3. [Codex / Claude Code Git 实践](05-ai-native-development/codex-claude-code-git-practices.md)
-4. [AI 编程工具的 Git 集成实践](05-ai-native-development/ai-coding-tools-git-integration.md)
-5. [Worktree for AI Agents](05-ai-native-development/worktree-for-ai-agents.md)
-6. [Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md)
-7. [AI Reviewer 与 Human Reviewer](05-ai-native-development/ai-reviewer-and-human-reviewer.md)
+1. [一次工程变更课程](05-ai-native-development/engineering-change-course.md)
+2. [接受 Agent 变更](05-ai-native-development/ai-change-control-loop.md)
+3. [AI 生成变更的 CI](05-ai-native-development/ci-for-ai-generated-changes.md)
+4. [后台 Agent 任务](05-ai-native-development/background-agent-workflow.md)
+5. [AI Native Git Workflow](05-ai-native-development/ai-native-git-workflow.md)
+6. [AI 生成代码 Review](05-ai-native-development/ai-generated-code-review.md)
+7. [Codex / Claude Code Git 实践](05-ai-native-development/codex-claude-code-git-practices.md)
+8. [AI 编程工具的 Git 集成实践](05-ai-native-development/ai-coding-tools-git-integration.md)
+9. [Worktree for AI Agents](05-ai-native-development/worktree-for-ai-agents.md)
+10. [Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md)
+11. [AI Reviewer 与 Human Reviewer](05-ai-native-development/ai-reviewer-and-human-reviewer.md)
 
 ### 故障处理路径
 
 1. [Git 高频事故处理手册](06-troubleshooting/git-troubleshooting-playbook.md)
-2. [Undo Anything](06-troubleshooting/undo-anything.md)
-3. [Recover Lost Commit](06-troubleshooting/recover-lost-commit.md)
-4. [Remove Secret from History](06-troubleshooting/remove-secret-from-history.md)
+2. [Agent 事故恢复](06-troubleshooting/ai-agent-incident-recovery.md)
+3. [Undo Anything](06-troubleshooting/undo-anything.md)
+4. [Recover Lost Commit](06-troubleshooting/recover-lost-commit.md)
+5. [Remove Secret from History](06-troubleshooting/remove-secret-from-history.md)
 
 ## 按问题找答案
 

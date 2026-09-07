@@ -27,7 +27,7 @@ git log --oneline --decorate -20
 确认 good sha 后，先建备份分支：
 
 ```bash
-git branch backup-good-main <good-sha>
+git branch backup-good-branch <good-sha>
 ```
 
 检查内容：
@@ -39,8 +39,10 @@ git diff <bad-sha>..<good-sha>
 
 ## 恢复远端分支
 
+`<protected-branch>` 是被覆盖的实际远端分支，例如 `main`、`master` 或 `develop`。先确认目标、远端权限、分支规则和协作者影响范围，得到相关 owner 授权后再更新远端：
+
 ```bash
-git push origin <good-sha>:main
+git push origin <good-sha>:<protected-branch>
 ```
 
 如果主分支受保护，需要管理员处理。

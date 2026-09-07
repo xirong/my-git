@@ -43,6 +43,10 @@ The v2.1.0 release focuses on agent governance and agent-facing conventions, so 
 
 ## Next Maintenance Areas
 
+The current content sequence covers understanding, experiments, engineering-change acceptance, background-agent handoff, and incident recovery. The [detailed bilingual roadmap](00-meta/00-meta_en/roadmap_en.md) records the ten-topic material, its local regression entry points, and the remaining reader-learning, performance, deployment, and production evidence boundaries.
+
+The detailed roadmap also records material visible in this local workspace. It does not establish that uncommitted work has been tagged, released, deployed, or read by users.
+
 ### Documentation Quality
 
 - Improve English prose in high-traffic guides

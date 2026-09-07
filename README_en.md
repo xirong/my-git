@@ -2,23 +2,29 @@
 
 English | [中文](README.md)
 
-A practical Git/GitHub handbook for modern engineering teams and AI-native development workflows.
+A Git change-control handbook for AI-native software engineering: understand the design, verify changes, and manage collaboration.
 
-## Why Maintain This Repository
+## Why learn when AI can run the commands?
 
-This repository started as a collection of Git learning materials and has helped many Chinese developers get started with Git.
+AI can carry out operations. Understanding shapes the options we notice, the questions we ask, and the evidence we require before accepting a result. Without a concept in mind, we may never think to use it.
 
-Today, a link collection is no longer enough. The core challenges of Git have expanded from "how to use commands" to more practical questions:
+I maintain this handbook to explain enduring ideas in Git: how snapshots record state, how objects reuse content, how references organize history, and how collaboration handles divergence. These ideas support human judgment; AI helps us experiment, execute, and verify.
 
-1.  How individual developers understand Git's mental model.
-2.  How to handle conflicts, rollbacks, and accidental commits in daily development.
-3.  How teams choose the right branch and PR workflows.
-4.  How engineering leads establish collaboration standards using GitHub.
-5.  How to review, split, verify, and revert AI-generated code changes in AI-native development workflows.
+**The emphasis shifts from execution fluency toward understanding, judgment, and verification.** Practical skills still matter, especially reading critical commands and recognizing risk. Practice tests understanding.
 
-Therefore, v2.0 upgrades this repository into:
+[Read the philosophy](01-getting-started/01-getting-started_en/why-learn-git_en.md) · [Start learning interactively](https://xirong.github.io/my-git/interactive/git-mental-model/?lang=en)
 
-> A practical Git/GitHub handbook for modern engineering teams and AI-native development workflows.
+## From understanding design to managing collaboration
+
+Use the [knowledge map](01-getting-started/01-getting-started_en/knowledge-map_en.md) to identify whether you are solving a conceptual question, one engineering change, or team collaboration before entering the articles below.
+
+| What you want to develop | Start here | What you will be able to judge |
+| --- | --- | --- |
+| Understand the design | [Interactive learning](https://xirong.github.io/my-git/interactive/git-mental-model/?lang=en) → [Learning path](01-getting-started/01-getting-started_en/git-learning-path_en.md) | Where changes live, how history forms, and what recovery depends on |
+| Complete an engineering change | [Accept a change end to end](05-ai-native-development/05-ai-native-development_en/ai-change-control-loop_en.md) → [Review example](05-ai-native-development/05-ai-native-development_en/ai-change-review-example_en.md) | Whether scope, commit revision, and test evidence agree |
+| Manage collaboration | [Team Git Workflow Guide](03-team-collaboration/03-team-collaboration_en/team-git-workflow-guide_en.md) → [GitHub governance](04-github-engineering/04-github-engineering_en/github-engineering-governance_en.md) | How to isolate, review, authorize, release, and recover |
+
+Git supplies versions and history. Tests, review, permissions, artifacts, and release systems complete change control. This handbook covers both the tool’s capabilities and their limits.
 
 ## Who Is This For?
 
@@ -32,7 +38,7 @@ Therefore, v2.0 upgrades this repository into:
 
 | Directory | Problems Solved |
 | --- | --- |
-| [01-getting-started](01-getting-started/01-getting-started_en/git-learning-path_en.md) | Git basics, mental models, and the difference between Git and SVN |
+| [01-getting-started](01-getting-started/01-getting-started_en/knowledge-map_en.md) | Git basics, mental models, and the knowledge map |
 | [02-daily-workflow](02-daily-workflow/02-daily-workflow_en/everyday-git-commands_en.md) | Daily commands, branching and merging, rebase, stash, and worktree |
 | [03-team-collaboration](03-team-collaboration/03-team-collaboration_en/README_en.md) | Team workflows, PRs, Code Review, and selecting collaboration models |
 | [04-github-engineering](04-github-engineering/04-github-engineering_en/README_en.md) | Branch protection, Rulesets, CODEOWNERS, CI, releases, and security |
@@ -44,21 +50,21 @@ Therefore, v2.0 upgrades this repository into:
 
 ## Interactive Learning
 
-Use animations to understand Git snapshots, the object graph, and the Index. Follow the topics in order; each one combines a hands-on demonstration with its companion article.
+Use animations, articles, and temporary-repository labs to understand Git snapshots, the object graph, references, history transformations, remotes, worktrees, and storage. The ten topics follow one sequence: 01 through 03 use the existing interactives and 04 through 10 use the added interactives. Material and scripts can be checked; reader understanding still needs prediction, reproduction, and transfer.
 
 [Open the Git Mental Model Interactive Lab](https://xirong.github.io/my-git/interactive/git-mental-model/)
+
+[View the ten-topic article, interactive, and lab navigation](01-getting-started/01-getting-started_en/git-learning-path_en.md)
 
 ## Learning Paths
 
 ### Beginner Path
 
-1.  [Why Use Git](01-getting-started/01-getting-started_en/why-git_en.md)
+1.  [Why Learn Git in the AI Era](01-getting-started/01-getting-started_en/why-learn-git_en.md)
 2.  [Git Mental Model](01-getting-started/01-getting-started_en/git-mental-model_en.md)
-3.  [Snapshots and State: HEAD, Index, and Working Tree](01-getting-started/01-getting-started_en/git-mental-model-01-snapshots_en.md)
-4.  [The Object Graph: Blobs, Trees, and Commits](01-getting-started/01-getting-started_en/git-mental-model-02-object-graph_en.md)
-5.  [The Index Is the Next Commit Draft](01-getting-started/01-getting-started_en/git-mental-model-03-index_en.md)
-6.  [Git Basic Commands](01-getting-started/01-getting-started_en/git-basic-commands_en.md)
-7.  [Everyday Git Commands](02-daily-workflow/02-daily-workflow_en/everyday-git-commands_en.md)
+3.  [Ten-topic course navigation](01-getting-started/01-getting-started_en/git-learning-path_en.md): each topic connects an article, interactive, and temporary-repository lab.
+4.  [Git Basic Commands](01-getting-started/01-getting-started_en/git-basic-commands_en.md)
+5.  [Everyday Git Commands](02-daily-workflow/02-daily-workflow_en/everyday-git-commands_en.md)
 
 ### Daily Development Path
 
@@ -90,20 +96,25 @@ Use animations to understand Git snapshots, the object graph, and the Index. Fol
 
 ### AI Native Development Path
 
-1.  [AI Native Git Workflow](05-ai-native-development/05-ai-native-development_en/ai-native-git-workflow_en.md)
-2.  [AI-Generated Code Review](05-ai-native-development/05-ai-native-development_en/ai-generated-code-review_en.md)
-3.  [Codex / Claude Code Git Practices](05-ai-native-development/05-ai-native-development_en/codex-claude-code-git-practices_en.md)
-4.  [Git Integration Practices for AI Coding Tools](05-ai-native-development/05-ai-native-development_en/ai-coding-tools-git-integration_en.md)
-5.  [Worktree for AI Agents](05-ai-native-development/05-ai-native-development_en/worktree-for-ai-agents_en.md)
-6.  [Stacked PR for AI-Generated Changes](05-ai-native-development/05-ai-native-development_en/stacked-pr-for-ai-generated-changes_en.md)
-7.  [AI Reviewer and Human Reviewer](05-ai-native-development/05-ai-native-development_en/ai-reviewer-and-human-reviewer_en.md)
+1.  [Engineering Change Course](05-ai-native-development/05-ai-native-development_en/engineering-change-course_en.md)
+2.  [Accept an Agent Change](05-ai-native-development/05-ai-native-development_en/ai-change-control-loop_en.md)
+3.  [CI for AI-Generated Changes](05-ai-native-development/05-ai-native-development_en/ci-for-ai-generated-changes_en.md)
+4.  [Background Agent Tasks](05-ai-native-development/05-ai-native-development_en/background-agent-workflow_en.md)
+5.  [AI Native Git Workflow](05-ai-native-development/05-ai-native-development_en/ai-native-git-workflow_en.md)
+6.  [AI-Generated Code Review](05-ai-native-development/05-ai-native-development_en/ai-generated-code-review_en.md)
+7.  [Codex / Claude Code Git Practices](05-ai-native-development/05-ai-native-development_en/codex-claude-code-git-practices_en.md)
+8.  [Git Integration Practices for AI Coding Tools](05-ai-native-development/05-ai-native-development_en/ai-coding-tools-git-integration_en.md)
+9.  [Worktree for AI Agents](05-ai-native-development/05-ai-native-development_en/worktree-for-ai-agents_en.md)
+10. [Stacked PR for AI-Generated Changes](05-ai-native-development/05-ai-native-development_en/stacked-pr-for-ai-generated-changes_en.md)
+11. [AI Reviewer and Human Reviewer](05-ai-native-development/05-ai-native-development_en/ai-reviewer-and-human-reviewer_en.md)
 
 ### Troubleshooting Path
 
 1.  [Git Troubleshooting Playbook](06-troubleshooting/06-troubleshooting_en/git-troubleshooting-playbook_en.md)
-2.  [Undo Anything](06-troubleshooting/06-troubleshooting_en/undo-anything_en.md)
-3.  [Recover Lost Commit](06-troubleshooting/06-troubleshooting_en/recover-lost-commit_en.md)
-4.  [Remove Secret from History](06-troubleshooting/06-troubleshooting_en/remove-secret-from-history_en.md)
+2.  [AI Agent Incident Recovery](06-troubleshooting/06-troubleshooting_en/ai-agent-incident-recovery_en.md)
+3.  [Undo Anything](06-troubleshooting/06-troubleshooting_en/undo-anything_en.md)
+4.  [Recover Lost Commit](06-troubleshooting/06-troubleshooting_en/recover-lost-commit_en.md)
+5.  [Remove Secret from History](06-troubleshooting/06-troubleshooting_en/remove-secret-from-history_en.md)
 
 ## Find Answers by Problem
 

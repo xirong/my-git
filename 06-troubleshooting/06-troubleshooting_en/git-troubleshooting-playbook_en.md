@@ -42,26 +42,30 @@ git log --oneline --decorate -10
 git reflog -10
 ```
 
-If the working tree still has uncommitted code, temporarily save it first:
+If the working tree still has uncommitted code, confirm that all of it belongs to you and that you intend to restore it later before temporarily saving it:
 
 ```bash
 git stash push -u -m "backup-before-recovery"
 ```
 
+If status includes edits owned by someone else or untracked files with an uncertain source, stop in this worktree, preserve the state, or use a separate worktree.
+
 ## Scenario 1: Committed to the wrong branch
 
 ### Phenomenon
 
-You made a commit on `main` that originally belonged in a feature branch.
+You made a commit on a branch named `main` that originally belonged in a feature branch. `main` is an example; use the wrong branch name established by the checks.
 
 ### Check First
 
 ```bash
-git status
+git status --porcelain
 git log --oneline -5
 ```
 
 ### Safe Handling: Not yet pushed
+
+This flow applies only when the last commit has not been pushed, no collaborator depends on it, and `git status --porcelain` prints nothing. If there is staged, unstaged, or untracked content, stop before reset and preserve the state.
 
 ```bash
 git branch feat/right-branch
@@ -98,17 +102,15 @@ git reflog
 
 ### Recovery Method
 
-Find the position before the reset:
+After finding the position before the reset, first confirm a clean workspace and preserve the current position, then recover:
 
 ```bash
+git status --porcelain
+git branch backup-before-recover HEAD
 git reset --hard HEAD@{1}
 ```
 
-If unsure, first create a backup branch:
-
-```bash
-git branch backup-before-recover HEAD@{1}
-```
+Stop when `git status --porcelain` prints anything. `HEAD@{1}` must come from the reflog entry just inspected; do not guess by position.
 
 ## Scenario 3: Lost a commit
 
@@ -154,19 +156,19 @@ git reflog
 git log --oneline --decorate -10
 ```
 
-Have colleagues who still retain the old commits execute:
+`<integration-branch>` is the actual integration branch that was overwritten, such as `main`, `master`, or `develop`. Have colleagues who still retain the old commits execute:
 
 ```bash
-git log --oneline origin/main -10
+git log --oneline origin/<integration-branch> -10
 git reflog -10
 ```
 
 ### Restore Remote Branch
 
-After finding the correct commit:
+After finding the correct commit, confirming remote permissions and branch rules, and obtaining authorization from the relevant owner:
 
 ```bash
-git push origin <good-sha>:main
+git push origin <good-sha>:<integration-branch>
 ```
 
 If the branch is protected, it requires handling by an administrator or platform owner.
@@ -220,8 +222,12 @@ git rebase --continue
 
 ```bash
 git reflog
+git status --porcelain
+git branch backup-before-rebase-recover HEAD
 git reset --hard <before-rebase-sha>
 ```
+
+This also requires `git status --porcelain` to print nothing, and `<before-rebase-sha>` must come from an inspected reflog entry rather than a guessed commit.
 
 ## Scenario 9: Reverting a public commit
 
@@ -238,29 +244,44 @@ This adds a reverse commit, keeping history clear and collaborators safe.
 ### First identify what will be deleted
 
 ```bash
-git status
+git status --porcelain
 git clean -nd
 ```
 
+`git clean -nd` only lists candidates; it does not prove that they may be deleted.
+
 ### Delete untracked files
 
+After confirming that a path is an untracked file the owner authorizes discarding, name that path precisely:
+
 ```bash
-git clean -fd
+git clean -f -- <owned-untracked-path>
 ```
 
 ### Discard tracked file changes
 
+After confirming path ownership, the expected baseline, and authorization:
+
 ```bash
-git restore <file>
+git restore --worktree -- <owned-tracked-path>
 ```
 
 ### High-risk operation
 
+First run:
+
 ```bash
-git reset --hard
+git status --porcelain
 ```
 
-Confirm there are no local changes you need to preserve before executing.
+If `git status --porcelain` prints anything, stop. Only when the worktree is clean, `<verified-ref>` has been verified, and local history may be rewritten, preserve the current position and run reset:
+
+```bash
+git branch backup-before-hard-reset HEAD
+git reset --hard <verified-ref>
+```
+
+If there is staged, unstaged, or untracked content that must be retained, stop rather than run a broad restore, clean, or reset.
 
 ## Quick Decision Table
 

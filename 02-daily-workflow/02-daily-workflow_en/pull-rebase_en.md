@@ -19,15 +19,17 @@ If both your local branch and the remote branch have new commits, a normal pull 
 
 ## What pull --rebase Does
 
+`<integration-branch>` denotes the team's actual integration branch, which may be `main`, `master`, or `develop`.
+
 ```bash
-git pull --rebase origin main
+git pull --rebase origin <integration-branch>
 ```
 
 Is roughly equivalent to:
 
 ```bash
 git fetch origin
-git rebase origin/main
+git rebase origin/<integration-branch>
 ```
 
 It will first get the remote updates, and then place your local commits after the latest remote commits.
@@ -48,11 +50,11 @@ It will first get the remote updates, and then place your local commits after th
 
 ## Recommended Workflow
 
+First require `git status --porcelain` to print nothing. Existing edits may enter a stash only when all of them belong to you and you explicitly intend to restore them. Leave edits owned by someone else or untracked files with an uncertain source in place and use a clean worktree.
+
 ```bash
-git status
-git stash push -u -m "backup before pull rebase"
-git pull --rebase origin main
-git stash apply
+git status --porcelain
+git pull --rebase origin <integration-branch>
 ```
 
 If conflict resolution gets messy:

@@ -14,183 +14,41 @@ Original links:
 - [Aider Git Integration](https://aider.chat/docs/git.html)
 - [Cursor 2.0 and Composer](https://cursor.com/blog/2-0)
 
-## 1. Common Trends
+## Scope
 
-AI coding tools are shifting from "completing code in the editor" to "completing tasks around the Git workspace."
+This page is the fact lookup for tool integrations: Git-facing shapes, official sources, and differences that need rechecking as product versions change. Before adopting a capability, open its source and confirm the relevant version, permissions, and product boundary.
 
-Their common direction is clear:
+Branch isolation, diff review, commit organization, validation, and human merge responsibility are stable practices across tools; see [Codex / Claude Code Git Practices](codex-claude-code-git-practices_en.md).
 
-- Tasks are triggered from Issues, Prompts, PR comments, or local commands.
-- Modifications occur in isolated branches, worktrees, sandboxes, or remote environments.
-- Output is presented as diffs, commits, PRs, logs, and validation results.
-- Merging still requires human review, CI, and repository rules.
+## 1. How to use these tool facts
 
-This indicates that Git remains the collaboration boundary in AI programming.
+Each tool may touch a repository or GitHub, but its entry point, execution environment, network and write permissions, and commit or PR behavior can vary by product, plan, organization settings, and version. This page does not turn one tool's UI or defaults into a team workflow. Confirm the capability available in the relevant official source, then use [Codex / Claude Code Git Practices](codex-claude-code-git-practices_en.md) for tool-independent isolation, review, and human acceptance rules.
 
-## 2. Codex: Remote Environments, Sandboxes, PR Collaboration
+## 2. Codex: cloud, sandboxing, and version changes
 
-The core feature of Codex is executing tasks in isolated environments and feeding results back to GitHub or local workflows.
+OpenAI maintains separate official material for Codex cloud, sandboxing, and the changelog above. Before adoption, confirm whether a task actually runs locally or in cloud, the selected sandbox's command, network, and file-access scope, and whether repository connection and PR return are enabled for the account and organization in question. Feature names and availability follow the official documentation and changelog for the relevant version.
 
-Recommended team usage:
+## 3. Claude Code: the worktree form
 
-- Give Codex a clear task; avoid letting it freely explore the entire repository.
-- Require it to output changed files, validation commands, and risks.
-- Use PRs or diffs as entry points for human review.
-- Maintain a default tight grip on permissions, networking, and command execution.
-- Split large tasks into multiple small tasks for parallel execution.
+Claude Code's official worktree documentation connects parallel sessions with Git worktrees; its common-workflows documentation adds command and session behavior. Before enabling it, check the worktree location, branch naming, and local-configuration handling for the relevant version. Whether a worktree inherits sensitive files, can be safely cleaned, or contains an acceptable change remains a repository decision under the [practices page](codex-claude-code-git-practices_en.md).
 
-The value of the Codex sandbox lies in limiting the execution scope. The ability for AI to run commands is a source of efficiency but also a source of risk; teams must include permissions, network access, sensitive files, and external writes in their rules.
+## 4. GitHub Copilot Cloud Agent: cloud tasks and sessions
 
-Recommended PR description addition:
+GitHub's cloud-agent and session documentation define its GitHub task entry points and session concepts. Whether a task can start from a particular Issue or entry point, which branch or PR it creates, which Actions run, and which tokens and secrets are visible depends on the current GitHub plan, repository settings, workflows, and permissions. [Background Agent Tasks](background-agent-workflow_en.md) owns the task contract, candidate SHA, and receiving decision.
 
-```text
-AI tool:
-Codex
+## 5. Aider: Git-integrated local sessions
 
-Human intent:
-Fix timeout validation for expired config.
+Aider's Git-integration documentation records its Git-facing commands and automatic-commit capability. Before using automatic commits, `/undo`, `/diff`, or commit verification, confirm the setting, hook behavior, and changed-path scope in the current Aider documentation. Whether a commit belongs to the task, whether history may be rewritten, and which validation must be retained belong to the [practices page](codex-claude-code-git-practices_en.md).
 
-Human checked:
-- git diff --stat
-- changed files
-- test result
-- rollback path
-```
+## 6. Cursor: Composer and multi-agent release information
 
-## 3. Claude Code: Worktree Isolation for Parallel Sessions
+Cursor's 2.0 release material introduces Composer, multi-agent parallelism, and concentrated diff review. That release page describes one product version; it does not establish matching behavior for other versions, plans, or organization settings. [Background Agent Tasks](background-agent-workflow_en.md) and [Multi-Agent Branch Strategy](multi-agent-branch-strategy_en.md) cover boundaries, candidate reclaim, and review capacity for concurrent work.
 
-Official Claude Code documentation explicitly recommends using worktrees as a way to isolate parallel sessions.
+## 7. From tool facts to engineering practices
 
-It solves the problem of multiple AI sessions overwriting each other in the same repository.
+After confirming a tool fact, choose the stable rule for the engineering problem in front of you:
 
-Recommended practice:
-
-```bash
-claude --worktree feature-auth
-claude --worktree bugfix-payment-timeout
-```
-
-Or create manually:
-
-```bash
-git worktree add ../repo-feature-auth -b ai/feature-auth
-cd ../repo-feature-auth
-claude
-```
-
-Note:
-
-- Add `.claude/worktrees/` to `.gitignore`.
-- Do not copy `.env`, local configurations, or secret files to worktrees by default.
-- Check `git status` after each worktree is finished.
-- Reorganize branches to follow team naming conventions before merging.
-- Clean up useless worktrees to avoid too much leftover local context.
-
-## 4. GitHub Copilot Cloud Agent: From Issue to PR
-
-The typical path for GitHub Copilot Cloud Agent is triggering a task from an Issue or GitHub entry point; the Agent analyzes requirements, modifies code, commits to a branch, and creates a PR.
-
-Suitable for:
-
-- Small fixes
-- Documentation additions
-- Test completion
-- Low-risk refactoring
-- Issues with clear acceptance criteria
-
-Not suitable for:
-
-- Large features with unclear requirement boundaries
-- Problems requiring production data for judgment
-- High-risk changes involving security, permissions, billing, or payments
-- Architectural adjustments requiring cross-team approval
-
-Teams should write Issues more like task orders:
-
-```text
-Goal:
-
-Scope:
-
-Out of scope:
-
-Acceptance criteria:
-
-Tests to run:
-
-Risk:
-```
-
-## 5. Aider: Git-First Local Pair Programming
-
-Aider's characteristic is its deep use of Git: it can automatically commit AI modifications, and you can also use `/diff`, `/undo`, `/commit`, and `/git` to manage changes.
-
-Best for local developers who want to pair program quickly, but teams should pay close attention to automatic commit strategies.
-
-Suggestions:
-
-- Ensure the workspace is clean before starting.
-- Do not mix uncommitted human changes with AI modifications.
-- Letting Aider commit automatically can improve the convenience of rolling back, but commits should still be manually organized before merging.
-- For repositories requiring pre-commit hooks, clarify whether to enable `--git-commit-verify`.
-
-Recommended workflow:
-
-```bash
-git status
-git switch -c ai/aider-small-fix
-aider
-git log --oneline -5
-git diff main...HEAD
-git rebase -i main
-```
-
-## 6. Cursor: Multi-Agent and Aggregated Diffs
-
-The official Cursor 2.0 release emphasizes Composer, multi-agent parallelism, and a more centralized diff review experience.
-
-This tool form's requirements for Git workflows are:
-
-- Multi-agent tasks must have clear boundaries.
-- Each agent's output must be individually reviewable.
-- Aggregated diffs can only serve as an entry point and cannot replace file-level review.
-- Final commits should be split by logic to avoid committing directly based on tool execution results.
-
-Suitable for using Cursor in:
-
-- Exploring multiple solutions
-- Local transformations of UI or frontend
-- Documentation and test additions
-- Small-scale refactoring
-
-## 7. Unified Team Rules
-
-Regardless of the AI tool used, teams should unify these rules:
-
-| Rule | Recommended Practice |
-| --- | --- |
-| Task Boundary | Process only one clear goal at a time |
-| Isolation Method | Branches, worktrees, sandboxes, or remote environments |
-| Diff review | Humans first check `git diff --stat` and key files |
-| Commit Splitting | Split by tests, implementation, documentation, and configuration |
-| Validation Results | PR must clearly state commands and results |
-| Merge Responsibility | Human reviewer assumes final judgment |
-| Rollback Path | Each PR must explain how to undo it |
-
-## 8. Recommended Minimum Workflow
-
-```text
-Issue / prompt
--> isolated branch or worktree
--> AI edits
--> human checks diff
--> split commits
--> run tests
--> AI review as assistant
--> human review
--> PR
--> CI
--> merge
-```
-
-The stronger the AI tools, the clearer the Git workflow must be.
+- [Codex / Claude Code Git Practices](codex-claude-code-git-practices_en.md): isolation, existing-edit checks, diff review, commit organization, and the human acceptance preconditions.
+- [Engineering Change Course](engineering-change-course_en.md): a continuous case for task contract, candidate revision, runtime evidence, and recovery.
+- [CI for AI-Generated Changes](ci-for-ai-generated-changes_en.md): bind checks to a candidate or integration SHA and inspect workflow permissions and secrets.
+- [Background Agent Tasks](background-agent-workflow_en.md): record base, candidate, attempt, permission, and receiving decision for asynchronous work.

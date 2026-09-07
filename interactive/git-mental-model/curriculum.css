@@ -1,0 +1,204 @@
+.lesson-main {
+  max-width: 820px;
+}
+.lesson-header {
+  margin-bottom: 54px;
+}
+.lesson-header .intro {
+  max-width: 680px;
+}
+.lesson-question {
+  margin: 0 0 30px;
+  font-size: clamp(25px, 4vw, 36px);
+}
+.model-note {
+  margin: -2px 0 14px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.curriculum-model {
+  margin: 30px -34px 22px;
+}
+.curriculum-model .figure-shell {
+  border-radius: 2px;
+}
+.curriculum-model .figure-top {
+  min-height: 54px;
+}
+.curriculum-model .figure-top label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.curriculum-model select {
+  max-width: 330px;
+  padding: 7px 26px 7px 8px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper);
+  font: 12px/1.4 var(--mono);
+}
+.curriculum-model .diagram {
+  aspect-ratio: 760/370;
+}
+.diagram .ref rect {
+  fill: var(--orange-bg);
+  stroke: var(--orange);
+}
+.diagram .commit rect {
+  fill: var(--green-bg);
+  stroke: var(--green);
+}
+.diagram .content rect {
+  fill: var(--blue-bg);
+  stroke: var(--blue);
+}
+.diagram .plain rect {
+  fill: var(--paper);
+  stroke: var(--line);
+}
+.diagram .gone {
+  opacity: .28;
+}
+.diagram .gone rect {
+  fill: var(--wash);
+  stroke-dasharray: 5 4;
+}
+.diagram .emphasis rect {
+  stroke-width: 2;
+}
+.diagram .edge-label {
+  font-size: 9px;
+  fill: var(--muted);
+}
+.result-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+.result-strip div {
+  min-width: 0;
+  padding: 10px 14px;
+  border-right: 1px solid var(--line);
+}
+.result-strip div:last-child {
+  border-right: 0;
+}
+.result-strip small,
+.result-strip strong {
+  display: block;
+}
+.result-strip small {
+  color: var(--muted);
+  font: 9px/1.5 var(--mono);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.result-strip strong {
+  margin-top: 2px;
+  font: 11px/1.55 var(--mono);
+  overflow-wrap: anywhere;
+}
+.lesson-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 46px 0 74px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.lesson-links a {
+  min-height: 86px;
+  padding: 18px;
+  background: var(--paper);
+  text-decoration: none;
+}
+.lesson-links strong,
+.lesson-links span {
+  display: block;
+}
+.lesson-links span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.lesson-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+}
+.lesson-nav a {
+  text-decoration: none;
+}
+.lesson-nav a:last-child {
+  text-align: right;
+}
+.lesson-nav span,
+.lesson-nav b {
+  display: block;
+}
+.lesson-nav span {
+  color: var(--muted);
+  font: 10px/1.6 var(--mono);
+}
+.lesson-nav b {
+  font-size: 14px;
+}
+.no-js-model {
+  margin: 20px 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: var(--wash);
+  font: 12px/1.7 var(--mono);
+  white-space: pre-wrap;
+}
+@media (max-width: 700px) {
+  .curriculum-model {
+    margin-inline: -8px;
+  }
+  .curriculum-model .figure-top {
+    display: grid;
+    gap: 8px;
+  }
+  .curriculum-model .figure-top label {
+    display: grid;
+    gap: 4px;
+  }
+  .curriculum-model select {
+    width: 100%;
+    max-width: none;
+  }
+  .curriculum-model .diagram {
+    aspect-ratio: 390/500;
+  }
+  .result-strip {
+    grid-template-columns: 1fr;
+  }
+  .result-strip div {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .result-strip div:last-child {
+    border-bottom: 0;
+  }
+  .lesson-links {
+    grid-template-columns: 1fr;
+  }
+  .lesson-nav {
+    gap: 16px;
+  }
+}
+@media (max-width: 360px) {
+  .transport .play {
+    min-width: 56px;
+  }
+  .transport output {
+    min-width: 38px;
+  }
+  .lesson-nav b {
+    font-size: 12px;
+  }
+}

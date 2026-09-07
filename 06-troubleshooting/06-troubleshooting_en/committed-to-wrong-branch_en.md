@@ -9,14 +9,16 @@ It is easy to handle when not yet pushed. Once pushed, prioritize avoiding disru
 ## Check First
 
 ```bash
-git status
+git status --porcelain
 git branch --show-current
 git log --oneline --decorate -5
 ```
 
 ## Not Yet Pushed
 
-Assume you accidentally committed the last commit to `main`, but it should have been in `feat/right-branch`.
+Assume you accidentally committed the last commit to a branch named `main`, but it should have been in `feat/right-branch`. `main` is only an example; use the wrong branch name shown by the checks in the real repository.
+
+This flow applies only when the last commit has not been pushed, no collaborator depends on it, and `git status --porcelain` prints nothing. If there is staged, unstaged, or untracked content, stop before reset and preserve the state.
 
 ```bash
 git branch feat/right-branch

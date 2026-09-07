@@ -1,5 +1,7 @@
 # AI 编程工具的 Git 集成实践
 
+[English](05-ai-native-development_en/ai-coding-tools-git-integration_en.md) | 中文
+
 原文链接：
 
 - [OpenAI Codex Web](https://developers.openai.com/codex/cloud)
@@ -12,183 +14,41 @@
 - [Aider Git Integration](https://aider.chat/docs/git.html)
 - [Cursor 2.0 and Composer](https://cursor.com/blog/2-0)
 
-## 1. 共同趋势
+## 本文负责什么
 
-AI 编程工具正在从“编辑器里补代码”变成“围绕 Git 工作区完成任务”。
+本文是工具事实的速查入口：各工具与 Git 的接入形态、官方来源，以及需要随产品版本重新核对的差异都放在这里。采用某项能力前，打开对应原文确认适用版本、权限与产品边界。
 
-它们的共同方向很清楚：
+分支隔离、diff 审查、提交组织、验证和人工合入责任是跨工具的稳定实践，见[Codex / Claude Code Git 实践](codex-claude-code-git-practices.md)。
 
-- 任务从 Issue、Prompt、PR 评论或本地命令触发
-- 修改发生在隔离分支、worktree、sandbox 或远程环境中
-- 输出以 diff、commit、PR、日志和验证结果呈现
-- 合入前仍要经过人类 Review、CI 和仓库规则
+## 1. 怎样使用这份工具事实
 
-这说明 Git 在 AI 编程里仍然是协作边界。
+这些工具都可能接触仓库或 GitHub，但触发入口、执行环境、网络与写入权限、提交和 PR 行为会随产品、套餐、组织配置与版本变化。本页不把某个工具的界面或默认值写成团队流程。先从对应官方链接确认本次实际可用的能力，再进入[Codex / Claude Code Git 实践](codex-claude-code-git-practices.md)采用跨工具的隔离、审查和人工接收规则。
 
-## 2. Codex：远程环境、sandbox、PR 协作
+## 2. Codex：cloud、sandbox 与版本变化
 
-Codex 的核心特点是把任务放到隔离环境里执行，再把结果反馈到 GitHub 或本地工作流。
+OpenAI 将 Codex cloud、sandboxing 和变更记录分别维护在上方三份官方资料中。采用时确认任务实际运行在本地还是 cloud，所选 sandbox 的命令、网络和文件访问范围，以及仓库连接和 PR 回传是否已经在本次账户与组织配置中启用。页面中的功能名称和可用范围以对应版本的官方文档与 changelog 为准。
 
-适合的团队用法：
+## 3. Claude Code：worktree 形态
 
-- 给 Codex 一个明确任务，避免让它自由探索整个仓库
-- 要求它输出改动文件、验证命令和风险
-- 用 PR 或 diff 作为人类审查入口
-- 对权限、网络、命令执行保持默认收紧
-- 大任务拆成多个小任务并行执行
+Claude Code 的官方 worktree 文档将并行会话与 Git worktree 联系起来；常见工作流文档补充其命令和会话行为。启用前按对应版本核对 worktree 的创建位置、分支命名和本地配置处理方式。worktree 是否继承敏感文件、该目录是否可安全清理，以及怎样接收其中的改动，仍按仓库规则和[实践页](codex-claude-code-git-practices.md)判断。
 
-Codex sandbox 的价值在于限制执行范围。AI 能跑命令是效率来源，也是风险来源，团队要把权限、网络访问、敏感文件、外部写入都纳入规则。
+## 4. GitHub Copilot Cloud Agent：云端任务和会话
 
-推荐 PR 描述补充：
+GitHub 的 cloud-agent 与 session 文档说明其 GitHub 内的任务入口和会话概念。实际能否从某个 Issue 或入口发起、会产生什么分支或 PR、哪些 Actions 会运行，以及哪些令牌和 secrets 可见，取决于当前 GitHub 计划、仓库设置、工作流和权限。任务契约、候选 SHA 与接收决定由[后台 Agent 任务](background-agent-workflow.md)统一说明。
 
-```text
-AI tool:
-Codex
+## 5. Aider：Git 集成本地会话
 
-Human intent:
-Fix timeout validation for expired config.
+Aider 的 Git 集成文档记录其 Git 相关命令与自动提交能力。使用自动提交、`/undo`、`/diff` 或 commit verification 前，应以当前 Aider 版本文档确认开关、hook 行为和实际改动范围。提交是否属于任务、是否可以重写历史以及哪些验证必须保留，见[实践页](codex-claude-code-git-practices.md)。
 
-Human checked:
-- git diff --stat
-- changed files
-- test result
-- rollback path
-```
+## 6. Cursor：Composer 与多 Agent 发布信息
 
-## 3. Claude Code：worktree 隔离并行会话
+Cursor 2.0 的发布资料介绍 Composer、多 Agent 并行和集中 diff 审查体验。该发布页说明的是该版本的产品形态，不保证其他版本、套餐或组织配置也有相同行为。并行任务的边界、候选接收和审查容量，由[后台 Agent 任务](background-agent-workflow.md)与[多 Agent 分支策略](multi-agent-branch-strategy.md)处理。
 
-Claude Code 官方文档明确把 worktree 用作并行会话隔离方式。
+## 7. 从工具事实进入工程实践
 
-它解决的是同一个仓库里多个 AI 会话互相覆盖的问题。
+确认工具事实后，再根据眼前的工程问题选择一份稳定规则：
 
-推荐做法：
-
-```bash
-claude --worktree feature-auth
-claude --worktree bugfix-payment-timeout
-```
-
-或手工创建：
-
-```bash
-git worktree add ../repo-feature-auth -b ai/feature-auth
-cd ../repo-feature-auth
-claude
-```
-
-需要注意：
-
-- 把 `.claude/worktrees/` 加入 `.gitignore`
-- `.env`、本地配置、密钥文件不要默认复制到 worktree
-- 每个 worktree 完成后检查 `git status`
-- 合入前把分支整理成团队正常命名
-- 清理无用 worktree，避免本地残留太多上下文
-
-## 4. GitHub Copilot Cloud Agent：Issue 到 PR
-
-GitHub Copilot Cloud Agent 的典型路径是从 Issue 或 GitHub 入口触发任务，Agent 分析需求、修改代码、提交到分支，并创建 PR。
-
-适合：
-
-- 小型修复
-- 文档补充
-- 测试补齐
-- 低风险重构
-- 有清晰验收条件的 Issue
-
-不适合：
-
-- 需求边界不清的大功能
-- 需要线上数据判断的问题
-- 牵涉安全、权限、计费、支付的高风险改动
-- 需要跨团队拍板的架构调整
-
-团队应该把 Issue 写得更像任务单：
-
-```text
-Goal:
-
-Scope:
-
-Out of scope:
-
-Acceptance criteria:
-
-Tests to run:
-
-Risk:
-```
-
-## 5. Aider：git-first 本地结对
-
-Aider 的特点是深度使用 Git：可以自动提交 AI 修改，也可以用 `/diff`、`/undo`、`/commit`、`/git` 管理变更。
-
-它适合本地开发者快速结对，但团队要特别注意自动提交策略。
-
-建议：
-
-- 开始前先保证工作区干净
-- 不要把人类未提交改动和 AI 修改混在一起
-- 让 Aider 自动提交可以提高回退便利性，但合入前仍要人工整理 commit
-- 对需要 pre-commit hook 的仓库，明确是否启用 `--git-commit-verify`
-
-推荐流程：
-
-```bash
-git status
-git switch -c ai/aider-small-fix
-aider
-git log --oneline -5
-git diff main...HEAD
-git rebase -i main
-```
-
-## 6. Cursor：多 Agent 与聚合 diff
-
-Cursor 2.0 的官方发布强调 Composer、多 Agent 并行和更集中的 diff 审查体验。
-
-这种工具形态对 Git 工作流的要求是：
-
-- 多 Agent 任务必须有清晰边界
-- 每个 Agent 的输出要能单独审查
-- 聚合 diff 只能作为入口，不能代替文件级 Review
-- 最终提交要按逻辑拆分，避免按工具运行结果直接提交
-
-适合把 Cursor 用在：
-
-- 多方案探索
-- UI 或前端局部改造
-- 文档和测试补充
-- 小范围重构
-
-## 7. 团队统一规则
-
-不管使用哪种 AI 工具，团队都应该统一这些规则：
-
-| 规则 | 推荐做法 |
-| --- | --- |
-| 任务边界 | 每次只处理一个明确目标 |
-| 隔离方式 | 分支、worktree、sandbox 或远程环境 |
-| diff 审查 | 人类先看 `git diff --stat` 和关键文件 |
-| commit 拆分 | 按测试、实现、文档、配置拆开 |
-| 验证结果 | PR 必须写清命令和结果 |
-| 合入责任 | 人类 reviewer 承担最终判断 |
-| 回滚路径 | 每个 PR 都要能说明如何撤销 |
-
-## 8. 推荐最小流程
-
-```text
-Issue / prompt
--> isolated branch or worktree
--> AI edits
--> human checks diff
--> split commits
--> run tests
--> AI review as assistant
--> human review
--> PR
--> CI
--> merge
-```
-
-AI 工具越强，Git 工作流越要清楚。
+- [Codex / Claude Code Git 实践](codex-claude-code-git-practices.md)：隔离、检查已有编辑、审查 diff、组织提交和人工合入前提。
+- [一次工程变更课程](engineering-change-course.md)：把任务契约、候选版本、运行证据和恢复串成连续案例。
+- [AI 生成变更的 CI](ci-for-ai-generated-changes.md)：将检查绑定到候选或集成 SHA，并核对工作流权限和 secrets。
+- [后台 Agent 任务](background-agent-workflow.md)：记录异步任务的 base、candidate、attempt、权限和接收决定。

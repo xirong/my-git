@@ -15,6 +15,14 @@ Use it when you have unfinished code but need to switch branches, pull code, or 
 
 ## Basic Usage
 
+`git stash push -u` saves and removes all tracked staged and unstaged content plus untracked files from the current worktree. Check its scope first:
+
+```bash
+git status --porcelain
+```
+
+Use it only when all of that content belongs to you and you intend to restore it later. If status includes edits owned by someone else or files with an uncertain source, stop in this worktree and use a separate worktree.
+
 Save current changes, including untracked files:
 
 ```bash
@@ -57,8 +65,11 @@ A safer workflow:
 git stash apply stash@{0}
 git status
 git diff
+git diff --cached
 git stash drop stash@{0}
 ```
+
+Run `git stash drop` only after confirming that staged, unstaged, and untracked content has all been restored as expected; a successful `apply` alone is not enough to delete the saved state.
 
 ## Common Misconceptions
 

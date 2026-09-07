@@ -1,0 +1,45 @@
+# Knowledge Map: from Understanding Design to Managing Collaboration
+
+English | [中文](../knowledge-map.md)
+
+Use this map to choose a reading path and the next decision. It does not replace the command handbook or repeat the ten-topic Git course. First identify the layer you are in, then enter the relevant article.
+
+## Three layers
+
+| Layer | Required prior understanding | Question this layer answers | Start here | Decision to make next |
+| --- | --- | --- | --- | --- |
+| Understand the design | Be ready to observe one edit, stage, and commit in a temporary repository | What Git records, how history forms, and which states can be recovered | [Why Learn Git in the AI Era](why-learn-git_en.md) → [Git Mental Model](git-mental-model_en.md) → [Ten-topic learning path](git-learning-path_en.md) | Can you describe the state of one change in the working tree, index, HEAD, and remote? If yes, move to engineering changes; otherwise return to the related exercise. |
+| Complete an engineering change | Distinguish the working tree, index, and committed revision, and preserve existing edits when you find them | How to turn a bounded task into a scoped, evidenced, recoverable change | [Engineering Change Course](../../05-ai-native-development/05-ai-native-development_en/engineering-change-course_en.md) → [Accept an Agent Change](../../05-ai-native-development/05-ai-native-development_en/ai-change-control-loop_en.md) → [CI for AI-Generated Changes](../../05-ai-native-development/05-ai-native-development_en/ci-for-ai-generated-changes_en.md) | Can this change be reviewed on its own, do tests and CI name the candidate or integration commit, and how will code and external effects each be handled if it fails? |
+| Manage collaboration | Every change can already state its task boundary, validation evidence, and recovery scope | Which collaboration model a team should choose, which rules are enforceable, and whether a case can transfer | [Team Git Workflow Guide](../../03-team-collaboration/03-team-collaboration_en/team-git-workflow-guide_en.md) → [GitHub Engineering Governance](../../04-github-engineering/04-github-engineering_en/github-engineering-governance_en.md) → [Template Library](../../08-templates/08-templates_en/README_en.md) → [Engineering Practice Decision Map](../../10-company-practices/10-company-practices_en/company-practices-decision-map_en.md) | Who defines branch lifetime, approval responsibility, required checks, release, and recovery, and how do the repository and platform enforce them? |
+
+Learning Git concepts, accepting one change, and establishing team rules are connected, but none substitutes for another. Completing the ten exercises does not validate a business change; passing local tests does not confirm team permissions, release, or external state.
+
+## What each key article owns
+
+| Article or entry point | Question it owns | Where to go after reading |
+| --- | --- | --- |
+| [Why Learn Git in the AI Era](why-learn-git_en.md) | Why people still need to understand Git, and which judgments belong to people and tools | Enter the [Git Mental Model](git-mental-model_en.md) to build a causal explanation of states, objects, and references. |
+| [Git Mental Model](git-mental-model_en.md) | Use the four-area quick model to enter the ten topics and explain Git’s underlying relationships | Use the [learning path](git-learning-path_en.md) to predict, observe, and reproduce specific behavior. |
+| [Learning Git](git-learning-path_en.md) | The article, interactive, and lab order for ten conceptual topics | After you can predict the behavior, take a real small task into the engineering-change path. |
+| [Engineering Change Course](../../05-ai-native-development/05-ai-native-development_en/engineering-change-course_en.md) | Follow a task contract through isolation, candidate commit, review, CI, artifact, runtime, and recovery | Read [Accept an Agent Change](../../05-ai-native-development/05-ai-native-development_en/ai-change-control-loop_en.md) for the evidence fields, or choose CI, background-task, and incident-recovery topics by risk. |
+| [Accept an Agent Change](../../05-ai-native-development/05-ai-native-development_en/ai-change-control-loop_en.md) | Link intent, candidate commit, testing, artifact, and runtime evidence in one inspectable exercise | Use the [AI Change Review Practice Example](../../05-ai-native-development/05-ai-native-development_en/ai-change-review-example_en.md) to practice accepting or returning a diff. |
+| [CI for AI-Generated Changes](../../05-ai-native-development/05-ai-native-development_en/ci-for-ai-generated-changes_en.md) | Bind checks to a candidate or integration revision and select business tests by change type | Check the actual repository workflow, permissions, secrets, and required checks before deciding to merge. |
+| [Background Agent Tasks](../../05-ai-native-development/05-ai-native-development_en/background-agent-workflow_en.md) | Which version, scope, permissions, and evidence a task needs from dispatch through reclaim | The receiver checks the candidate SHA and chooses acceptance, rework, rejection, or expiry; for case transfer, read [two AI Agent engineering cases](../../10-company-practices/10-company-practices_en/ai-native-engineering-cases_en.md). |
+| [Git Integration Practices for AI Coding Tools](../../05-ai-native-development/05-ai-native-development_en/ai-coding-tools-git-integration_en.md) | Record tool capabilities, official sources, and integration differences that need revision-specific verification | Once the tool shape is known, follow [Codex / Claude Code Git Practices](../../05-ai-native-development/05-ai-native-development_en/codex-claude-code-git-practices_en.md) for stable Git habits. |
+| [Codex / Claude Code Git Practices](../../05-ai-native-development/05-ai-native-development_en/codex-claude-code-git-practices_en.md) | Isolate tasks with branches or worktrees, review diffs, organize commits, and retain human merge responsibility | For multi-person work, continue to [team workflow](../../03-team-collaboration/03-team-collaboration_en/team-git-workflow-guide_en.md) and [GitHub governance](../../04-github-engineering/04-github-engineering_en/github-engineering-governance_en.md). |
+| [Team Git Workflow Guide](../../03-team-collaboration/03-team-collaboration_en/team-git-workflow-guide_en.md) | Choose a branching and integration model based on team constraints | Put the decision into [GitHub governance](../../04-github-engineering/04-github-engineering_en/github-engineering-governance_en.md) and reusable [templates](../../08-templates/08-templates_en/README_en.md). |
+| [AI Agent Incident Recovery](../../06-troubleshooting/06-troubleshooting_en/ai-agent-incident-recovery_en.md) | What scene to preserve for agent edits, abandoned worktrees, mistaken commits, or exposed credentials | Handle code recovery and business compensation by sharing state, then return to engineering changes to strengthen scope, review, and validation. |
+
+## Choose by the decision in front of you
+
+| Decision you need to make | Read first | Then check |
+| --- | --- | --- |
+| Which state will one command change? | [Git Mental Model](git-mental-model_en.md) | Reproduce it in the learning path’s temporary-repository lab. |
+| An agent says “done”; should I accept it? | [Engineering Change Course](../../05-ai-native-development/05-ai-native-development_en/engineering-change-course_en.md) | Whether commit scope, tested revision, artifact, and runtime evidence agree. |
+| A background task returns late or runs twice; how do I reclaim it? | [Background Agent Tasks](../../05-ai-native-development/05-ai-native-development_en/background-agent-workflow_en.md) | Whether task ID, base, candidate, target ref, evidence, and acceptance owner agree. |
+| How can simultaneous tasks avoid overwriting each other? | [Codex / Claude Code Git Practices](../../05-ai-native-development/05-ai-native-development_en/codex-claude-code-git-practices_en.md) | Whether worktrees or branches are isolated, and who integrates and cleans up. |
+| An agent edited, deleted, or left an unknown worktree; what comes first? | [AI Agent Incident Recovery](../../06-troubleshooting/06-troubleshooting_en/ai-agent-incident-recovery_en.md) | Whether the scene, commit range, sharing state, and effects outside Git are recorded separately. |
+| Should the team use GitHub Flow, Gitflow, or trunk-based development? | [Team Git Workflow Guide](../../03-team-collaboration/03-team-collaboration_en/team-git-workflow-guide_en.md) | Release cadence, integration frequency, CI capability, and rollback cost. |
+| Can a public case study be copied? | [Two AI Agent Engineering Cases](../../10-company-practices/10-company-practices_en/ai-native-engineering-cases_en.md) | Whether the source is self-reported or independent evidence, and whether your team constraints match its prerequisites. |
+
+Commands, incident cases, and templates are execution aids. When you need one, use this map to enter the right layer, then return here for the next decision.

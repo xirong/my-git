@@ -1,0 +1,4 @@
+ok: an unshared agent-only range moved locally after a recovery ref was retained
+ok: verified shared agent commits were reverted while the human commit remained
+ok: a conflicting revert aborted back to the pre-revert HEAD, content, and clean state
+ok: ordinary worktree removal rejected dirty content and a lock retained stale metadata through prune
