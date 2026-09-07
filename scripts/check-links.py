@@ -12,6 +12,10 @@ import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 
+sys.dont_write_bytecode = True
+
+from link_targets import local_path_from_target, normalize_target, repo_pages_path
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -46,9 +50,6 @@ LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 USER_AGENT = "my-git-link-check/1.0 (+https://github.com/xirong/my-git)"
 HTTP_TIMEOUT_SECONDS = 12
 MAX_WORKERS = 8
-REPO_PAGES_HOST = "xirong.github.io"
-REPO_PAGES_PREFIX = "/my-git/"
-
 # These statuses generally mean the URL exists but the site refuses automated
 # checks, requires authentication, or rate-limits the runner.
 SOFT_HTTP_STATUSES = {401, 403, 429}
@@ -97,13 +98,6 @@ def markdown_files() -> list[Path]:
     return sorted(set(files))
 
 
-def normalize_target(raw: str) -> str:
-    target = raw.strip()
-    if target.startswith("<") and target.endswith(">"):
-        target = target[1:-1].strip()
-    return target
-
-
 def strip_fragment(target: str) -> str:
     return target.split("#", 1)[0]
 
@@ -123,20 +117,8 @@ def is_external(target: str) -> bool:
 
 
 def repo_pages_target(url: str) -> Path | None:
-    """Map this repository's Pages URL to its source file when available."""
-    parsed = urllib.parse.urlparse(url)
-    if parsed.netloc.lower() != REPO_PAGES_HOST or not parsed.path.startswith(REPO_PAGES_PREFIX):
-        return None
-
-    relative_path = urllib.parse.unquote(parsed.path[len(REPO_PAGES_PREFIX):])
-    candidate = (REPO_ROOT / relative_path).resolve()
-    try:
-        candidate.relative_to(REPO_ROOT)
-    except ValueError:
-        return None
-    if candidate.is_dir():
-        candidate = candidate / "index.html"
-    return candidate if candidate.exists() else None
+    """Map this repository's Pages URL to its local source path."""
+    return repo_pages_path(url, REPO_ROOT)
 
 
 def check_empty_links(links: list[LinkOccurrence]) -> list[str]:
@@ -151,14 +133,18 @@ def check_local_links(links: list[LinkOccurrence]) -> list[str]:
     errors: list[str] = []
     for link in links:
         target = normalize_target(link.raw)
-        if not target or target.startswith(("#", "mailto:")) or is_external(target):
+        if not target or target.startswith(("#", "mailto:")):
             continue
 
-        local_target = urllib.parse.unquote(strip_fragment(target))
-        if not local_target:
-            continue
-
-        resolved = (link.path.parent / local_target).resolve()
+        if is_external(target):
+            resolved = repo_pages_target(target)
+            if resolved is None:
+                continue
+        else:
+            local_target = local_path_from_target(target)
+            if not local_target:
+                continue
+            resolved = (link.path.parent / local_target).resolve()
         if not resolved.exists():
             errors.append(f"{rel(link.path)}:{link.line}: broken local link: {target}")
     return errors

@@ -4,6 +4,8 @@ English | [中文](../README.md)
 
 This directory is used for handling high-frequency Git accidents. First, determine the state, then choose a recovery plan; do not copy dangerous commands right away.
 
+It serves the “complete an engineering change” layer of the [knowledge map](../../01-getting-started/01-getting-started_en/knowledge-map_en.md) and owns incident preservation and recovery choices. Afterward, return to the change path to strengthen scope, review, and validation.
+
 ## Answer Three Questions First
 
 1. Has the code been committed?
@@ -28,6 +30,7 @@ The answers to these three questions determine whether you can rewrite history, 
 | Problem I'm Facing | Recommended Reading |
 | --- | --- |
 | Unsure how to recover | [Git Troubleshooting Playbook](git-troubleshooting-playbook_en.md) |
+| An agent edited, deleted, or left a worktree | [AI Agent Incident Recovery](ai-agent-incident-recovery_en.md) |
 | Committed to the wrong branch | [Committed to Wrong Branch](committed-to-wrong-branch_en.md) |
 | Want to undo an operation | [Undo Anything](undo-anything_en.md) |
 | Cannot find a commit | [Recover Lost Commit](recover-lost-commit_en.md) |
@@ -48,4 +51,6 @@ The answers to these three questions determine whether you can rewrite history, 
 
 - [Everyday Git Commands](../../02-daily-workflow/02-daily-workflow_en/everyday-git-commands_en.md)
 - [AI Change Review Example](../../05-ai-native-development/05-ai-native-development_en/ai-change-review-example_en.md)
+- [Engineering Change Course](../../05-ai-native-development/05-ai-native-development_en/engineering-change-course_en.md)
+- [CI for AI-Generated Changes](../../05-ai-native-development/05-ai-native-development_en/ci-for-ai-generated-changes_en.md)
 - [Hotfix Process](../../08-templates/08-templates_en/hotfix-process_en.md)

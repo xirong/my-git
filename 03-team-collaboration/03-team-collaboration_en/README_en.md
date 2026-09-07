@@ -4,6 +4,8 @@ English | [中文](../README.md)
 
 This directory helps teams choose the right Git workflow and integrates branches, PRs, reviews, and release rhythms into a stable collaboration model.
 
+It belongs to the “manage collaboration” layer of the [knowledge map](../../01-getting-started/01-getting-started_en/knowledge-map_en.md). Before entering this directory, be able to state one change’s scope, validation evidence, and recovery boundary.
+
 ## What to Read First
 
 | Problem to Solve | Recommended Reading |

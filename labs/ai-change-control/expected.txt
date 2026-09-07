@@ -1,0 +1,14 @@
+The values below are placeholders. Every run prints measured commit SHAs,
+artifact SHA-256 values, and a system-assigned loopback port.
+
+ok: scoped commits preserved notes/agent-scratch.md as an unrelated working-tree edit
+ok: dirty test exited 0 while clean bad candidate exited 1 with the required timeout message
+ok: clean worktree test passed at candidate <40-hex-commit-sha>
+ok: candidate artifact SHA-256 <64-hex-artifact-sha256>
+ok: tampered candidate artifact was rejected before start for checksum mismatch
+ok: candidate artifact HTTP response came from 127.0.0.1 on port <system-assigned-port>
+ok: rollback commit <40-hex-commit-sha> kept external event count 2
+
+With --keep, the final line is:
+
+kept lab root: <marked-temporary-path>

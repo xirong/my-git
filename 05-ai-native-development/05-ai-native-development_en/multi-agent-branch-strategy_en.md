@@ -30,7 +30,7 @@ fix/parser-empty-input
 
 ## Comparing Experimental Branches
 
-Two agents each produced a solution. First check what each branch changed relative to the main line:
+Two agents each produced a solution. First check what each branch changed relative to the main line. The `main` below is an example integration branch actually named `main`; replace it consistently with the team's confirmed branch when the repository uses `master`, `develop`, or another name:
 
 ```bash
 git log --oneline main..ai/experiment-parser-a

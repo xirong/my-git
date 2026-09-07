@@ -6,6 +6,8 @@
 
 ## 什么时候创建分支
 
+本文用 `<integration-branch>` 表示团队实际使用的集成分支。它可以叫 `main`、`master` 或 `develop`，需要按仓库规则替换。
+
 建议每个独立任务创建一个分支：
 
 - 新功能
@@ -24,7 +26,7 @@ git switch -c feat/my-task
 切回主分支：
 
 ```bash
-git switch main
+git switch <integration-branch>
 ```
 
 ## 分支命名建议
@@ -41,12 +43,12 @@ ai/review-large-repo-guide
 
 ## 合并前检查
 
-合并前先看：
+合并前先看。`git status --porcelain` 必须没有输出；有待处理编辑时，先保留现场，不要切换到集成分支或执行 merge：
 
 ```bash
-git status
-git diff --stat main...HEAD
-git log --oneline main..HEAD
+git status --porcelain
+git diff --stat <integration-branch>...HEAD
+git log --oneline <integration-branch>..HEAD
 ```
 
 确认：
@@ -64,7 +66,7 @@ git log --oneline main..HEAD
 保留分支合入历史，适合需要审计合并上下文的团队。
 
 ```bash
-git switch main
+git switch <integration-branch>
 git merge --no-ff feat/my-task
 ```
 

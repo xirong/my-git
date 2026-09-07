@@ -28,7 +28,7 @@ fix/parser-empty-input
 
 ## 对比多个实验分支
 
-两个 Agent 各自做了一版方案，先分别看每个分支相对主线改了什么：
+两个 Agent 各自做了一版方案，先分别看每个分支相对主线改了什么。下面的 `main` 是名为 `main` 的示例集成分支；实际仓库使用 `master`、`develop` 或其他名称时，要整体替换为团队确认的分支：
 
 ```bash
 git log --oneline main..ai/experiment-parser-a

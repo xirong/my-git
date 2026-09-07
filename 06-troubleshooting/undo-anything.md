@@ -10,32 +10,37 @@ Git 撤销前先判断变更状态。
 
 ## 本地未提交改动
 
-丢弃某个文件的工作区改动：
+丢弃一个已经确认归属、允许丢弃的已跟踪路径的工作区改动：
 
 ```bash
-git restore <file>
+git restore --worktree -- <owned-path>
 ```
 
 取消暂存：
 
 ```bash
-git restore --staged <file>
+git restore --staged -- <owned-path>
 ```
 
-丢弃所有已跟踪文件的工作区改动：
+只有所有已跟踪编辑都属于自己、已经逐项检查且 owner 授权全部丢弃时，才可扩大到整个工作区：
 
 ```bash
-git restore .
+git restore --worktree -- .
 ```
 
 执行前先看：
 
 ```bash
-git status
-git diff
+git status --porcelain
+git diff -- <owned-path>
+git diff --cached -- <owned-path>
 ```
 
+状态里出现来源不清、其他 owner 或需要保留的 staged、unstaged、untracked 内容时，停止，不执行 restore、clean 或 reset。
+
 ## 已提交但未 push
+
+以下 reset 只处理自己尚未 push、没有协作者依赖的最后一个 commit。先确认 `git status --porcelain` 没有输出；已有 staged 内容会和 `reset --soft` 留下的内容混在同一个 Index，应该先保留现场或使用干净 worktree。
 
 修改最后一个 commit：
 
@@ -67,19 +72,28 @@ git revert <commit-sha>
 
 ## 高风险命令
 
-```bash
-git reset --hard
-git push --force
-git clean -fd
-```
+这些命令分别会重写本地状态、远端历史或删除未跟踪文件。先用明确路径和只读检查确认归属，再由 owner 决定是否丢弃。
 
-这些命令执行前，先确认没有要保留的改动。
-
-建议先建备份分支：
+先执行：
 
 ```bash
-git branch backup-before-undo
+git status --porcelain
 ```
+
+`git status --porcelain` 有输出时停止，保留现场。只有工作区干净、`<verified-ref>` 已核实且本地历史确实允许重写时，才先建备份分支再执行 reset：
+
+```bash
+git branch backup-before-undo HEAD
+git reset --hard <verified-ref>
+```
+
+单独预览未跟踪候选路径：
+
+```bash
+git clean -nd
+```
+
+`git clean -nd` 只列出候选文件。只有 owner 确认某个未跟踪路径可丢弃时，才对该路径执行 `git clean -f -- <owned-untracked-path>`；不要把预览直接扩大成 `git clean -fd`。`git push --force` 是另一类远端操作，还需要远端权限、分支规则和协作者确认。
 
 ## 延伸阅读
 

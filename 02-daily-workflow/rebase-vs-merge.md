@@ -40,9 +40,12 @@ git rebase -i HEAD~3
 
 ### 2. 让 feature 分支跟上主分支
 
+`<integration-branch>` 是团队确定的实际集成分支。rebase 会改写当前分支的本地提交，因此先确认当前工作区干净、提交尚未被协作者基于开发，且团队允许此操作。
+
 ```bash
+git status --porcelain
 git fetch origin
-git rebase origin/main
+git rebase origin/<integration-branch>
 ```
 
 这样可以让你的分支历史排在最新主分支之后。
@@ -71,7 +74,7 @@ GitHub 文档也提醒，rebase 会改写提交历史，已经 push 到仓库的
 
 ```bash
 git merge feature/login
-git rebase origin/main
+git rebase origin/<integration-branch>
 git rebase -i HEAD~3
 git rebase --abort
 git rebase --continue

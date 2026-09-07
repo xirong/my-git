@@ -12,11 +12,13 @@ git log --oneline --decorate -10
 git reflog -20
 ```
 
-如果工作区还有未提交改动：
+如果工作区还有未提交改动，先确认全部内容都属于自己并准备稍后恢复：
 
 ```bash
 git stash push -u -m "backup before recover lost commit"
 ```
+
+状态里出现其他 owner 的编辑或来源不清的未跟踪文件时，停止在这个工作区操作，保留现场或使用独立 worktree。
 
 ## 用 reflog 找 commit
 
@@ -33,9 +35,11 @@ git switch recovered-work
 
 这样可以先检查内容：
 
+`<integration-branch>` 是团队实际的集成分支，例如 `main`、`master` 或 `develop`：
+
 ```bash
 git show --stat
-git diff main...HEAD
+git diff <integration-branch>...HEAD
 ```
 
 ## 常见可恢复场景

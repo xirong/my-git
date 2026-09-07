@@ -1,0 +1,9 @@
+Worktree Lab / Worktree 实验
+
+- `primary` checks out `main`; `feature` checks out `feature/parallel`.
+- Both worktrees resolve their object database through one common Git directory.
+- Their `HEAD` and Index paths differ.
+- Before commits, `main-note.txt` is staged only in `primary` and `feature-note.txt` only in `feature`.
+- Git rejects a second checkout of `main`; the distinct feature branch succeeds.
+- A merge in `primary` includes the feature commit without moving feature's `HEAD`.
+- The external file sits outside Git isolation and receives writes from both contexts.

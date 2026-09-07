@@ -1,0 +1,17 @@
+Remote Ref Lab / 远端引用实验
+
+fetch-only observation
+
+- reader HEAD and local main remain at A.
+- reader origin/main advances from A to B.
+- reader Index and Working Tree still contain `version=1`.
+
+explicit fast-forward integration
+
+- reader HEAD, local main, origin/main, Index, and Working Tree all show B / `version=2`.
+
+later divergence
+
+- reader creates C while writer pushes D to the disposable bare origin.
+- reader's direct push is rejected because C cannot fast-forward the origin's D.
+- a bare-repository hook rejects a direct update to `protected`; this is a policy simulation, not hosted-service authentication.

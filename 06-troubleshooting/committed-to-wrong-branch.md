@@ -7,14 +7,16 @@
 ## 先检查
 
 ```bash
-git status
+git status --porcelain
 git branch --show-current
 git log --oneline --decorate -5
 ```
 
 ## 还没 push
 
-假设你在 `main` 上误提交了最后一个 commit，本来应该在 `feat/right-branch`。
+假设你在名为 `main` 的分支上误提交了最后一个 commit，本来应该在 `feat/right-branch`。这里的 `main` 只是示例，实际要用检查结果里的错误分支名。
+
+以下流程只适用于最后一个 commit 尚未 push、没有协作者依赖、并且 `git status --porcelain` 没有输出的情况。只要有 staged、unstaged 或 untracked 内容，就停止在 reset 前并保留现场。
 
 ```bash
 git branch feat/right-branch

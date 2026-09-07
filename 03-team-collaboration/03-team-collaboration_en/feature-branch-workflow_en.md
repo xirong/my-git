@@ -9,8 +9,10 @@ Its core principle is: develop every feature or fix in an independent branch, an
 ## Process
 
 ```text
-main -> feature branch -> pull request -> review -> CI -> merge
+<integration-branch> -> feature branch -> pull request -> review -> CI -> merge
 ```
+
+`<integration-branch>` denotes the team's actual integration branch, such as `main`, `master`, or `develop`.
 
 ## Suitable Scenarios
 
@@ -47,9 +49,12 @@ The longer a branch exists, the more it diverges from the main branch, making me
 
 ### 2. Sync with the main branch regularly
 
+Before synchronizing, confirm that the current feature branch has no other pending edits, that collaborators have not based work on local commits, and that team rules allow a rebase.
+
 ```bash
+git status --porcelain
 git fetch origin
-git rebase origin/main
+git rebase origin/<integration-branch>
 ```
 
 Whether to use rebase depends on team conventions.

@@ -4,6 +4,8 @@ English | [中文](../README.md)
 
 This directory is intended for teams dealing with monorepos, repositories with massive histories, large binary files, mixed multi-service repositories, and high CI clone costs.
 
+It is the scaling topic in the “complete an engineering change” layer of the [knowledge map](../../01-getting-started/01-getting-started_en/knowledge-map_en.md). First complete one reviewable change, then choose a strategy here based on the performance symptom and team constraints.
+
 ## Identify Where the Slowness Originates First
 
 | Symptom | Recommended Reading |

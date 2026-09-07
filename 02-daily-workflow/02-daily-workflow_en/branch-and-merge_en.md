@@ -8,6 +8,8 @@ Good branching habits can reduce conflicts, minimize unrelated changes, and make
 
 ## When to Create a Branch
 
+This article uses `<integration-branch>` for the team's actual integration branch. It may be named `main`, `master`, or `develop`; replace it according to repository rules.
+
 Create a branch for each independent task:
 
 - New features
@@ -26,7 +28,7 @@ git switch -c feat/my-task
 Switch back to the main branch:
 
 ```bash
-git switch main
+git switch <integration-branch>
 ```
 
 ## Branch Naming Suggestions
@@ -43,12 +45,12 @@ For more templates, see [Branch Naming Convention](../../08-templates/08-templat
 
 ## Pre-Merge Checks
 
-Before merging, first check:
+Before merging, first check. `git status --porcelain` must print nothing; if there are pending edits, preserve the state instead of switching to the integration branch or merging:
 
 ```bash
-git status
-git diff --stat main...HEAD
-git log --oneline main..HEAD
+git status --porcelain
+git diff --stat <integration-branch>...HEAD
+git log --oneline <integration-branch>..HEAD
 ```
 
 Confirm that:
@@ -66,7 +68,7 @@ Confirm that:
 Retains the branch integration history, suitable for teams that need to audit the merge context.
 
 ```bash
-git switch main
+git switch <integration-branch>
 git merge --no-ff feat/my-task
 ```
 

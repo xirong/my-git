@@ -2,6 +2,51 @@
 
 v2.0 的目标是补齐现代工程团队在 Git / GitHub 协作、AI 编程、事故处理和工程治理上的实战内容。
 
+## 本轮交付：理解、实验、变更控制
+
+仓库用[理念文章](../01-getting-started/why-learn-git.md)说明维护动机，并用[学习路径](../01-getting-started/git-learning-path.md)连接十个主题的中英文文章、交互和临时仓库实验。现有目录继续作为资料索引，读者不必按文件夹编号学习。
+
+### 本地材料状态
+
+- [x] 新增[知识地图](../01-getting-started/knowledge-map.md)，按“理解设计 → 完成工程变更 → 管理协作”说明前置知识、问题入口和下一项判断。
+- [x] 明确[工具集成实践](../05-ai-native-development/ai-coding-tools-git-integration.md)负责工具事实与来源，[Codex / Claude Code Git 实践](../05-ai-native-development/codex-claude-code-git-practices.md)负责跨工具的稳定 Git 流程。
+- [x] 新增[工程变更课程](../05-ai-native-development/engineering-change-course.md)、[AI 生成变更的 CI](../05-ai-native-development/ci-for-ai-generated-changes.md)、[后台 Agent 任务](../05-ai-native-development/background-agent-workflow.md)和[Agent 事故恢复](../06-troubleshooting/ai-agent-incident-recovery.md)，分别连接验收链、检查版本、异步交接和事故现场。
+- [x] 新增[两个 AI Agent 工程案例](../10-company-practices/ai-native-engineering-cases.md)，将第一手公开报告与团队本地试点判断分开。
+
+这些条目只描述本地工作区可见的材料，不说明 tag、发布、静态站点部署或真实读者使用状态。
+
+### 材料和证据边界
+
+| 代码与材料可见 | 覆盖范围 | 仍需单独取得的证据 |
+| --- | --- | --- |
+| 01 至 10 的十篇中英文原理文章、十个实验和十个交互入口按同一顺序链接 | 快照、对象、Index、引用、恢复、合并、rebase、远端、worktree 与存储 | 读者实际能否预测、重现和迁移，还没有行为数据 |
+| 交互入口保留 01 至 03 的三个既有主题，并补入 04 至 10 的七个主题 | 每个主题可从文章跳转交互和实验 | 页面在目标静态站点的最终部署状态与真实读者体验需要单独核实 |
+| [工程变更课程](../05-ai-native-development/engineering-change-course.md)与[完整验收链](../05-ai-native-development/ai-change-control-loop.md)配有本地制品与 HTTP 服务实验 | 任务意图、候选 commit、干净检出测试、制品、回环地址运行结果和代码恢复可在临时根目录中观察 | 它不连接真实 CI、托管平台、生产环境或外部服务，也不构成供应链证明 |
+| [命令安全回归](../labs/git-command-safety/README.md)复核四种已列出的旧命令模式 | 脏工作区停手、完整路径提交、soft reset 后再部分暂存、集成分支占位符 | 未列出的历史示例、远端授权、分支保护、hooks 和团队规则不在这组回归范围内 |
+| `bash scripts/run-git-learning-labs.sh` 串行运行十个课程实验、三个阅读实验和三项 Agent/命令回归入口 | 可重复检查脚本描述的本地 Git 场景，包括 Agent 事故恢复实验 | 运行通过不能代替读者学习效果、性能基准或生产状态证据 |
+
+### 课程顺序与验证
+
+1. **01 至 03：快照、对象、Index。** 先观察一次编辑怎样分别出现在 HEAD、Index 和 Working Tree，再进入对象图和提交草稿。
+2. **04 至 05：引用与恢复。** branch、tag、HEAD 之后是可达性、reflog 与 GC 的恢复期限。
+3. **06 至 09：历史与协作。** 三方合并、rebase 重放、远端跟踪引用和 worktree 依次解释分歧、整合与隔离。
+4. **10：存储与维护。** 在对象模型之后区分逻辑快照、pack、GC 和 commit-graph，实验只观察受控临时仓库，性能结论仍需要单独测量。
+5. **Agent 变更验收。** 用本地制品与服务实验连接提交、测试和运行证据，并保留 Git 无法自动恢复外部状态的边界。
+
+### 每章的教学合同
+
+一条因果问题、一幅稳定画布、一个可改变的条件、一份临时仓库实验、一组预期输出、一种误解和恢复边界，以及一个 Agent 场景的判断题。动画只有在能解释变化时才运动；时间、计数和哈希必须注明真实或示意。
+
+学习验收包含三件事：能预测、能重现、能迁移。读者看完觉得“炫酷”是体验反馈，不能单独证明掌握。
+
+### 仍需维护的边界
+
+- Git 不保存所有工程状态：忽略文件、secrets、LFS 对象、子模块、数据库、依赖来源和环境需要分别处理。
+- 内容哈希、身份签名、CI 结果、业务正确性是不同证据，避免混为可信度评分。
+- 多 Agent 的瓶颈可能在集成与审查容量，不能只增加并行数。
+- 图解的简化条件、键盘操作、减少动态效果和无 JavaScript 阅读，需要持续维护。
+- 工具接入说明单独维护日期与来源，稳定原理不依赖某个产品的按钮位置。
+
 ## v2.0 目标
 
 v2.0 先做一件事：建立清晰的内容结构，并完成第一批能直接使用的核心文章和模板。
@@ -43,7 +88,7 @@ v2.0 先做一件事：建立清晰的内容结构，并完成第一批能直接
 - [x] 新增 `recover-lost-commit.md`
 - [x] 新增 `remove-secret-from-history.md`
 - [x] 全仓库链接校验
-- [ ] 准备 `v2.0.0` release notes
+- [x] `v2.0.0` release notes 文件已纳入仓库
 
 ## v2.1.0：Agent 治理与协作约定
 
@@ -74,4 +119,4 @@ v2.0 会围绕团队协作、GitHub 工程治理、AI 代码审查、事故恢�
 - [x] 新增 AI 变更审查实战样例
 - [x] 新增旧内容迁移清单
 - [x] 补齐 `07-large-repo/` 的实战决策表
-- [x] 准备 `v2.0.0` release notes
+- [x] 核对 `v2.0.0` release notes 文件已存在

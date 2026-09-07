@@ -10,13 +10,15 @@
 
 ## 开始一个任务
 
+`<integration-branch>` 是仓库和团队确定的集成分支，例如 `main`、`master` 或 `develop`。下面流程开始前，先确认工作区没有其他待处理编辑；`git status --porcelain` 有输出时，保留现场，或转到干净 worktree，不能用切换或同步命令覆盖它。
+
 ```bash
-git switch main
-git pull --rebase
+git status --porcelain
+git branch --show-current
+git switch <integration-branch>
+git pull --rebase origin <integration-branch>
 git switch -c feat/my-task
 ```
-
-如果你的团队主分支叫 `master` 或 `develop`，按团队实际分支替换。
 
 ## 查看当前状态
 
@@ -48,9 +50,12 @@ git commit -m "fix(scope): describe bug fix"
 
 ## 同步主分支
 
+在自己的 feature 分支上同步前，确认团队允许 rebase、分支未被协作者基于开发，并让 `git status --porcelain` 保持无输出。`origin/<integration-branch>` 必须替换为实际集成分支的远端跟踪引用。
+
 ```bash
+git status --porcelain
 git fetch origin
-git rebase origin/main
+git rebase origin/<integration-branch>
 ```
 
 如果你不确定是否应该 rebase，先看 [Rebase vs Merge](rebase-vs-merge.md)。
@@ -65,9 +70,11 @@ git push -u origin feat/my-task
 
 ## 临时切换任务
 
+`git stash push -u` 会把当前已跟踪和未跟踪内容都放进 stash。只在所有这些内容都属于自己、并且准备稍后恢复时使用；出现其他 owner 的编辑或来源不清的文件时，停止在这个工作区操作，改用独立 worktree。
+
 ```bash
 git stash push -u -m "wip: current task"
-git switch main
+git switch <integration-branch>
 git switch -c hotfix/urgent-fix
 ```
 

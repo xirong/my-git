@@ -1,0 +1,31 @@
+Rebase Replay / Rebase 重放
+
+Successful replay
+
+- replay-topic-original names the old topic feature commit.
+- replay-topic names a different new commit.
+- The old commit has replay-base as its parent.
+- The new commit has replay-upstream as its parent.
+- Both commits contain topic.txt with topic feature.
+
+No replay
+
+- no-replay and no-replay-before name replay-upstream.
+- This invocation has no commit eligible for replay and creates no new commit.
+
+In-progress conflict
+
+git status --short
+
+UU app.txt
+
+Index entries for app.txt during rebase
+
+- stage 1: owner=base, the merge base
+- stage 2: owner=upstream, ours after replay starts from upstream
+- stage 3: owner=topic, theirs from the commit being replayed
+
+Abort check in test.sh
+
+- git rebase --abort restores branch topic to topic-original.
+- The working tree becomes clean and REBASE_HEAD is removed.

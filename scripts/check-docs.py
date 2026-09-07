@@ -4,8 +4,11 @@ from __future__ import annotations
 import re
 import subprocess
 import sys
-import urllib.parse
 from pathlib import Path
+
+sys.dont_write_bytecode = True
+
+from link_targets import local_path_from_target, normalize_target, repo_pages_path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -119,19 +122,23 @@ def check_local_links(files: list[Path]) -> list[str]:
         text = path.read_text(encoding="utf-8")
         for pattern in patterns:
             for match in pattern.finditer(text):
-                raw = match.group(1).strip()
-                if not raw or raw.startswith(("#", "http://", "https://", "mailto:")):
+                raw = match.group(1)
+                target = normalize_target(raw)
+                if not target or target.startswith(("#", "mailto:")):
                     continue
 
-                target = raw.split("#", 1)[0]
-                target = urllib.parse.unquote(target)
-                if target.startswith("<") and target.endswith(">"):
-                    target = target[1:-1]
-
-                resolved = (path.parent / target).resolve()
+                if target.startswith(("http://", "https://")):
+                    resolved = repo_pages_path(target, REPO_ROOT)
+                    if resolved is None:
+                        continue
+                else:
+                    local_target = local_path_from_target(target)
+                    if not local_target:
+                        continue
+                    resolved = (path.parent / local_target).resolve()
                 if not resolved.exists():
                     line = text[:match.start()].count("\n") + 1
-                    errors.append(f"{rel(path)}:{line}: broken local link: {raw}")
+                    errors.append(f"{rel(path)}:{line}: broken local link: {target}")
 
     return errors
 

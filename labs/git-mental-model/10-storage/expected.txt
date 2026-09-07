@@ -1,0 +1,8 @@
+Object Storage Lab / 对象存储实验
+
+- Fourteen similar commits remain readable as the same logical snapshots.
+- Repack produces pack and index files; `git verify-pack` reports at least one delta object.
+- `git show <stable-commit>` is identical before and after repack, commit-graph creation, GC, and prune of the laboratory orphan.
+- The commit-graph file exists and `git commit-graph verify` succeeds.
+- `git prune --expire=now` removes the known unreachable blob in this disposable repository.
+- Object counts and byte sizes are observations for this run, not benchmark claims.

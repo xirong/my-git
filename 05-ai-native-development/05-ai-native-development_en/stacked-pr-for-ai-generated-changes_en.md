@@ -16,6 +16,8 @@ The value of Stacked PRs lies in splitting a large change into a set of PRs with
 
 ## 1. What is a Stacked PR
 
+The `main` in this section's diagrams and commands is an example integration branch named `main`. When a repository uses `master`, `develop`, or another name, replace the branch creation base, PR base, and rebase target with the integration branch confirmed by the team.
+
 Ordinary PR:
 
 ```text

@@ -4,6 +4,8 @@
 
 这个目录用于处理 Git 高频事故。先判断状态，再选择恢复方案，不要一上来复制危险命令。
 
+它服务于[知识地图](../01-getting-started/knowledge-map.md)的“完成工程变更”层，负责事故中的现场保护与恢复选择。事后回到变更路径，补足范围、审查和验证。
+
 ## 先回答三个问题
 
 1. 代码是否已经提交
@@ -28,6 +30,7 @@
 | 我现在遇到的问题 | 建议阅读 |
 | --- | --- |
 | 不确定该怎么救 | [Git 高频事故处理手册](git-troubleshooting-playbook.md) |
+| Agent 误改、删除或遗留 worktree | [Agent 事故恢复](ai-agent-incident-recovery.md) |
 | commit 提交到了错误分支 | [Committed to Wrong Branch](committed-to-wrong-branch.md) |
 | 想撤销某个操作 | [Undo Anything](undo-anything.md) |
 | commit 找不到了 | [Recover Lost Commit](recover-lost-commit.md) |
@@ -48,4 +51,6 @@
 
 - [日常 Git 命令](../02-daily-workflow/everyday-git-commands.md)
 - [AI 变更审查实战样例](../05-ai-native-development/ai-change-review-example.md)
+- [一次工程变更课程](../05-ai-native-development/engineering-change-course.md)
+- [AI 生成变更的 CI](../05-ai-native-development/ci-for-ai-generated-changes.md)
 - [Hotfix Process](../08-templates/hotfix-process.md)

@@ -31,19 +31,38 @@ git push
 
 ## Branch
 
+`<integration-branch>` 是团队实际使用的集成分支名，常见值有 `main`、`master` 和 `develop`。先按仓库规则确认名称，再切换；不要把 `main` 当作固定默认值。
+
 ```bash
 git switch -c feat/my-task
-git switch main
+git branch --show-current
+git switch <integration-branch>
 git branch
 ```
 
 ## Undo
 
+`git restore` 会覆盖指定路径的 Working Tree。执行前先确认该路径归属自己，且当前版本允许丢弃：
+
 ```bash
-git restore <file>
-git restore --staged <file>
+git status --porcelain
+git diff -- <owned-path>
+git restore --worktree -- <owned-path>
+```
+
+只想取消暂存、并保留该路径的 Working Tree 编辑时：
+
+```bash
+git restore --staged -- <owned-path>
+```
+
+已提交的改动需要新增反向 commit 时：
+
+```bash
 git revert <commit-sha>
 ```
+
+`git restore --staged` 只调整 Index，Working Tree 的编辑会保留；`git revert` 为已提交的改动新增一个反向 commit。
 
 ## 建议练习顺序
 
@@ -56,15 +75,18 @@ git revert <commit-sha>
 
 ## 高风险命令先别急着用
 
-新手阶段谨慎使用：
+先检查是否存在需要保留的 staged、unstaged 或 untracked 内容，并只预览未跟踪文件：
 
 ```bash
-git reset --hard
-git push --force
-git clean -fd
+git status --porcelain
+git diff
+git diff --cached
+git clean -nd
 ```
 
-这些命令可能直接丢弃本地改动或改写远端历史。
+`git status --porcelain` 有输出时，停止，不执行 `git reset --hard` 或 `git clean`。`git clean -nd` 只列出候选路径，不能证明它们可以删除。
+
+确认本地编辑的归属和处置授权、验证 reset 的目标提交，并确认远端权限、分支规则和协作者影响后，才由 owner 决定是否使用 `git reset --hard`、`git clean -fd` 或 `git push --force`。它们分别可能丢弃已跟踪编辑、删除未跟踪路径和改写远端历史。
 
 如果只是想撤销普通工作区改动，优先学习 [Undo Anything](../06-troubleshooting/undo-anything.md)。
 

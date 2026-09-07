@@ -18,11 +18,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run docs checks
-        run: python scripts/check-docs.py
-
-      - name: Run Git mental model labs
+      - name: Run documentation checks
         run: |
-          bash labs/git-mental-model/01-snapshots-and-state/test.sh
-          bash labs/git-mental-model/02-object-graph/test.sh
-          bash labs/git-mental-model/03-index/test.sh
+          python scripts/check-docs.py
+          python scripts/check-links.py --no-external
+          python scripts/test-link-checkers.py
+
+      - name: Run Git learning labs
+        run: bash scripts/run-git-learning-labs.sh

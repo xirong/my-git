@@ -6,6 +6,8 @@ This directory collects Git, branch management, code review, CI, Monorepo, and e
 
 It does not aim to merely list materials, but focuses on clearly explaining the engineering judgments in these public cases: what the problem is, what the approach is, which teams it suits, and what to pay attention to when migrating.
 
+It belongs to the “manage collaboration” layer of the [knowledge map](../../01-getting-started/01-getting-started_en/knowledge-map_en.md). Use cases to compare constraints and tradeoffs; they cannot replace your team’s rule design.
+
 ## Organized Cases
 
 If you don't know which one to read first, start with the [Tech Giant Engineering Practices Decision Map](company-practices-decision-map_en.md). It connects cases and thematic articles based on team problems.
@@ -13,6 +15,7 @@ If you don't know which one to read first, start with the [Tech Giant Engineerin
 | Case | Suitable Reading Scenario |
 | --- | --- |
 | [Tech Giant Engineering Practices Decision Map](company-practices-decision-map_en.md) | Select cases based on team problems, and understand which thematic articles the cases can be migrated to |
+| [Two AI Agent Engineering Cases](ai-native-engineering-cases_en.md) | Distinguish first-party reports, self-reported observations, and pilot hypotheses a team can validate |
 | [Alibaba AoneFlow Branch Management Practice](alibaba-aoneflow_en.md) | Multiple features in parallel, organize release branches by environment, need to flexibly adjust release scope |
 | [Tencent Gitflow Branch Convention Practice](tencent-gitflow_en.md) | Client, SDK, enterprise delivery products, need stable release / hotfix processes |
 | [ByteDance Git Workflow and R&D Infrastructure Practice](bytedance-git-workflow_en.md) | Large-scale R&D organizations, need to connect Git processes, permissions, CI, and release platforms |

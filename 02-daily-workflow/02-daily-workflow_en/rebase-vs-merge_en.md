@@ -42,9 +42,12 @@ Common operations:
 
 ### 2. Keeping a Feature Branch Up to Date with the Main Branch
 
+`<integration-branch>` is the team's actual integration branch. Rebase rewrites local commits on the current branch, so first confirm a clean workspace, that collaborators have not based work on those commits, and that the team permits the operation.
+
 ```bash
+git status --porcelain
 git fetch origin
-git rebase origin/main
+git rebase origin/<integration-branch>
 ```
 
 This allows your branch history to be placed right after the latest main branch.
@@ -73,7 +76,7 @@ GitHub documentation also warns that rebase rewrites commit history. Rebasing co
 
 ```bash
 git merge feature/login
-git rebase origin/main
+git rebase origin/<integration-branch>
 git rebase -i HEAD~3
 git rebase --abort
 git rebase --continue

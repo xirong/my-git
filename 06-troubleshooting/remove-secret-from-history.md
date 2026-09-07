@@ -20,16 +20,18 @@
 git filter-repo --path path/to/secret-file --invert-paths
 ```
 
-然后强推清理后的历史：
+先在没有待处理本地编辑的专用 clone 中执行，确认 `path/to/secret-file` 是已泄露的真实路径，并由安全 owner 和仓库 owner 明确受影响的远端、分支、标签、分支保护规则及协作者恢复方案。
+
+以下强推适用于已确认该远端全部分支和标签都需要同步重写后的历史。`<affected-remote>` 是已核实的远端名：
 
 ```bash
-git push --force --all
-git push --force --tags
+git push --force --all <affected-remote>
+git push --force --tags <affected-remote>
 ```
 
 ## 注意风险
 
-历史重写会影响所有协作者，执行前必须通知团队，并要求所有人重新同步仓库。
+历史重写会影响所有协作者，执行前必须通知团队，并要求所有人按已约定的恢复方案重新同步仓库。这个流程只用于已泄露 secret 的事故处置，普通历史整理不应扩大为对全部分支和标签的强推。
 
 ## 清理后
 

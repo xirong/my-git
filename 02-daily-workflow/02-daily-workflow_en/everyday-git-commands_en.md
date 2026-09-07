@@ -12,13 +12,15 @@ Pull latest code -> Create branch -> Modify -> Check diff -> Commit -> Push -> O
 
 ## Starting a Task
 
+`<integration-branch>` is the integration branch selected by the repository and team, such as `main`, `master`, or `develop`. Before this flow, confirm that the workspace has no other pending edits. If `git status --porcelain` prints anything, preserve the state or move to a clean worktree; do not overwrite it with switching or synchronization commands.
+
 ```bash
-git switch main
-git pull --rebase
+git status --porcelain
+git branch --show-current
+git switch <integration-branch>
+git pull --rebase origin <integration-branch>
 git switch -c feat/my-task
 ```
-
-If your team's main branch is named `master` or `develop`, replace it according to the actual branch used by your team.
 
 ## Checking Current Status
 
@@ -50,9 +52,12 @@ git commit -m "fix(scope): describe bug fix"
 
 ## Syncing with the Main Branch
 
+Before synchronizing a personal feature branch, confirm that the team permits rebasing, that collaborators have not based work on this branch, and that `git status --porcelain` prints nothing. Replace `origin/<integration-branch>` with the remote-tracking ref for the actual integration branch.
+
 ```bash
+git status --porcelain
 git fetch origin
-git rebase origin/main
+git rebase origin/<integration-branch>
 ```
 
 If you are unsure whether you should rebase, read [Rebase vs Merge](rebase-vs-merge_en.md) first.
@@ -67,9 +72,11 @@ Then create a PR on GitHub / GitLab.
 
 ## Temporarily Switching Tasks
 
+`git stash push -u` puts all currently tracked and untracked content into the stash. Use it only when all of that content belongs to you and you intend to restore it later. If edits have another owner or an uncertain source, stop in this worktree and use a separate worktree instead.
+
 ```bash
 git stash push -u -m "wip: current task"
-git switch main
+git switch <integration-branch>
 git switch -c hotfix/urgent-fix
 ```
 

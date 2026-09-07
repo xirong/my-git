@@ -49,40 +49,33 @@ git diff --stat
 
 这些都需要先确认是否相关。
 
-## 第二步：清掉明显无关文件
+## 第二步：确认归属，不凭“无关”清理
 
-先处理未跟踪日志：
+状态列表能说明路径变了，不能说明谁拥有它。这个场景里的 `package-lock.json`、`README.md` 和 `debug-output.log` 可能来自 AI，也可能是用户或另一个 Agent 正在保留的编辑、排障证据或待提交工作。
 
-```bash
-rm debug-output.log
-```
-
-如果 `package-lock.json` 没有真实依赖变化，恢复它：
-
-```bash
-git restore package-lock.json
-```
-
-如果 `README.md` 只是 AI 顺手补的泛泛说明，先恢复：
-
-```bash
-git restore README.md
-```
-
-再看一次：
+先记录 staged 和 unstaged 的范围：
 
 ```bash
 git status --short
-git diff --stat
+git diff --cached --name-only
+git diff --name-only
 ```
 
-目标状态应该更聚焦：
+把每个路径标成“本任务完整路径”“其他 owner 的编辑”或“尚未确认”。尚未确认和其他 owner 的路径保持不动。当前 commit 不需要它们时，后面的路径限定提交会把它们留在原处。
 
-```text
- M src/order/timeout.ts
- M src/order/validator.ts
- M test/order/timeout.test.ts
+丢弃内容需要路径归属、期望基线和 owner 授权同时成立。例如，只有 owner 明确确认 `debug-output.log` 是可丢弃的 AI 临时文件时，才可执行：
+
+```bash
+rm -- debug-output.log
 ```
+
+只有 owner 确认两个已跟踪路径都完全由 AI 产生，并确认它们应恢复为 `HEAD` 时，才可执行：
+
+```bash
+git restore --source=HEAD --staged --worktree -- package-lock.json README.md
+```
+
+后一条命令会同时覆盖指定路径的 Index 和 Working Tree。指定路径里只要混有用户 hunk、已有 staged 内容或不确定来源，就停止，不执行 restore、`git clean` 或广泛的 reset。
 
 ## 第三步：按意图拆 diff
 
@@ -92,11 +85,12 @@ git diff --stat
 git diff -- test/order/timeout.test.ts
 ```
 
-如果测试确实覆盖了“配置为空时使用默认超时时间”，先单独提交测试：
+假设人工复核确认测试文件是本任务的完整已跟踪路径，且该路径没有已有 staged hunk，可以只提交这个路径的 Working Tree 版本：
 
 ```bash
-git add test/order/timeout.test.ts
-git commit -m "test(order): cover empty timeout config"
+git diff -- test/order/timeout.test.ts
+git diff --cached -- test/order/timeout.test.ts
+git commit --only -m "test(order): cover empty timeout config" -- test/order/timeout.test.ts
 ```
 
 再看实现：
@@ -107,10 +101,15 @@ git diff -- src/order/timeout.ts src/order/validator.ts
 
 确认实现只改了默认值处理，没有顺手改错误码、接口签名、日志格式。
 
+两个实现路径也必须都是本任务的完整已跟踪路径，且它们的 `git diff --cached` 没有已有 hunk：
+
 ```bash
-git add src/order/timeout.ts src/order/validator.ts
-git commit -m "fix(order): fallback to default timeout config"
+git diff -- src/order/timeout.ts src/order/validator.ts
+git diff --cached -- src/order/timeout.ts src/order/validator.ts
+git commit --only -m "fix(order): fallback to default timeout config" -- src/order/timeout.ts src/order/validator.ts
 ```
+
+`git commit --only` 读取指定路径的整个 Working Tree 版本，并保留其他路径的 staged、unstaged 和 untracked 内容。它不适合“同一个文件只提交已暂存 hunk”的场景，也不会替你区分该路径里的不同意图。遇到这种文件，先转到干净或隔离的 task worktree，再用 `git add -p` 和普通 `git commit`。可运行的 [Git 命令安全回归](../labs/git-command-safety/README.md) 覆盖了这两条边界。
 
 这样最后形成两个 commit：
 
@@ -124,7 +123,7 @@ fix(order): fallback to default timeout config
 可以把当前 diff 或 commit 范围交给 AI 审查：
 
 ```text
-请审查当前分支相对 main 的变更。
+请审查当前分支相对团队约定的集成分支的变更。
 只列具体风险，不做泛泛总结。
 重点检查：
 1. 行为边界是否被扩大

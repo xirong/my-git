@@ -29,7 +29,7 @@ git log --oneline --decorate -20
 After confirming the good sha, first create a backup branch:
 
 ```bash
-git branch backup-good-main <good-sha>
+git branch backup-good-branch <good-sha>
 ```
 
 Check the content:
@@ -41,8 +41,10 @@ git diff <bad-sha>..<good-sha>
 
 ## Restore Remote Branch
 
+`<protected-branch>` is the actual remote branch that was overwritten, such as `main`, `master`, or `develop`. Confirm the target, remote permissions, branch rules, and collaborator impact, then obtain authorization from the relevant owner before updating the remote:
+
 ```bash
-git push origin <good-sha>:main
+git push origin <good-sha>:<protected-branch>
 ```
 
 If the main branch is protected, it requires administrator handling.

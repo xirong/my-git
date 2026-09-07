@@ -22,16 +22,18 @@ Use `git filter-repo`:
 git filter-repo --path path/to/secret-file --invert-paths
 ```
 
-Then force push the cleaned history:
+Run this first in a dedicated clone with no pending local edits. Confirm that `path/to/secret-file` is the real exposed path, and have the security owner and repository owner explicitly identify the affected remote, branches, tags, branch rules, and collaborator recovery plan.
+
+The following force pushes apply only after confirming that every branch and tag on that remote needs the rewritten history. `<affected-remote>` is the verified remote name:
 
 ```bash
-git push --force --all
-git push --force --tags
+git push --force --all <affected-remote>
+git push --force --tags <affected-remote>
 ```
 
 ## Note the Risks
 
-History rewriting affects all collaborators; you must notify the team before execution and require everyone to resynchronize the repository.
+History rewriting affects all collaborators. Before execution, notify the team and require everyone to resynchronize according to the agreed recovery plan. This procedure is for an exposed-secret incident only; routine history cleanup must not expand into force pushes of every branch and tag.
 
 ## After Cleanup
 

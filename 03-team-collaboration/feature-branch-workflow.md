@@ -7,8 +7,10 @@ Feature Branch Workflow 是多数团队最容易落地的协作方式。
 ## 流程
 
 ```text
-main -> feature branch -> pull request -> review -> CI -> merge
+<integration-branch> -> feature branch -> pull request -> review -> CI -> merge
 ```
+
+`<integration-branch>` 表示团队实际使用的集成分支，例如 `main`、`master` 或 `develop`。
 
 ## 适合场景
 
@@ -45,9 +47,12 @@ refactor/order-validator
 
 ### 2. 定期同步主分支
 
+同步前确认当前 feature 分支没有其他待处理编辑、没有协作者基于本地提交继续开发，并按团队规则决定是否 rebase。
+
 ```bash
+git status --porcelain
 git fetch origin
-git rebase origin/main
+git rebase origin/<integration-branch>
 ```
 
 是否使用 rebase 要按团队约定。

@@ -13,6 +13,14 @@
 
 ## 基础用法
 
+`git stash push -u` 会保存并从当前工作区移走所有已跟踪的 staged、unstaged 内容和未跟踪文件。先检查范围：
+
+```bash
+git status --porcelain
+```
+
+只在这些内容都属于自己、并且准备稍后恢复时使用。状态中有其他 owner 的编辑或来源不清的文件时，停止在这个 worktree 操作，改用独立 worktree。
+
 保存当前改动，包括未跟踪文件：
 
 ```bash
@@ -55,8 +63,11 @@ git stash drop stash@{0}
 git stash apply stash@{0}
 git status
 git diff
+git diff --cached
 git stash drop stash@{0}
 ```
+
+确认 staged、unstaged 和未跟踪内容都已按预期恢复后，才执行 `git stash drop`；不能只因 `apply` 返回成功就删除保存点。
 
 ## 常见误区
 

@@ -1,0 +1,30 @@
+Merge Common Ancestor / Merge 共同祖先
+
+Fast-forward
+
+- ff-target and fast-forward name the same commit.
+- That commit has one parent, so no merge commit was created.
+
+True merge
+
+- merge-main and merge-topic share merge-base-point.
+- merge-result has two parents.
+
+Semantic conflict evidence
+
+- semantic-server and semantic-client change different files.
+- semantic-result has two parents and is textually clean.
+- behavior_check.py reads the merged files and exits 1.
+- Expected message: semantic check failed: expected https://service:8443, got http://service:8443
+
+Content conflict
+
+git status --short
+
+UU conflict.txt
+
+Index entries for conflict.txt
+
+- stage 1: owner=base, the common ancestor
+- stage 2: owner=main, the current branch
+- stage 3: owner=topic, MERGE_HEAD
