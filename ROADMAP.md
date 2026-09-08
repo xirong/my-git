@@ -45,7 +45,7 @@ The v2.1.0 release focuses on agent governance and agent-facing conventions, so 
 
 The current content sequence covers understanding, experiments, engineering-change acceptance, background-agent handoff, and incident recovery. The [detailed bilingual roadmap](00-meta/00-meta_en/roadmap_en.md) records the ten-topic material, its local regression entry points, and the remaining reader-learning, performance, deployment, and production evidence boundaries.
 
-The detailed roadmap also records material visible in this local workspace. It does not establish that uncommitted work has been tagged, released, deployed, or read by users.
+The detailed roadmap records the merged PR #67 material, its verified Pages build, a concrete reader-session plan, and remaining template and content gaps. Later local fixes still require separate merge and deployment checks; reader learning and a versioned release remain unverified.
 
 ### Documentation Quality
 

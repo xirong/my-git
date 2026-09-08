@@ -6,21 +6,43 @@ v2.0 的目标是补齐现代工程团队在 Git / GitHub 协作、AI 编程、�
 
 仓库用[理念文章](../01-getting-started/why-learn-git.md)说明维护动机，并用[学习路径](../01-getting-started/git-learning-path.md)连接十个主题的中英文文章、交互和临时仓库实验。现有目录继续作为资料索引，读者不必按文件夹编号学习。
 
-### 本地材料状态
+### 已合并材料
 
 - [x] 新增[知识地图](../01-getting-started/knowledge-map.md)，按“理解设计 → 完成工程变更 → 管理协作”说明前置知识、问题入口和下一项判断。
 - [x] 明确[工具集成实践](../05-ai-native-development/ai-coding-tools-git-integration.md)负责工具事实与来源，[Codex / Claude Code Git 实践](../05-ai-native-development/codex-claude-code-git-practices.md)负责跨工具的稳定 Git 流程。
 - [x] 新增[工程变更课程](../05-ai-native-development/engineering-change-course.md)、[AI 生成变更的 CI](../05-ai-native-development/ci-for-ai-generated-changes.md)、[后台 Agent 任务](../05-ai-native-development/background-agent-workflow.md)和[Agent 事故恢复](../06-troubleshooting/ai-agent-incident-recovery.md)，分别连接验收链、检查版本、异步交接和事故现场。
 - [x] 新增[两个 AI Agent 工程案例](../10-company-practices/ai-native-engineering-cases.md)，将第一手公开报告与团队本地试点判断分开。
 
-这些条目只描述本地工作区可见的材料，不说明 tag、发布、静态站点部署或真实读者使用状态。
+上述材料已通过 [PR #67](https://github.com/xirong/my-git/pull/67) 合并，文档与链接 CI 均通过。2026-09-08 核实，GitHub Pages 构建版本为 `7fcc238fad2e3aaca0f0d2196d62951833951fbb`，线上交互脚本与该版本一致；知识地图、工程变更课程与抽查的课程入口可访问。这个结果不代表后续本地修复已上线，也不证明真实读者掌握了课程。
+
+### 收尾与后续待办
+
+- [x] 本地修复恢复分支缺少创建引用、存储分支缺少输出快照的问题；`node scripts/test-curriculum-commands.mjs` 直接执行四条展示命令路径，并独立核对对象状态和快照内容。对旧源的定向检查可捕获缺少引用与快照的原错误。
+- [ ] 提交并合并上述修复，再核对 Pages 实际部署版本；上一段的线上核验仍对应 PR #67。
+- [ ] 完成一次真实读者试读，按下面的任务记录结果。
+- [ ] 通用 PR 模板补充 AI 工具、任务边界、人工核验文件字段；提交规范补充 AI 溯源说明。已有仓库贡献规则不能替代可复制模板。
+- [ ] 评估 AI 协作度量短文与 04 章各篇的具体 Agent 场景缺口，试读前不扩充篇数。
+- [ ] 如需公开维护任务，再创建 roadmap issues；如需版本发布，再确定版本号和 release notes。本文的合并记录不代表创建了 tag 或 GitHub Release。
+
+历史评估中的 Agent 治理、AGENTS.md 模板、仓库自身约定、多 Agent 与 stacked PR 操作、事故恢复、CI、后台任务、工程案例和工具文章职责已覆盖。原始评估保留不变，新的工作以这里的具体缺口为准。
+
+### 真实读者验收任务
+
+邀请一位未参与编写的工程师，从[知识地图](../01-getting-started/knowledge-map.md)进入课程。主持人先不解释答案，只记录读者的预测、实际操作、提示次数和卡住位置；所有 Git 操作仅在课程创建的可删除实验仓库中执行。
+
+1. 在恢复章节中，先预测 C2 与 C3 在 reflog 过期和清理后的结果，再执行实验，用引用和对象检查解释差异。
+2. 在存储章节中，执行维护前后内容比较，说明“内容不变”可以证明什么，以及为什么不能据此断言性能提升。
+3. 迁移到一个 Agent 场景：Agent 修改了已提交文件、未暂存文件和外部数据库。分别说明需要保存哪些证据、Git 能恢复什么、哪些状态需另行处理。
+4. 从文章进入交互和实验，再切换语言，记录失效链接、术语障碍和需要额外帮助的位置。
+
+每项记录“独立完成 / 提示后完成 / 未完成”，附预测与实际结果的差异；单次试读只说明该参与者在该版本上的表现。尚未安排参与者，不能把自动测试或 Agent 模拟读者计为试读通过。
 
 ### 材料和证据边界
 
 | 代码与材料可见 | 覆盖范围 | 仍需单独取得的证据 |
 | --- | --- | --- |
 | 01 至 10 的十篇中英文原理文章、十个实验和十个交互入口按同一顺序链接 | 快照、对象、Index、引用、恢复、合并、rebase、远端、worktree 与存储 | 读者实际能否预测、重现和迁移，还没有行为数据 |
-| 交互入口保留 01 至 03 的三个既有主题，并补入 04 至 10 的七个主题 | 每个主题可从文章跳转交互和实验 | 页面在目标静态站点的最终部署状态与真实读者体验需要单独核实 |
+| 交互入口保留 01 至 03 的三个既有主题，并补入 04 至 10 的七个主题 | 每个主题可从文章跳转交互和实验；上述合并版本的部署已核实 | 全路径浏览器行为、后续修复部署与真实读者体验需要分别验证 |
 | [工程变更课程](../05-ai-native-development/engineering-change-course.md)与[完整验收链](../05-ai-native-development/ai-change-control-loop.md)配有本地制品与 HTTP 服务实验 | 任务意图、候选 commit、干净检出测试、制品、回环地址运行结果和代码恢复可在临时根目录中观察 | 它不连接真实 CI、托管平台、生产环境或外部服务，也不构成供应链证明 |
 | [命令安全回归](../labs/git-command-safety/README.md)复核四种已列出的旧命令模式 | 脏工作区停手、完整路径提交、soft reset 后再部分暂存、集成分支占位符 | 未列出的历史示例、远端授权、分支保护、hooks 和团队规则不在这组回归范围内 |
 | `bash scripts/run-git-learning-labs.sh` 串行运行十个课程实验、三个阅读实验和三项 Agent/命令回归入口 | 可重复检查脚本描述的本地 Git 场景，包括 Agent 事故恢复实验 | 运行通过不能代替读者学习效果、性能基准或生产状态证据 |
