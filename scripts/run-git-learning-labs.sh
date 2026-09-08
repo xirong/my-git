@@ -26,6 +26,9 @@ done
 printf '==> Git mental model reading experiments\n'
 python3 labs/git-mental-model/reading-experiments/verify.py
 
+printf '==> Git mental model displayed command regression\n'
+node scripts/test-curriculum-commands.mjs
+
 printf '==> AI change control lab\n'
 bash labs/ai-change-control/test.sh
 

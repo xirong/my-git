@@ -6,21 +6,43 @@ English | [中文](../roadmap.md)
 
 The handbook explains its purpose through the [philosophy](../../01-getting-started/01-getting-started_en/why-learn-git_en.md) and connects paired Chinese and English articles, interactives, and temporary-repository labs for ten topics through the [learning path](../../01-getting-started/01-getting-started_en/git-learning-path_en.md). Existing directories remain a reference index; folder numbers do not dictate reading order.
 
-### Local material status
+### Merged material
 
 - [x] Add the [knowledge map](../../01-getting-started/01-getting-started_en/knowledge-map_en.md), organized as “understand the design → complete an engineering change → manage collaboration,” with prerequisites, problem entry points, and the next decision.
 - [x] Clarify that [tool integration practices](../../05-ai-native-development/05-ai-native-development_en/ai-coding-tools-git-integration_en.md) own tool facts and sources, while [Codex / Claude Code Git Practices](../../05-ai-native-development/05-ai-native-development_en/codex-claude-code-git-practices_en.md) own stable Git workflow across tools.
 - [x] Add the [engineering change course](../../05-ai-native-development/05-ai-native-development_en/engineering-change-course_en.md), [CI for AI-generated changes](../../05-ai-native-development/05-ai-native-development_en/ci-for-ai-generated-changes_en.md), [background agent tasks](../../05-ai-native-development/05-ai-native-development_en/background-agent-workflow_en.md), and [AI agent incident recovery](../../06-troubleshooting/06-troubleshooting_en/ai-agent-incident-recovery_en.md) for the acceptance chain, checked revision, asynchronous handoff, and incident scene.
 - [x] Add [two AI Agent engineering cases](../../10-company-practices/10-company-practices_en/ai-native-engineering-cases_en.md), separating first-party public reports from local-pilot decisions.
 
-These items describe material visible in the local workspace only. They do not establish a tag, release, static-site deployment, or reader use.
+These materials were merged through [PR #67](https://github.com/xirong/my-git/pull/67), with documentation and link CI passing. On 2026-09-08, the GitHub Pages build was verified at `7fcc238fad2e3aaca0f0d2196d62951833951fbb`; the hosted interactive script matched that revision, and the knowledge map, engineering-change course, and sampled course entry points were accessible. This does not establish deployment of later local fixes or reader learning.
+
+### Closeout and remaining work
+
+- [x] Locally fix the missing recovery-ref creation and storage output snapshots. `node scripts/test-curriculum-commands.mjs` executes all four displayed command paths and independently checks object state and snapshot content. Targeted checks against the old source catch the original missing-ref and missing-snapshot errors.
+- [ ] Submit and merge these fixes, then verify the actual Pages revision; the hosted check above still refers to PR #67.
+- [ ] Run a real-reader session using the tasks below.
+- [ ] Add AI tool, task-scope, and human-verified file fields to the reusable PR template, and AI provenance guidance to the commit convention. Repository contribution rules do not replace reusable templates.
+- [ ] Evaluate an AI collaboration metrics article and specific Agent scenario gaps in chapter 04; defer additional articles until reader feedback.
+- [ ] Create public roadmap issues only when requested; choose a version and release notes if a versioned release is wanted. This merge record does not establish a tag or GitHub Release.
+
+The historical assessment's governance, AGENTS.md template, repository conventions, multi-agent and stacked PR operations, incident recovery, CI, background tasks, engineering cases, and tool-article responsibilities are covered. Preserve the original assessment; use these concrete gaps for new work.
+
+### Real-reader acceptance tasks
+
+Invite an engineer who did not author the course to start from the [knowledge map](../../01-getting-started/01-getting-started_en/knowledge-map_en.md). The facilitator records predictions, actual actions, the number of hints, and stumbling points without explaining answers first. Run Git commands only in the disposable repositories created by the course labs.
+
+1. In recovery, predict what happens to C2 and C3 after reflog expiration and cleanup, then run the lab and explain the difference with ref and object checks.
+2. In storage, compare content before and after maintenance, explain what unchanged content establishes, and why it does not establish a performance improvement.
+3. Transfer the model to an Agent scenario involving committed files, unstaged edits, and an external database. Explain which evidence to preserve, what Git can recover, and what needs separate handling.
+4. Navigate from article to interactive and lab, then switch language; record broken links, terminology obstacles, and points needing help.
+
+Record each task as “independent / completed with hints / incomplete,” with differences between prediction and observation. One session establishes only that participant's behavior on that revision. No participant is scheduled yet; automated checks and Agent-simulated reading do not count as a passing reader session.
 
 ### Material and evidence boundaries
 
 | Code and material visible | Scope covered | Evidence still needed separately |
 | --- | --- | --- |
 | Ten paired conceptual articles, ten labs, and ten interactive entry points are linked in one order from 01 through 10 | Snapshots, objects, index, refs, recovery, merge, rebase, remotes, worktrees, and storage | There is no behavior data establishing whether readers can predict, reproduce, and transfer the ideas |
-| The interactive entry keeps the three existing topics for 01 through 03 and adds seven topics for 04 through 10 | Every topic can lead from article to interactive and lab | Final deployment to the target static site and real reader experience need separate verification |
+| The interactive entry keeps the three existing topics for 01 through 03 and adds seven topics for 04 through 10 | Every topic can lead from article to interactive and lab; deployment of the merged revision above was verified | Browser behavior across all paths, deployment of later fixes, and real reader experience need separate verification |
 | The [engineering change course](../../05-ai-native-development/05-ai-native-development_en/engineering-change-course_en.md) and [acceptance loop](../../05-ai-native-development/05-ai-native-development_en/ai-change-control-loop_en.md) have a local artifact and HTTP-service exercise | Intent, candidate commit, clean-checkout test, artifact, loopback runtime response, and code recovery are observable under a temporary root | It does not contact real CI, a hosting platform, production, or an external service, and does not establish supply-chain trust |
 | The [command-safety regression](../../labs/git-command-safety/README.md) rechecks four named old command patterns | Stop on a dirty workspace, commit owned paths, reset before partial staging after a soft reset, and substitute the integration branch | Other historical examples, remote authorization, branch protection, hooks, and team rules are outside this regression |
 | `bash scripts/run-git-learning-labs.sh` runs ten course labs, three reading experiments, and three Agent/command regression entry points in sequence | Scripted local Git scenarios, including Agent incident recovery, can be rechecked | Passing runs do not establish reader learning, performance benchmarks, or production state |
