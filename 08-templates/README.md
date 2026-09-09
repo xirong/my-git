@@ -45,13 +45,15 @@
 
 ## AI 编程团队建议
 
-PR 模板里至少补充：
+现有 [PR 模板](pull-request-template.md)提供以下填写位置；未使用 AI 或尚未人工核验时如实填写，不默认勾选完成：
 
 - AI 工具名称
 - 人类给 AI 的任务边界
 - 人类实际检查过的文件和 diff
 - 验证命令和结果
 - 回滚方案
+
+提交溯源见 [Commit Message Convention](commit-message-convention.md)。署名记录参与情况，人工核验范围和运行结果仍需在 PR 中单独说明。
 
 ## 相关内容
 

@@ -43,6 +43,8 @@ Place it at `.github/CODEOWNERS`, together with repository collaboration templat
 - Regularly clean up owners who have departed or changed roles
 - Require code owner review in conjunction with branch protection
 
+If the repository uses agent instructions or tool-permission configuration, add the paths that are actually effective to CODEOWNERS. Also confirm that branch protection or a ruleset requires code owner approval on the target branch. See [AI Agent Governance](ai-agent-governance_en.md#scenario-3-a-pr-changes-agent-instructions-or-tool-permissions) for the review and validation process.
+
 ## Learning from Kubernetes OWNERS
 
 The Kubernetes OWNERS file separates reviewers and approvers:

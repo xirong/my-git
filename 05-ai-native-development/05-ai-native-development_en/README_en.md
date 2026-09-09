@@ -23,6 +23,7 @@ The companion [local artifact-and-service exercise](../../labs/ai-change-control
 | Large diffs need to be split into multiple PRs | [Stacked PR for AI-Generated Changes](stacked-pr-for-ai-generated-changes_en.md) |
 | Parallel development with multiple agents | [Multi-Agent Branch Strategy](multi-agent-branch-strategy_en.md) |
 | Reclaiming a background agent result | [Background Agent Tasks](background-agent-workflow_en.md) |
+| Assessing whether Agent adoption improves collaboration | [AI Collaboration Metrics](ai-collaboration-metrics_en.md) |
 
 ## Tool Practices
 

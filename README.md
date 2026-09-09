@@ -107,6 +107,7 @@ Git 提供版本与历史的基础。测试、审查、权限、制品和发布�
 9. [Worktree for AI Agents](05-ai-native-development/worktree-for-ai-agents.md)
 10. [Stacked PR for AI-Generated Changes](05-ai-native-development/stacked-pr-for-ai-generated-changes.md)
 11. [AI Reviewer 与 Human Reviewer](05-ai-native-development/ai-reviewer-and-human-reviewer.md)
+12. [AI 协作度量](05-ai-native-development/ai-collaboration-metrics.md)
 
 ### 故障处理路径
 
@@ -160,9 +161,11 @@ Git 提供版本与历史的基础。测试、审查、权限、制品和发布�
 
 更完整的资料索引见 [推荐阅读](09-resources/recommended-reading.md)。
 
-## v2.0 维护计划
+## 版本与维护计划
 
 详细计划见 [roadmap](00-meta/roadmap.md)。
+
+课程、修复和协作材料已整理为 [v2.2.0 发布说明](00-meta/release-notes-v2.2.0.md)与 [Changelog](00-meta/changelog.md)。发布文档准备日期为 2026-09-09；版本状态见 [GitHub Releases](https://github.com/xirong/my-git/releases)。
 
 已有内容会逐步纳入新的学习路径，迁移清单见 [legacy content migration](00-meta/legacy-content-migration.md)，资料索引见 [resources](09-resources/resources-index.md)。
 

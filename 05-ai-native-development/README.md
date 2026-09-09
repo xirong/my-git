@@ -23,6 +23,7 @@
 | 大 diff 需要拆成多个 PR | [Stacked PR for AI-Generated Changes](stacked-pr-for-ai-generated-changes.md) |
 | 多个 Agent 并行开发 | [Multi-Agent Branch Strategy](multi-agent-branch-strategy.md) |
 | 后台 Agent 返回结果需要接收 | [后台 Agent 任务](background-agent-workflow.md) |
+| 想判断引入 Agent 后协作是否改善 | [AI 协作度量](ai-collaboration-metrics.md) |
 
 ## 工具实践
 

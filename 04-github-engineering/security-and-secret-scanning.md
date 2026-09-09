@@ -53,6 +53,8 @@ Push protection 会在开发者 push 时识别可能的 secret，并阻止它进
 - PR 模板加入 secret 自查项
 - 关键仓库开启 secret scanning 和 push protection
 
+这些扫描不能判断任务开始前交给 AI agent 的生产日志、客户数据或配置是否合规。此类输入要先分类、最小化并确认处理目的地与保留方式，见 [AI Agent 治理](ai-agent-governance.md#场景二任务开始前要把生产数据交给-agent)。
+
 ## Dependabot 和 Code Scanning
 
 Dependabot 适合把依赖升级和 GitHub Actions 版本升级变成可 Review 的 PR。

@@ -107,6 +107,7 @@ Use animations, articles, and temporary-repository labs to understand Git snapsh
 9.  [Worktree for AI Agents](05-ai-native-development/05-ai-native-development_en/worktree-for-ai-agents_en.md)
 10. [Stacked PR for AI-Generated Changes](05-ai-native-development/05-ai-native-development_en/stacked-pr-for-ai-generated-changes_en.md)
 11. [AI Reviewer and Human Reviewer](05-ai-native-development/05-ai-native-development_en/ai-reviewer-and-human-reviewer_en.md)
+12. [AI Collaboration Metrics](05-ai-native-development/05-ai-native-development_en/ai-collaboration-metrics_en.md)
 
 ### Troubleshooting Path
 
@@ -160,9 +161,11 @@ New content will prioritize official documentation and industry-standard materia
 
 For a more complete index of materials, see [Recommended Reading](09-resources/09-resources_en/recommended-reading_en.md).
 
-## v2.0 Maintenance Plan
+## Versions and Maintenance Plan
 
 See the [roadmap](00-meta/00-meta_en/roadmap_en.md) for detailed plans.
+
+The course, repairs, and collaboration material are collected in the [v2.2.0 release notes](00-meta/00-meta_en/release-notes-v2.2.0_en.md) and [Changelog](00-meta/00-meta_en/changelog_en.md). The documentation was prepared on 2026-09-09; [GitHub Releases](https://github.com/xirong/my-git/releases) records publication status.
 
 Existing content will be gradually incorporated into new learning paths. See the [legacy content migration](00-meta/00-meta_en/legacy-content-migration_en.md) for the migration list and the [resources index](09-resources/09-resources_en/resources-index_en.md) for the materials index.
 

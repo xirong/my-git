@@ -2,9 +2,9 @@
 
 v2.0 的目标是补齐现代工程团队在 Git / GitHub 协作、AI 编程、事故处理和工程治理上的实战内容。
 
-## 本轮交付：理解、实验、变更控制
+## v2.2.0：理解、实验、变更控制与 AI 协作实践
 
-仓库用[理念文章](../01-getting-started/why-learn-git.md)说明维护动机，并用[学习路径](../01-getting-started/git-learning-path.md)连接十个主题的中英文文章、交互和临时仓库实验。现有目录继续作为资料索引，读者不必按文件夹编号学习。
+仓库用[理念文章](../01-getting-started/why-learn-git.md)说明维护动机，并用[学习路径](../01-getting-started/git-learning-path.md)连接十个主题的中英文文章、交互和临时仓库实验。现有目录继续作为资料索引，读者不必按文件夹编号学习。v2.2.0 的范围见[发布说明](release-notes-v2.2.0.md)，文档准备日期为 2026-09-09；版本状态见 [GitHub Releases](https://github.com/xirong/my-git/releases)。
 
 ### 已合并材料
 
@@ -13,16 +13,23 @@ v2.0 的目标是补齐现代工程团队在 Git / GitHub 协作、AI 编程、�
 - [x] 新增[工程变更课程](../05-ai-native-development/engineering-change-course.md)、[AI 生成变更的 CI](../05-ai-native-development/ci-for-ai-generated-changes.md)、[后台 Agent 任务](../05-ai-native-development/background-agent-workflow.md)和[Agent 事故恢复](../06-troubleshooting/ai-agent-incident-recovery.md)，分别连接验收链、检查版本、异步交接和事故现场。
 - [x] 新增[两个 AI Agent 工程案例](../10-company-practices/ai-native-engineering-cases.md)，将第一手公开报告与团队本地试点判断分开。
 
-上述材料已通过 [PR #67](https://github.com/xirong/my-git/pull/67) 合并，文档与链接 CI 均通过。2026-09-08 核实，GitHub Pages 构建版本为 `7fcc238fad2e3aaca0f0d2196d62951833951fbb`，线上交互脚本与该版本一致；知识地图、工程变更课程与抽查的课程入口可访问。这个结果不代表后续本地修复已上线，也不证明真实读者掌握了课程。
+上述材料已通过 [PR #67](https://github.com/xirong/my-git/pull/67) 合并；展示命令修复与回归通过 [PR #68](https://github.com/xirong/my-git/pull/68) 合并，两次 PR 的文档与链接 CI 均通过。2026-09-08 核实，GitHub Pages 构建版本为 `42ae30897b09a1b9f8bb147298b0d75204448ddf`，线上交互脚本与修复版一致。这个结果只覆盖该合并版本，也不证明真实读者掌握了课程。
 
 ### 收尾与后续待办
 
-- [x] 本地修复恢复分支缺少创建引用、存储分支缺少输出快照的问题；`node scripts/test-curriculum-commands.mjs` 直接执行四条展示命令路径，并独立核对对象状态和快照内容。对旧源的定向检查可捕获缺少引用与快照的原错误。
-- [ ] 提交并合并上述修复，再核对 Pages 实际部署版本；上一段的线上核验仍对应 PR #67。
+- [x] 修复恢复分支缺少创建引用、存储分支缺少输出快照的问题；`node scripts/test-curriculum-commands.mjs` 直接执行四条展示命令路径，并独立核对对象状态和快照内容。对旧源的定向检查可捕获缺少引用与快照的原错误。
+- [x] 通过 PR #68 合并修复，并核对 Pages 实际部署版本。
 - [ ] 完成一次真实读者试读，按下面的任务记录结果。
-- [ ] 通用 PR 模板补充 AI 工具、任务边界、人工核验文件字段；提交规范补充 AI 溯源说明。已有仓库贡献规则不能替代可复制模板。
-- [ ] 评估 AI 协作度量短文与 04 章各篇的具体 Agent 场景缺口，试读前不扩充篇数。
-- [ ] 如需公开维护任务，再创建 roadmap issues；如需版本发布，再确定版本号和 release notes。本文的合并记录不代表创建了 tag 或 GitHub Release。
+- [x] 整理 [v2.2.0 发布说明](release-notes-v2.2.0.md)与双语 Changelog，明确课程、修复、治理模板和度量文章的发布范围。
+
+### v2.2.0 内容补齐
+
+这些条目用于验收 v2.2.0 文档范围，合并与部署状态需要单独核对。
+
+- [x] [PR 模板](../08-templates/pull-request-template.md)、仓库实际模板和[提交规范](../08-templates/commit-message-convention.md)提供 AI 参与、任务边界、真实人工核验、验证缺口与溯源写法。
+- [x] [Agent 治理](../04-github-engineering/ai-agent-governance.md)补齐不可信输入、提交给 Agent 的数据、Agent 规则自身变更三个场景，并从安全与 CODEOWNERS 文章交叉引用。
+- [x] [AI 协作度量](../05-ai-native-development/ai-collaboration-metrics.md)给出定义、分母、观察窗口、数据来源和可复算的模拟示例，区分等待、实际投入及合并前后返工。
+- [x] [双语 Changelog](changelog.md)和[发布说明](release-notes-v2.2.0.md)整理 PR #67 / #68 的已合并记录、治理模板与度量文章，并链接 GitHub Releases 查看版本状态。
 
 历史评估中的 Agent 治理、AGENTS.md 模板、仓库自身约定、多 Agent 与 stacked PR 操作、事故恢复、CI、后台任务、工程案例和工具文章职责已覆盖。原始评估保留不变，新的工作以这里的具体缺口为准。
 

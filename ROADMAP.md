@@ -41,11 +41,22 @@ The v2.1.0 release focuses on agent governance and agent-facing conventions, so 
 - [x] Expand the multi-agent branch strategy guide with executable comparison, integration, and cleanup workflows
 - [x] Expand the stacked PR guide with native Git commands and stack tooling
 
+## v2.2.0
+
+The v2.2.0 release scope connects Git learning material, command-path repairs, and AI collaboration practices. Its [bilingual release notes](00-meta/00-meta_en/release-notes-v2.2.0_en.md) were prepared on 2026-09-09; [GitHub Releases](https://github.com/xirong/my-git/releases) records publication status.
+
+- [x] Include the ten-topic bilingual Git mental-model course, interactives, labs, and engineering-change material merged in [PR #67](https://github.com/xirong/my-git/pull/67)
+- [x] Include the displayed-command repairs and regression coverage merged in [PR #68](https://github.com/xirong/my-git/pull/68)
+- [x] Add AI participation, task-boundary, human-review, validation-gap, and attribution guidance to reusable PR and commit templates
+- [x] Add three concrete AI governance scenarios and cross-references from security and CODEOWNERS guidance
+- [x] Add the AI collaboration metrics article with measurement definitions and a reproducible synthetic example
+- [ ] Run a real-reader session; automated documentation and command checks do not establish reader learning or team efficiency
+
 ## Next Maintenance Areas
 
 The current content sequence covers understanding, experiments, engineering-change acceptance, background-agent handoff, and incident recovery. The [detailed bilingual roadmap](00-meta/00-meta_en/roadmap_en.md) records the ten-topic material, its local regression entry points, and the remaining reader-learning, performance, deployment, and production evidence boundaries.
 
-The detailed roadmap records the merged PR #67 material, its verified Pages build, a concrete reader-session plan, and remaining template and content gaps. Later local fixes still require separate merge and deployment checks; reader learning and a versioned release remain unverified.
+The detailed roadmap records PR #67's course material and PR #68's fixes, including the verified Pages build. It also records the v2.2.0 collaboration templates, three governance scenarios, metrics article, and reader-session plan. See the [v2.2.0 release notes](00-meta/00-meta_en/release-notes-v2.2.0_en.md) and [bilingual Changelog](00-meta/00-meta_en/changelog_en.md) for the scope; real-reader learning needs separate evidence.
 
 ### Documentation Quality
 
