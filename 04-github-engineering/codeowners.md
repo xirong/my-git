@@ -41,6 +41,8 @@ docs/CODEOWNERS
 - 定期清理离职或职责变化的 owner
 - 配合分支保护要求 code owner review
 
+如果仓库使用 agent 指令或工具权限配置，把实际生效的文件路径纳入 CODEOWNERS；同时确认目标分支已通过 branch protection 或 ruleset 要求 code owner 批准。具体 Review 和验证方法见 [AI Agent 治理](ai-agent-governance.md#场景三pr-修改了-agent-指令或工具权限)。
+
 ## 借鉴 Kubernetes OWNERS
 
 Kubernetes 的 OWNERS 文件把 reviewer 和 approver 拆开：

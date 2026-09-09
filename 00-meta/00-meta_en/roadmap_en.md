@@ -2,9 +2,9 @@
 
 English | [中文](../roadmap.md)
 
-## Current delivery: understanding, experiments, and change control
+## v2.2.0: understanding, experiments, change control, and AI collaboration practices
 
-The handbook explains its purpose through the [philosophy](../../01-getting-started/01-getting-started_en/why-learn-git_en.md) and connects paired Chinese and English articles, interactives, and temporary-repository labs for ten topics through the [learning path](../../01-getting-started/01-getting-started_en/git-learning-path_en.md). Existing directories remain a reference index; folder numbers do not dictate reading order.
+The handbook explains its purpose through the [philosophy](../../01-getting-started/01-getting-started_en/why-learn-git_en.md) and connects paired Chinese and English articles, interactives, and temporary-repository labs for ten topics through the [learning path](../../01-getting-started/01-getting-started_en/git-learning-path_en.md). Existing directories remain a reference index; folder numbers do not dictate reading order. The [v2.2.0 release notes](release-notes-v2.2.0_en.md) define the scope and were prepared on 2026-09-09; [GitHub Releases](https://github.com/xirong/my-git/releases) records the publication status.
 
 ### Merged material
 
@@ -13,16 +13,23 @@ The handbook explains its purpose through the [philosophy](../../01-getting-star
 - [x] Add the [engineering change course](../../05-ai-native-development/05-ai-native-development_en/engineering-change-course_en.md), [CI for AI-generated changes](../../05-ai-native-development/05-ai-native-development_en/ci-for-ai-generated-changes_en.md), [background agent tasks](../../05-ai-native-development/05-ai-native-development_en/background-agent-workflow_en.md), and [AI agent incident recovery](../../06-troubleshooting/06-troubleshooting_en/ai-agent-incident-recovery_en.md) for the acceptance chain, checked revision, asynchronous handoff, and incident scene.
 - [x] Add [two AI Agent engineering cases](../../10-company-practices/10-company-practices_en/ai-native-engineering-cases_en.md), separating first-party public reports from local-pilot decisions.
 
-These materials were merged through [PR #67](https://github.com/xirong/my-git/pull/67), with documentation and link CI passing. On 2026-09-08, the GitHub Pages build was verified at `7fcc238fad2e3aaca0f0d2196d62951833951fbb`; the hosted interactive script matched that revision, and the knowledge map, engineering-change course, and sampled course entry points were accessible. This does not establish deployment of later local fixes or reader learning.
+These materials were merged through [PR #67](https://github.com/xirong/my-git/pull/67); displayed-command fixes and regression coverage were merged through [PR #68](https://github.com/xirong/my-git/pull/68). Documentation and link CI passed on both PRs. On 2026-09-08, the GitHub Pages build was verified at `42ae30897b09a1b9f8bb147298b0d75204448ddf`, and the hosted interactive script matched the corrected revision. This establishes that merged revision only and does not establish reader learning.
 
 ### Closeout and remaining work
 
-- [x] Locally fix the missing recovery-ref creation and storage output snapshots. `node scripts/test-curriculum-commands.mjs` executes all four displayed command paths and independently checks object state and snapshot content. Targeted checks against the old source catch the original missing-ref and missing-snapshot errors.
-- [ ] Submit and merge these fixes, then verify the actual Pages revision; the hosted check above still refers to PR #67.
+- [x] Fix the missing recovery-ref creation and storage output snapshots. `node scripts/test-curriculum-commands.mjs` executes all four displayed command paths and independently checks object state and snapshot content. Targeted checks against the old source catch the original missing-ref and missing-snapshot errors.
+- [x] Merge the fixes through PR #68 and verify the actual Pages revision.
 - [ ] Run a real-reader session using the tasks below.
-- [ ] Add AI tool, task-scope, and human-verified file fields to the reusable PR template, and AI provenance guidance to the commit convention. Repository contribution rules do not replace reusable templates.
-- [ ] Evaluate an AI collaboration metrics article and specific Agent scenario gaps in chapter 04; defer additional articles until reader feedback.
-- [ ] Create public roadmap issues only when requested; choose a version and release notes if a versioned release is wanted. This merge record does not establish a tag or GitHub Release.
+- [x] Prepare the bilingual [v2.2.0 release notes](release-notes-v2.2.0_en.md) and Changelog, identifying the course, fixes, governance templates, and metrics article in the release scope.
+
+### v2.2.0 documentation completion
+
+These items track documentation acceptance for the v2.2.0 scope; merge and deployment status need separate verification.
+
+- [x] The [PR template](../../08-templates/08-templates_en/pull-request-template_en.md), actual repository template, and [commit convention](../../08-templates/08-templates_en/commit-message-convention_en.md) cover AI participation, task boundaries, actual human verification, validation gaps, and attribution.
+- [x] [Agent governance](../../04-github-engineering/04-github-engineering_en/ai-agent-governance_en.md) covers untrusted input, data supplied to agents, and changes to agent rules themselves, with cross-references from security and CODEOWNERS articles.
+- [x] [AI Collaboration Metrics](../../05-ai-native-development/05-ai-native-development_en/ai-collaboration-metrics_en.md) supplies definitions, denominators, observation windows, data sources, and a reproducible synthetic example, distinguishing waiting, active effort, and pre-/post-merge rework.
+- [x] The [bilingual Changelog](changelog_en.md) and [release notes](release-notes-v2.2.0_en.md) record the merged PR #67 / #68 work, governance templates, and metrics article, and link GitHub Releases for publication status.
 
 The historical assessment's governance, AGENTS.md template, repository conventions, multi-agent and stacked PR operations, incident recovery, CI, background tasks, engineering cases, and tool-article responsibilities are covered. Preserve the original assessment; use these concrete gaps for new work.
 

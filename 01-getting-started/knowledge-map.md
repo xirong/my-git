@@ -40,6 +40,7 @@ Git 的概念学习、一次变更的验收和团队规则彼此相连，但不�
 | 多个任务同时改仓库，怎么避免互相覆盖 | [Codex / Claude Code Git 实践](../05-ai-native-development/codex-claude-code-git-practices.md) | worktree 或分支是否隔离，谁负责集成和清理。 |
 | Agent 误改、删除或留下未知 worktree，先做什么 | [Agent 事故恢复](../06-troubleshooting/ai-agent-incident-recovery.md) | 现场、提交范围、共享状态和 Git 外部影响是否已经分开记录。 |
 | 团队该使用 GitHub Flow、Gitflow 还是主干开发 | [团队 Git 工作流指南](../03-team-collaboration/team-git-workflow-guide.md) | 发布节奏、集成频率、CI 能力和回滚成本。 |
+| 引入 Agent 后，审查与返工是否改善 | [AI 协作度量](../05-ai-native-development/ai-collaboration-metrics.md) | 等待与实际投入、合并前后返工、观察窗口和任务差异是否分开统计。 |
 | 一项公开案例能否照搬 | [两个 AI Agent 工程案例](../10-company-practices/ai-native-engineering-cases.md) | 来源是作者自报还是独立证据，你的团队约束是否与案例前提一致。 |
 
 命令、事故案例和模板都是执行辅助。需要它们时从本页进入相应层次，再回到这张地图作下一项决策。

@@ -45,13 +45,15 @@ If the team already has templates, only add the missing fields rather than repla
 
 ## Recommendations for AI Programming Teams
 
-At a minimum, add the following to your PR template:
+The [PR template](pull-request-template_en.md) provides fields for the following. State when no AI was used or human verification has not happened; do not preselect completion:
 
 - AI tool name
 - Task boundaries set by humans for the AI
 - Files and diffs actually reviewed by humans
 - Verification commands and results
 - Rollback plan
+
+See [Commit Message Convention](commit-message-convention_en.md) for attribution. Attribution records participation; the PR still needs the human-review scope and actual validation results separately.
 
 ## Related Content
 

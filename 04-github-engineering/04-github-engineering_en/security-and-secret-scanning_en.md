@@ -55,6 +55,8 @@ For detailed processing, see [Remove Secret from History](../../06-troubleshooti
 - Add secret self-check items to PR templates
 - Enable secret scanning and push protection for critical repositories
 
+These scanners do not decide whether production logs, customer data, or configuration supplied to an AI agent before a task are permitted. Classify and minimize those inputs, and confirm their processing destination and retention first. See [AI Agent Governance](ai-agent-governance_en.md#scenario-2-production-data-will-be-supplied-before-the-task-starts).
+
 ## Dependabot and Code Scanning
 
 Dependabot turns dependency upgrades and GitHub Actions version upgrades into reviewable PRs.
